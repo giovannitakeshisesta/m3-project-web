@@ -1,0 +1,16 @@
+
+  
+  .renderedList li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    border: solid 2px #d0d0d0;
+    margin: 10px;
+  }
+  
+  .renderedList  {
+      display: flex;
+ 
+  }
+  

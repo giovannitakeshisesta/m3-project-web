@@ -1,0 +1,33 @@
+/* ----------------------------------------- */
+.fccc{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.frcc{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/* -------------------DISH---------------------- */
+.dishMainDiv{
+
+    display: flex;
+
+    margin: 2px;
+
+    background-color: aqua;
+    border: 1px solid black;
+}
+
+.dishMainDiv p{
+    width: 50%;
+}
+/* ----------------------------------------- */
+/* ----------------------------------------- */

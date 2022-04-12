@@ -1,0 +1,60 @@
+
+/* ------------------DRAG.JS----------------------- */
+.titleAndBar{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.holder{
+    min-height: 50px;
+    padding: 4px;
+    width: 100%;
+
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    /* justify-content: space-around; */
+}
+
+.ticket{
+    user-select: none;
+    padding: 10px 5px 0 5px;
+    margin: 2px;
+    width: 250px;
+}
+
+/* -----------------TICKET.JS------------------------ */
+i{
+    margin: 0 5px 0 5px;
+}
+
+.table{
+    text-align: center;
+}
+
+.quantity_dish{
+    display: flex;
+    align-items: center;
+    height: 20px;
+}
+
+.quantity{
+    width: 25px;
+}
+
+
+
+.check-circle{
+    padding: 0 0 10px 0;
+    margin-left: auto;
+    order: 2;
+}
+
+.message{
+    color: grey;
+    font-style: italic;
+    line-height: 15px;
+    text-align: end;
+}

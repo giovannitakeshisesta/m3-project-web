@@ -29,5 +29,17 @@
 .dishMainDiv p{
     width: 50%;
 }
+
+
+.formDish{
+    width: 30%;
+    /* background-color: red; */
+    display: flex;
+    align-items: center;
+}
+
+.inputNumber{
+    width: 60px;
+}
 /* ----------------------------------------- */
 /* ----------------------------------------- */

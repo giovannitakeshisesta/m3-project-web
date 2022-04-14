@@ -1,30 +1,47 @@
 [
     {
        "id":1,
+       "type" : "food",
        "name":"Gazpacho",
        "description":"is a cold soup made of raw, blended vegetables. It originated in the southern regions of the Iberian peninsula ",
        "price":6,
        "allergens":[
           "gluten"
-       ]
+       ],
+       "quantity":0
     },
     {
        "id":2,
+       "type" : "food",
        "name":"Ensaladilla rusa",
        "description":"In different modern recipes, it is usually made with diced boiled potatoes, carrots, brined dill pickles (or cucumber), green peas, eggs, celeriac, onions, diced boiled chicken or bologna sausage (sometimes ham or hot dogs), and tart apples, with salt, pepper, and mustard added to enhance flavor, dressed with mayonnaise. ",
        "price":7,
        "allergens":[
           "eggs",
           "milk"
-       ]
+       ],
+       "quantity":0
     },
     {
         "id":3,
+        "type" : "food",
        "name":"Pimientos del padron",
        "description":"Padrón peppers are green, about 2 inches (5 cm) long and have an elongated shape. The taste is mild, but some exemplars can be quite hot. This property has given rise to the popular Galician aphorism Os pementos de Padrón, uns pican e outros non (Padrón peppers, some are hot, some are not).",
        "price":8,
        "allergens":[
           ""
-       ]
-    }
+       ],
+       "quantity":0
+    },
+    {
+      "id":4,
+      "type" : "drink",
+     "name":"Agua",
+     "description":"es agua",
+     "price":2,
+     "allergens":[
+        ""
+     ],
+     "quantity":0
+  }
  ]

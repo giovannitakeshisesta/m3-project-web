@@ -1,5 +1,5 @@
 import React from "react";
-import "./Drag2.css";
+import "./KitchenWall.css";
 
 export default function Ticket(ticket) {
   return (

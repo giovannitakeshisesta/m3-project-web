@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
-import "./Drag2.css";
+import "./KitchenWall.css";
 import allTheTikets from "./orders.json";
 import Ticket from "./Ticket";
 
@@ -94,7 +94,7 @@ const KitchenWall = () => {
                         style={{
                           background: snapshot.isDraggingOver
                             ? "lightblue"
-                            : "lightgrey",
+                            : "rgba(200, 200, 200, 0.2)",
                         }}
                       >
                         {holder.items.map((ticket, index) => {

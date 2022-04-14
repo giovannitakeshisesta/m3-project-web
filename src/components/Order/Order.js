@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Order({order,deleteOne}) {
+export default function Order({order}) {
 
     const calculateBill = () => {
         return order.reduce((acc, item) => {
@@ -18,9 +18,6 @@ export default function Order({order,deleteOne}) {
                 <div className="d-flex">
                     <p>{item.name}</p>
                     <p>{item.quantity}</p>
-                    <i className="fa-solid fa-delete-left"
-                    onClick={() => deleteOne(item.id)}
-                    ></i>
                 </div>
                 }
             </div>
@@ -34,8 +31,7 @@ export default function Order({order,deleteOne}) {
                 <div className="d-flex">
                     <p>{item.name}</p>
                     <p>{item.quantity}</p>
-                    <i className="fa-solid fa-delete-left"
-                        onClick={() => deleteOne(item.id)}></i>
+                    
                 </div>
                 }
             </div>

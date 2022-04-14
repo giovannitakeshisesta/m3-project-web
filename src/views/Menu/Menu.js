@@ -7,31 +7,38 @@ export default function Menu() {
   const [list, setList] = useState(menuJson)
   const [order, setOrder] = useState([])
 
-  const addFood = (addedItem) => {
-    const itemIndex = order.findIndex(el => el.id === addedItem.id)
+ 
+  const addOneItem = (itemId) => {
+    const itemIndex = order.findIndex(el => el.id === itemId)
+    let addedItem = list.find(item => item.id===itemId)
+        
     //if the item passed to the function is already in the order => update the quantity
     if (itemIndex > -1) {
       let newOrder = [...order]
-      newOrder[itemIndex].quantity = newOrder[itemIndex].quantity + addedItem.quantity
+      newOrder[itemIndex].quantity += 1
       setOrder(newOrder)
       // else : add the item to the order
     } else  {
+      addedItem.quantity=1
       setOrder([...order, addedItem])
-    }
+      }
   }
 
-  
-  const deleteOne = (itemId) => {
+  const deleteOneItem = (itemId) => {
     let newOrder = [...order]
     const itemIndex = order.findIndex(el => el.id === itemId)
-    const currentQuantity = order[itemIndex].quantity
-    if (currentQuantity>1){
-      newOrder[itemIndex].quantity = newOrder[itemIndex].quantity -1
-      setOrder(newOrder)
-    }
-    if (currentQuantity<=1){
-      setOrder(newOrder.filter(item => item.id !== itemId))
-    }
+
+    if (order[itemIndex]) {
+      const currentQuantity = order[itemIndex].quantity
+      if (currentQuantity>1){
+        newOrder[itemIndex].quantity -= 1
+        setOrder(newOrder)
+      }
+      if (currentQuantity === 1){
+        newOrder[itemIndex].quantity = 0
+        setOrder(newOrder.filter(item => item.id !== itemId))
+      }
+    } 
   }
 
 
@@ -47,14 +54,14 @@ export default function Menu() {
         {list.map(dish => {
             return (
               <div key={dish.id}>
-                <Dish addFood={addFood} {...dish} />
+                <Dish addOneItem={addOneItem} deleteOneItem={deleteOneItem} {...dish} />
               </div>
             )
           })}
         </div>
       <div className='col'>
         <h2>Order</h2>
-        <Order order={order} deleteOne={deleteOne}/>
+        <Order order={order}/>
       </div>
         
       </div>

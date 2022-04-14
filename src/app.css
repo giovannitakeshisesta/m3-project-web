@@ -15,31 +15,37 @@
 }
 
 
-/* -------------------DISH---------------------- */
+/* -------------------ITEM---------------------- */
 .dishMainDiv{
-
     display: flex;
-
     margin: 2px;
-
     background-color: aqua;
     border: 1px solid black;
 }
 
-.dishMainDiv p{
+.itemName{
     width: 50%;
 }
-
-
-.formDish{
-    width: 30%;
-    /* background-color: red; */
-    display: flex;
-    align-items: center;
+.itemPrice{
+    width: 5%;
+}
+.itemQty{
+    width: 5%;
 }
 
-.inputNumber{
-    width: 60px;
+
+.fa_Plus{
+    width: 30px;
+    height: 30px;
+    background-color: lightgreen;
+    border-radius: 50%;
+    right: 80px;
 }
-/* ----------------------------------------- */
+
+.fa_Minus{
+    width: 30px;
+    height: 30px;
+    background-color: lightcoral;
+    border-radius: 50%;
+}
 /* ----------------------------------------- */

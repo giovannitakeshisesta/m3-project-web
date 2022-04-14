@@ -1,25 +1,35 @@
 import React, { useState } from 'react'
 
-const Dish = ({id,name,description,price,allergens,quantity,type,addFood})  => {
+const Dish = ({id,name,description,price,allergens,quantity,type,addOneItem,deleteOneItem})  => {
 
   const [qty, setQty] = useState(quantity)
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  // const handleSubmit = (e) => {
+  //   e.preventDefault()
 
-    if (qty <= 0) return
+  //   if (qty <= 0) return
 
-    const addedDish = { id,name,description,price,allergens,type,quantity: Number(qty) }
-    addFood(addedDish)
-    setQty(0)
-  }  
+  //   const addedDish = { id,name,description,price,allergens,type,quantity: Number(qty) }
+  //   addFood(addedDish)
+  //   setQty(0)
+  // }  
   return (
     <div className='dishMainDiv'>
-        <p>{name}</p>
-        <p>{price}€</p>
+    
+        <p className='itemName'>{name}</p>
+        <p className='itemPrice'>{price}€</p>
+        <i className="fa-solid fa-plus fa_Plus" onClick={() => addOneItem(id)}></i>
+        <p className='itemQty'>{quantity>0 && quantity}</p>
 
-        <form className='formDish'>
-        <div className="">
+        {quantity>0 && 
+        <div>
+          <i className="fa-solid fa-minus fa_Minus" onClick={() => deleteOneItem(id)}></i>
+          <i class="fas fa-comment"></i>
+        </div>
+        }
+
+
+        {/* <div className="">
           <input 
             type="number" 
             min={0}
@@ -27,16 +37,14 @@ const Dish = ({id,name,description,price,allergens,quantity,type,addFood})  => {
             onChange={(event) => setQty(event.target.value)}
             className="inputNumber" 
           />
-        </div>
-          <button 
+        </div> */}
+          {/* <button 
             onClick={handleSubmit}
             type="submit" 
             className="btn btn-primary"
           > + 
-          </button>
-        </form>
-      
-    
+          </button> */}
+
     </div>
   )
 }

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 import "./KitchenWall.css";
-import allTheTikets from "./orders.json";
-import Ticket from "./Ticket";
+import allTheTikets from "../../data/orders.json";
+import Ticket from "../../components/Tickets/Ticket";
 
 const allTheTicketHolders = {
   hold1: {

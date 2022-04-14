@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Dish = ({id,name,description,price,allergens,quantity,type,addOneItem,deleteOneItem})  => {
+const Item = ({id,name,description,price,allergens,quantity,type,addOneItem,deleteOneItem})  => {
 
   const [qty, setQty] = useState(quantity)
 
@@ -24,7 +24,7 @@ const Dish = ({id,name,description,price,allergens,quantity,type,addOneItem,dele
         {quantity>0 && 
         <div>
           <i className="fa-solid fa-minus fa_Minus" onClick={() => deleteOneItem(id)}></i>
-          <i class="fas fa-comment"></i>
+          <i className="fas fa-comment"></i>
         </div>
         }
 
@@ -50,4 +50,4 @@ const Dish = ({id,name,description,price,allergens,quantity,type,addOneItem,dele
 }
 
 
-export default Dish
+export default Item

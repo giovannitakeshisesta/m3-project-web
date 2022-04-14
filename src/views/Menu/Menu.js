@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Dish from '../../components/Dish/Dish'
+import Item from '../../components/Item/Item'
 import Order from '../../components/Order/Order'
 import menuJson from '../../data/menu.json'
 
@@ -54,7 +54,7 @@ export default function Menu() {
         {list.map(dish => {
             return (
               <div key={dish.id}>
-                <Dish addOneItem={addOneItem} deleteOneItem={deleteOneItem} {...dish} />
+                <Item addOneItem={addOneItem} deleteOneItem={deleteOneItem} {...dish} />
               </div>
             )
           })}

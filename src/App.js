@@ -1,6 +1,6 @@
 import { Routes, Route} from "react-router-dom";
-import './app.css'
-import Navbar from "./components/Navbar";
+import './styles/app.css'
+import Navbar from "./components/Navbar/Navbar";
 import ProtectedRoute from "./guards/ProtectedRoute";
 import { useAuthContext } from "./contexts/AuthContext";
 
@@ -12,7 +12,7 @@ import Profile from "./views/Profile/Profile";
 import Favourites from "./views/Favourites/Favourites";
 import Home from "./views/Home/Home";
 import Drag from "./views/Drag/Drag";
-import KitchenWall from "./views/Drag/KitchenWall/KitchenWall";
+import KitchenWall from "./views/KitchenWall/KitchenWall";
 import Tables from "./views/Tables/Tables";
 import Menu from "./views/Menu/Menu";
 

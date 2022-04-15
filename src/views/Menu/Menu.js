@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Formallergens from '../../components/FormAllergens/FormAllergens'
 import Item from '../../components/Item/Item'
 import Order from '../../components/Order/Order'
 import menuJson from '../../data/menu.json'
@@ -6,6 +7,8 @@ import menuJson from '../../data/menu.json'
 export default function Menu() {
   const [list, setList] = useState(menuJson)
   const [order, setOrder] = useState([])
+  const [filterToggle, setFilterToggle]= useState(false)
+  const [filterBy, setFilterBy]= useState([])
 
  
   const addOneItem = (itemId) => {
@@ -42,6 +45,14 @@ export default function Menu() {
   }
 
 
+  const handleCheckBox = () => {
+    const values = Array
+    .from(document.querySelectorAll('input[type="checkbox"]'))
+    .filter((checkbox) => checkbox.checked)
+    .map((checkbox) => checkbox.value);
+    setFilterBy(values)
+  }
+
   return (
     <div>
       <div className='fccc'>
@@ -51,14 +62,26 @@ export default function Menu() {
       <div className='row'>
         <div className='col'> 
         <h2>Menu</h2>
+
+        {/* FILTER */}
+        <button onClick={()=> setFilterToggle(!filterToggle)}>filter</button>
+        {filterToggle && 
+        <Formallergens handleCheckBox={handleCheckBox} filterBy={filterBy}/>
+        }
+
+        {/* LIST OF DISHES */}
         {list.map(dish => {
+           if (filterBy.every(i => !dish.allergens.includes(i))) {
             return (
               <div key={dish.id}>
                 <Item addOneItem={addOneItem} deleteOneItem={deleteOneItem} {...dish} />
               </div>
             )
+           }
           })}
         </div>
+
+        {/* ORDER TICKET */}
       <div className='col'>
         <h2>Order</h2>
         <Order order={order}/>

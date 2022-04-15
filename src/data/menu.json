@@ -18,7 +18,8 @@
        "price":7,
        "allergens":[
           "eggs",
-          "milk"
+          "milk",
+          "vegetarian"
        ],
        "quantity":0
     },

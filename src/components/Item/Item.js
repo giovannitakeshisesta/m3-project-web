@@ -1,51 +1,25 @@
 import React, { useState } from 'react'
+import './Item.css'
 
 const Item = ({id,name,description,price,allergens,quantity,type,message,addOneItem,deleteOneItem,openModal})  => {
 
   const [qty, setQty] = useState(quantity)
 
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault()
-
-  //   if (qty <= 0) return
-
-  //   const addedDish = { id,name,description,price,allergens,type,quantity: Number(qty) }
-  //   addFood(addedDish)
-  //   setQty(0)
-  // }  
   return (
     <div className='dishMainDiv'>
     
         <p className='itemName'>{name}</p>
         <p className='itemPrice'>{price}€</p>
-        <i className="fa-solid fa-plus fa_Plus" onClick={() => addOneItem(id)}></i>
-        <p className='itemQty'>{quantity>0 && quantity}</p>
+        <i className="fa-solid fa-plus" onClick={() => addOneItem(id)}></i>
+        <p className='itemQty'>{quantity > 0 && quantity}</p>
 
-        {quantity>0 && 
+        {quantity > 0 && 
         <div>
-          <i className="fa-solid fa-minus fa_Minus" onClick={() => deleteOneItem(id)}></i>
+          <i className="fa-solid fa-minus" onClick={() => deleteOneItem(id)}></i>
           <i className="fas fa-comment" onClick={() => openModal(message,id)}></i>
         </div>
         }
-
-
-        {/* <div className="">
-          <input 
-            type="number" 
-            min={0}
-            value={qty}
-            onChange={(event) => setQty(event.target.value)}
-            className="inputNumber" 
-          />
-        </div> */}
-          {/* <button 
-            onClick={handleSubmit}
-            type="submit" 
-            className="btn btn-primary"
-          > + 
-          </button> */}
-
     </div>
   )
 }

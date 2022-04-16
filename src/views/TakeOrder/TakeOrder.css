@@ -5,6 +5,40 @@
 
 .fa-pepper-hot{
     color: green;
-    height: 40px;
+    font-size: 30px;
     cursor: pointer;
 }
+
+.imgTable{
+    height: 60px;
+}
+
+.fa-exclamation-circle{
+    color: green;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.fa-users{
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.fa-bicycle{
+    color: green;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+
+.colcolor{
+    background-color: rgba(208, 223, 44, 0.758);
+    border-radius: 10px;
+    margin: 10px;
+}
+
+
+.scroll{
+    overflow-y: scroll;
+    height: 600px;
+} 

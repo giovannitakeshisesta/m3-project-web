@@ -20,38 +20,10 @@
     justify-content: space-between;
 }
 
-
-/* -------------------ITEM---------------------- */
-.dishMainDiv{
+.frca{
     display: flex;
-    margin: 2px;
-    background-color: aqua;
-    border: 1px solid black;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
 }
 
-.itemName{
-    width: 50%;
-}
-.itemPrice{
-    width: 5%;
-}
-.itemQty{
-    width: 5%;
-}
-
-
-.fa_Plus{
-    width: 30px;
-    height: 30px;
-    background-color: lightgreen;
-    border-radius: 50%;
-    right: 80px;
-}
-
-.fa_Minus{
-    width: 30px;
-    height: 30px;
-    background-color: lightcoral;
-    border-radius: 50%;
-}
-/* ----------------------------------------- */

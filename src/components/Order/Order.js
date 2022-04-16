@@ -1,6 +1,6 @@
 import React from "react";
 import "./Order.css";
-export default function Order({ order, people,table }) {
+export default function Order({ order, people,table,urgent,takeAway }) {
     const calculateBill = () => {
         return order.reduce((acc, item) => {
         acc += item.price * item.quantity;
@@ -10,15 +10,22 @@ export default function Order({ order, people,table }) {
 
     return (
         <div>
-        <div className="frcc">
-            <div className="d-flex">
-                <img src="images/table_icon_125938.png" alt="table" />
-                <p>{table}</p>
+        <div className="frca">
+            {urgent && <i className="fas fa-exclamation-circle "></i>}
+
+            <div className="frcc">
+                <img src="images/table_icon_125938.png" alt="table" 
+                    className='imgTable'
+                />
+                <h3>{table}</h3>
             </div>
-            <div className="d-flex">
+            <div className="frcc">
                 <i className="fas fa-users"></i>
-                <p>{people}</p>
+                <h3>{people}</h3>
             </div>
+
+            {takeAway && <i className="fas fa-bicycle "></i>}
+            
         </div>
 
         {order.map((item) => {

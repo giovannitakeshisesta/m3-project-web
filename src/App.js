@@ -14,7 +14,7 @@ import Home from "./views/Home/Home";
 import Drag from "./views/Drag/Drag";
 import KitchenWall from "./views/KitchenWall/KitchenWall";
 import Tables from "./views/Tables/Tables";
-import Menu from "./views/TakeOrder/TakeOrder";
+import TakeOrder from "./views/TakeOrder/TakeOrder";
 
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
     <div className="">
       <Navbar />
 
-      <div className="container">
+      <div className="ms-3 me-3">
         {!isAuthenticationFetched ? (
           <p>Loading...</p>
         ) : (
@@ -34,7 +34,7 @@ function App() {
             <Route path="drag"    element={<Drag />} />
             <Route path="KitchenWall"    element={<KitchenWall />} />
             <Route path="tables"    element={<Tables />} />
-            <Route path="menu"    element={<Menu />} />
+            <Route path="takeOrder"    element={<TakeOrder />} />
 
             <Route path="register" element={<Register />} />
             <Route path="login"    element={<Login />} />

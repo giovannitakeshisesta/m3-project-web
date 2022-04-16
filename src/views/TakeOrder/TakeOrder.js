@@ -10,7 +10,8 @@ export default function Menu() {
   const [list, setList] = useState(menuJson)
   const [order, setOrder] = useState([])
   const [filterBy, setFilterBy]= useState([])
-  const [modal, setModal]= useState(false)
+  const [modalFilter, setModalFilter]= useState(false)
+  const [modalMsg, setModalMsg]= useState(false)
   
   
   const addOneItem = (itemId) => {
@@ -56,7 +57,6 @@ export default function Menu() {
   }
   
   //------------------------MESSAGE----------------------------
-  const [isModalMsgOpen, setIsModalMsgOpen]= useState(false)
   const [existingMsg,setExistingMsg]= useState("")
   const [newMsg, setNewMsg]= useState("")
   const [msgID, setMsgId]= useState()
@@ -64,7 +64,7 @@ export default function Menu() {
   const openModal = (message,id) => {
     setExistingMsg(message)
     setMsgId(id)
-    setIsModalMsgOpen(true)
+    setModalMsg(true)
   } 
   
   const handleChangeTextArea = (e) =>{
@@ -77,10 +77,15 @@ export default function Menu() {
     const itemIndexInTheOrder = order.findIndex(el => el.id === msgID)
     newOrder[itemIndexInTheOrder].message = newMsg
     setOrder(newOrder)
-    setIsModalMsgOpen(false)
+    setModalMsg(false)
   }
-  //---------------------NUM PEOPLE-------------------------------
-  const [tableInfo,setTableInfo]= useState({"table":0, "people":0 , "urgent":false})
+  //---------------------TABLE INFO---------------------------
+  const [tableInfo,setTableInfo]= useState(
+    {"table":0, "people":0 , "urgent":false, "takeAway":false}
+    )
+
+  const [urgentTk, setUrgentTk]= useState(false)
+  const [takeAway, setTakeAway]= useState(false)
 
   const handleChange = (e) => {
     const { name , value } = e.target
@@ -91,36 +96,56 @@ export default function Menu() {
     }))
   }
 
-  console.log(tableInfo);
+  const setUrgent = () =>{
+    setUrgentTk(!urgentTk)
+    setTableInfo(prevState => ({
+      ...prevState,
+      urgent : !urgentTk
+    }))
+  }
+
+  const TakeAway = () =>{
+    setTakeAway(!takeAway)
+    setTableInfo(prevState => ({
+      ...prevState,
+      takeAway : !takeAway
+    }))
+  }
+
+  console.log(tableInfo,takeAway);
 
   return (
     <div>
-      <div className='fccc'>
-        <h1>Take Order Page</h1>
-      </div>
-
       <div className='row'>
-        <div className='col'> 
-          <div className='d-flex'> 
+                        {/* -12 col-sm-12 col-md-6 */}
+        <div className='col  colcolor scroll'> 
+          <div className='frcc'> 
             <h2>Menu</h2>
-            <i className="fa-solid fa-pepper-hot fa-xl" onClick={() => setModal(true)}></i>
+            <i className="fa-solid fa-pepper-hot" onClick={() => setModalFilter(true)}></i>
           </div>
 
           {/* //--------------------TABLE INFO------------------ */}
 
-          <img src="images/table_icon_125938.png" alt="table" />
-          <input className='inputPeople' type="number" min={0} 
-            name="table"
-            placeholder={0} 
-            onChange={handleChange}
-          />
-
-          <i className="fas fa-users"></i>
-          <input className='inputPeople' type="number" min={0} 
-            name="people"
-            placeholder={0} 
-            onChange={handleChange}
-          />
+          <div className='frca'>
+            <img src="images/table_icon_125938.png" alt="table" className='imgTable'/>
+            <input className='inputPeople' type="number" min={0}
+              name="table"
+              placeholder={0}
+              onChange={handleChange}
+            />
+            <i className="fas fa-users"></i>
+            <input className='inputPeople' type="number" min={0}
+              name="people"
+              placeholder={0}
+              onChange={handleChange}
+            />
+            <i className="fas fa-exclamation-circle "
+              onClick={setUrgent}
+            ></i>
+            <i className="fas fa-bicycle "
+              onClick={TakeAway}
+            ></i>
+          </div>
 
           {/* //--------------------LIST OF DISHES ------------------ */}
           {list.map(dish => {
@@ -140,8 +165,8 @@ export default function Menu() {
           </div>
 
         {/* //--------------------ORDER TICKET ---------------------- */}
-        <div className='col'>
-          <h2>Order</h2>
+        <div className='col colcolor'>
+          <h2 className='frcc'>Order</h2>
           <Order order={order} {...tableInfo}/>
         </div>
 
@@ -149,17 +174,17 @@ export default function Menu() {
 
 
         {/* //---------------------FILTER MODAL--------------------*/}
-        {modal && 
+        {modalFilter && 
         <Modal  
           body = {<Formallergens handleCheckBox={handleCheckBox} filterBy={filterBy}/> }
           handleCheckBox={handleCheckBox} 
           filterBy={filterBy}
-          onClose={() => setModal(false)}  
+          onClose={() => setModalFilter(false)}  
           reactPortal />
         }
 
         {/* //---------------------MSG MODAL---------------------- */}
-        {isModalMsgOpen && 
+        {modalMsg && 
         <Modal            
           body = {
             <form className="fccc">
@@ -173,7 +198,7 @@ export default function Menu() {
           existingMsg={existingMsg}
           handleChangeTextArea={handleChangeTextArea}
           onSaveMsg={onSaveMsg}
-          onClose={() => setIsModalMsgOpen(false)}  
+          onClose={() => setModalMsg(false)}  
           reactPortal />
         }
     </div>

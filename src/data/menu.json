@@ -8,7 +8,8 @@
        "allergens":[
           "gluten"
        ],
-       "quantity":0
+       "quantity":0,
+       "message" : "hola soy un gazpacho"
     },
     {
        "id":2,
@@ -21,7 +22,8 @@
           "milk",
           "vegetarian"
        ],
-       "quantity":0
+       "quantity":0,
+       "message" : "hola"
     },
     {
         "id":3,
@@ -32,7 +34,8 @@
        "allergens":[
           ""
        ],
-       "quantity":0
+       "quantity":0,
+       "message" : "hola"
     },
     {
       "id":4,
@@ -43,6 +46,7 @@
      "allergens":[
         ""
      ],
-     "quantity":0
+     "quantity":0,
+     "message" : "hola"
   }
  ]

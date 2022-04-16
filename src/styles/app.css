@@ -6,8 +6,14 @@
     justify-content: center;
 }
 
-
 .frcc{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.frcb{
     display: flex;
     flex-direction: row;
     align-items: center;

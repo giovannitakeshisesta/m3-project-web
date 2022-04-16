@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 
-const Item = ({id,name,description,price,allergens,quantity,type,addOneItem,deleteOneItem})  => {
+const Item = ({id,name,description,price,allergens,quantity,type,message,addOneItem,deleteOneItem,openModal})  => {
 
   const [qty, setQty] = useState(quantity)
+
 
   // const handleSubmit = (e) => {
   //   e.preventDefault()
@@ -24,7 +25,7 @@ const Item = ({id,name,description,price,allergens,quantity,type,addOneItem,dele
         {quantity>0 && 
         <div>
           <i className="fa-solid fa-minus fa_Minus" onClick={() => deleteOneItem(id)}></i>
-          <i className="fas fa-comment"></i>
+          <i className="fas fa-comment" onClick={() => openModal(message,id)}></i>
         </div>
         }
 

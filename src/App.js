@@ -14,17 +14,17 @@ import Home from "./views/Home/Home";
 import Drag from "./views/Drag/Drag";
 import KitchenWall from "./views/KitchenWall/KitchenWall";
 import Tables from "./views/Tables/Tables";
-import Menu from "./views/Menu/Menu";
+import Menu from "./views/TakeOrder/TakeOrder";
 
 
 function App() {
   const { isAuthenticationFetched } = useAuthContext()
   
   return (
-    <div className="App">
+    <div className="">
       <Navbar />
 
-      <div className="">
+      <div className="container">
         {!isAuthenticationFetched ? (
           <p>Loading...</p>
         ) : (

@@ -1,0 +1,11 @@
+.itemOrderQty{
+    margin-right: 5px;
+}
+
+.itemOrderMsg{
+    color: green;
+    max-width: 50%;
+    word-break: break-all;
+    white-space: pre-wrap;
+    margin-left: auto;
+}

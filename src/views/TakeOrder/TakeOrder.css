@@ -1,0 +1,10 @@
+.inputPeople{
+    width: 50px;
+    margin-right: 10px;
+}
+
+.fa-pepper-hot{
+    color: green;
+    height: 40px;
+    cursor: pointer;
+}

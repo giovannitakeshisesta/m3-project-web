@@ -1,20 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import "./Order.css"
 
-import {useState} from "react";
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import OrderDrag from "./OrderDrag";
 
 export default function Order({ order,submitOrder}) {
     const food = order[1].food;
     const drink = order[2].drink;
     const {people, table, urgent, takeAway } = order[0].tableInfo
-
-    const [orderList, setOrderList] = useState(food)
-    useEffect(() => {
-        setOrderList(food)
-        setRenderedList(food)
-    }, [food]);
-    
 
     const calculateBill = (type) => {
         return type.reduce((acc, item) => {
@@ -39,29 +31,16 @@ export default function Order({ order,submitOrder}) {
         )
     }
 
+    const [renderedListFood, setRenderedListFood] = useState(food);
+    const [renderedListDrink, setRenderedListDrink] = useState(drink);
 
-    const [renderedList, setRenderedList] = useState(orderList);
-
-    function handleOnDragEnd(result) {
-        const {source, destination} = result
-      //if drop out of a droppable area, destination = null => dont do anything
-      if (!destination) 
-      return;
-  
-      // if drop in the same droppable section && at the same index
-      if (source.index === destination.index && source.droppableId === destination.droppableId)
-      return;
-
-      // set the rendered list as an array with the new sequence
-      const newArr = Array.from(renderedList);
-      const [draggedItem] = newArr.splice(source.index, 1);
-      newArr.splice(destination.index, 0, draggedItem);
-      setRenderedList(newArr);
+    const sendInfo = (info,type) => {
+      type === "food" ? setRenderedListFood(info) : setRenderedListDrink(info)
     }
     
-    const finalOrder = [order[0],{"food": renderedList},order[2]]
-    console.log(finalOrder)
-    console.log("renderedList",renderedList)
+    const finalOrder = [order[0],{"food": renderedListFood},{"drink": renderedListDrink}]
+     
+    
     return (
     <div>
         {/* ------------------------TABLE INFO------------------------ */}
@@ -86,33 +65,11 @@ export default function Order({ order,submitOrder}) {
         </div>    
 
         {/* ------------------------FOOD ORDER----------------------- */}
-        <DragDropContext onDragEnd={handleOnDragEnd}>
-        <Droppable droppableId="renderedList" direction='vertical'>
-          {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
-
-              {renderedList.map((item, index) => {
-                return (
-                  <Draggable key={item.id} draggableId={item.id} index={index}>  
-                    {(provided) => (
-                      <li 
-                      ref={provided.innerRef} 
-                      {...provided.draggableProps}  
-                      {...provided.dragHandleProps}>
-                        <OrderLine  tipo="food" item={item}/>
-                      </li>
-                    )}
-                  </Draggable>
-                );
-              })}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-        
-      </DragDropContext>
+        <OrderDrag list={food} sendInfo={sendInfo}/>
         {/* ------------------------DRINK ORDER----------------------- */}
-        {drink.length > 0 && (
+        <OrderDrag list={drink} sendInfo={sendInfo}/>
+
+        {/* {drink.length > 0 && (
         <>
             <hr />
             {drink.map((item) => {
@@ -121,7 +78,7 @@ export default function Order({ order,submitOrder}) {
                 );
             })}
         </>
-        )}
+        )} */}
 
         {/* ------------------------ FOOTER ----------------------- */}
         <hr />
@@ -130,7 +87,7 @@ export default function Order({ order,submitOrder}) {
             <p>Total : {calculateBill(food) + calculateBill(drink)}€</p>
         </div> 
         <button onClick={()=>submitOrder(finalOrder)} className='submitOrder btn'>send</button>
-
+{/* condizioni array vacio */}
     </div>
     );
 }

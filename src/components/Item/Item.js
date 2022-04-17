@@ -2,19 +2,20 @@ import React, { useState } from 'react'
 import './Item.css'
 
 const Item = ({id,name,description,price,allergens,quantity,type,message,addOneItem,deleteOneItem,openModal, order})  => {
-
+  
+    console.log("order",order[0].quantity);
   return (
     <div className='dishMainDiv'>
     
         <p className='itemName'>{name}</p>
         <p className='itemPrice'>{price}€</p>
-        <i className="fa-solid fa-plus" onClick={() => addOneItem(id)}></i>
+        <i className="fa-solid fa-plus" onClick={() => addOneItem(id,type)}></i>
 
         {order[0]?.quantity > 0 && 
         <>
           <p className='itemQty'>{order[0].quantity}</p>
           <div>
-            <i className="fa-solid fa-minus" onClick={() => deleteOneItem(id)}></i>
+            <i className="fa-solid fa-minus" onClick={() => deleteOneItem(id,type)}></i>
             <i className="fas fa-comment" onClick={() => openModal(message,id)}></i>
           </div>
         </>

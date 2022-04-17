@@ -6,18 +6,33 @@ import Order from '../../components/Order/Order'
 import menuJson from '../../data/menu.json'
 import './TakeOrder.css'
 
+
+const cleanList = (originalList) =>{
+  const cleanedList = originalList.map(element => {
+    const asArray = Object.entries(element);
+    const filtered = asArray.filter(([key, value]) => key !== 'description' && key !== 'allergens');
+    const cleanedList = Object.fromEntries(filtered);
+    return cleanedList 
+  })
+  return cleanedList
+}
+
+
 export default function Menu() {
-  const [list, setList] = useState(menuJson)
+  const list = [...menuJson]            // list we use for the menu
+  const listLight = cleanList(list)     // list we use for the order
   const [order, setOrder] = useState([])
+  
   const [filterBy, setFilterBy]= useState([])
   const [modalFilter, setModalFilter]= useState(false)
   const [modalMsg, setModalMsg]= useState(false)
   
-  
+
+
   const addOneItem = (itemId) => {
     const itemIndex = order.findIndex(el => el.id === itemId)
-    let addedItem = list.find(item => item.id===itemId)
-    
+    let addedItem = listLight.find(item => item.id===itemId)
+  
     //if the item passed to the function is already in the order => update the quantity
     if (itemIndex > -1) {
       let newOrder = [...order]
@@ -112,29 +127,58 @@ export default function Menu() {
     }))
   }
 
-  console.log(tableInfo,takeAway);
+  // console.log(order,tableInfo);
+
+  // const comanda =     {
+  //      "id":123,
+  //      "tableInfo":{
+  //         "table":0,
+  //         "people":0,
+  //         "urgent":false,
+  //         "takeAway":false
+  //      },
+  //      "food":[
+  //       {
+  //         "id":0,
+  //         "name":0,
+  //         "quantity":0,
+  //         "price":0
+  //       }
+  //       ]
+  //   }
+
+  const [xxx,setxxx]= useState()
+  const submitOrder = () => {
+    const food = order.filter(el => el.type === "food")
+    const beverage = order.filter(el => el.type === "drink")
+    setxxx({"id":123, "tableInfo":tableInfo, "food":food, "beverage":beverage})
+  }
+  console.log(xxx)
 
   return (
     <div>
       <div className='row'>
+      {xxx && <pre>{JSON.stringify(xxx,null,1)}</pre>}
+      
                         {/* -12 col-sm-12 col-md-6 */}
         <div className='col  colcolor scroll'> 
           <div className='frcc'> 
             <h2>Menu</h2>
             <i className="fa-solid fa-pepper-hot" onClick={() => setModalFilter(true)}></i>
+            <button onClick={submitOrder} className='submitOrder btn'>send</button>
           </div>
 
           {/* //--------------------TABLE INFO------------------ */}
 
           <div className='frca'>
             <img src="images/table_icon_125938.png" alt="table" className='imgTable'/>
-            <input className='inputPeople' type="number" min={0}
+            <input className='inputNumbers' type="number" min={0}
               name="table"
               placeholder={0}
               onChange={handleChange}
             />
             <i className="fas fa-users"></i>
-            <input className='inputPeople' type="number" min={0}
+            <input className='inputNumbers' type="number" min={0}
               name="people"
               placeholder={0}
               onChange={handleChange}
@@ -154,13 +198,14 @@ export default function Menu() {
                 <div key={dish.id}>
                   <Item 
                     {...dish} 
+                    order={order.filter(el => el.id === dish.id)}
                     addOneItem={addOneItem} 
                     deleteOneItem={deleteOneItem} 
                     openModal={openModal}
                   />
                 </div>
               )
-            }
+            } else return null
             })}
           </div>
 

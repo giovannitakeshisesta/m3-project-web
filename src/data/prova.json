@@ -1,0 +1,19 @@
+[
+    {
+       "id":123,
+       "tableInfo":{
+          "table":0,
+          "people":0,
+          "urgent":false,
+          "takeAway":false
+       },
+       "food":[
+        {
+          "id":0,
+          "name":0,
+          "quantity":0,
+          "price":0
+        }
+        ]
+    }
+ ]

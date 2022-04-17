@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import './Item.css'
 
 const Item = ({id,name,description,price,allergens,quantity,type,message,addOneItem,deleteOneItem,openModal, order})  => {
-  
-    console.log("order",order[0].quantity);
+
   return (
     <div className='dishMainDiv'>
     
@@ -16,7 +15,7 @@ const Item = ({id,name,description,price,allergens,quantity,type,message,addOneI
           <p className='itemQty'>{order[0].quantity}</p>
           <div>
             <i className="fa-solid fa-minus" onClick={() => deleteOneItem(id,type)}></i>
-            <i className="fas fa-comment" onClick={() => openModal(message,id)}></i>
+            <i className="fas fa-comment" onClick={() => openModal(id)}></i>
           </div>
         </>
         }

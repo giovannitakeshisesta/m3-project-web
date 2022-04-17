@@ -19,24 +19,34 @@ const cleanList = (originalList) =>{
 
 
 export default function Menu() {
+  
   const list = [...menuJson]            // list we use for the menu
   const listLight = cleanList(list)     // list we use for the order
-  const [order, setOrder] = useState([])
 
   const [foodOrder, setFoodOrder]= useState([])
   const [drinkOrder, setDrinkOrder]= useState([])
   const [tableInfo,setTableInfo]= useState({"table":0, "people":0 , "urgent":false, "takeAway":false})
-  const [order1, setOrder1] = useState([{food:foodOrder},{drink:drinkOrder},{tableInfo:tableInfo}])
-  const FoodAndDrink = [...order1[0].food, ...order1[1].drink]
+  const [order, setOrder] = useState([{tableInfo:tableInfo},{food:foodOrder},{drink:drinkOrder}])
+  const FoodAndDrink = [...order[1].food, ...order[2].drink]
 
   useEffect(() => {
-    setOrder1([{food:foodOrder},{drink:drinkOrder},{tableInfo:tableInfo}])
+    setOrder([{tableInfo:tableInfo},{food:foodOrder},{drink:drinkOrder}])
   }, [foodOrder,drinkOrder,tableInfo]);
 
+  // Table info
+  const [urgentTk, setUrgentTk]= useState(false)
+  const [takeAway, setTakeAway]= useState(false)
 
+  // Modal filter
   const [filterBy, setFilterBy]= useState([])
   const [modalFilter, setModalFilter]= useState(false)
+
+  // Modal msg
   const [modalMsg, setModalMsg]= useState(false)
+  const [existingMsg,setExistingMsg]= useState("")
+  const [newMsg, setNewMsg]= useState("")
+  const [msgID, setMsgId]= useState()
+  const [msgType, setMsgType]= useState()
   
 
   //------------------------ ADD ITEM ----------------------------
@@ -111,32 +121,35 @@ export default function Menu() {
   }
   
   //------------------------MESSAGE----------------------------
-  const [existingMsg,setExistingMsg]= useState("")
-  const [newMsg, setNewMsg]= useState("")
-  const [msgID, setMsgId]= useState()
-
-  const openModal = (message,id) => {
+  const openModal = (message,id,type) => {
     setExistingMsg(message)
     setMsgId(id)
+    setMsgType(type)
     setModalMsg(true)
   } 
   
   const handleChangeTextArea = (e) =>{
     setNewMsg(e.target.value)
   }
-
+  
   const onSaveMsg = (e) =>{
     e.preventDefault()
-    let newOrder = [...order]
-    const itemIndexInTheOrder = order.findIndex(el => el.id === msgID)
-    newOrder[itemIndexInTheOrder].message = newMsg
-    setOrder(newOrder)
-    setModalMsg(false)
+    if (msgType==="food"){
+      let newOrder = [...foodOrder]
+      const itemIndexInTheOrder = foodOrder.findIndex(el => el.id === msgID)
+      newOrder[itemIndexInTheOrder].message = newMsg
+      setFoodOrder(newOrder)
+      setModalMsg(false)
+    }
+    if (msgType==="drink"){
+      let newOrder = [...drinkOrder]
+      const itemIndexInTheOrder = drinkOrder.findIndex(el => el.id === msgID)
+      newOrder[itemIndexInTheOrder].message = newMsg
+      setDrinkOrder(newOrder)
+      setModalMsg(false)
+    }
   }
   //---------------------TABLE INFO---------------------------
-  const [urgentTk, setUrgentTk]= useState(false)
-  const [takeAway, setTakeAway]= useState(false)
-
   const handleChange = (e) => {
     const { name , value } = e.target
 
@@ -162,40 +175,16 @@ export default function Menu() {
     }))
   }
 
-  // console.log(order,tableInfo);
+  //---------------------   json ---------------------------
 
-  // const comanda =     {
-  //      "id":123,
-  //      "tableInfo":{
-  //         "table":0,
-  //         "people":0,
-  //         "urgent":false,
-  //         "takeAway":false
-  //      },
-  //      "food":[
-  //       {
-  //         "id":0,
-  //         "name":0,
-  //         "quantity":0,
-  //         "price":0
-  //       }
-  //       ]
-  //   }
-
-  const [xxx,setxxx]= useState()
+  const [jason,setjason]= useState()
   const submitOrder = () => {
-    const food = order.filter(el => el.type === "food")
-    const beverage = order.filter(el => el.type === "drink")
-    setxxx({"id":123, "tableInfo":tableInfo, "food":food, "beverage":beverage})
+    setjason(order)
   }
-  // console.log(xxx)
-
 
   return (
     <div>
-      <div className='row'>
-      {xxx && <pre>{JSON.stringify(xxx,null,1)}</pre>}
-      
+      <div className='row'>      
                         {/* -12 col-sm-12 col-md-6 */}
         <div className='col  colcolor scroll'> 
           <div className='frcc'> 
@@ -248,7 +237,7 @@ export default function Menu() {
         {/* //--------------------ORDER TICKET ---------------------- */}
         <div className='col colcolor'>
           <h2 className='frcc'>Order</h2>
-          <Order order1={order1}/>
+          <Order order={order}/>
         </div>
 
       </div>
@@ -281,6 +270,26 @@ export default function Menu() {
           onSaveMsg={onSaveMsg}
           onClose={() => setModalMsg(false)}  
           reactPortal />
+        }
+
+        {jason &&
+        <div>
+          <h2>Json que se envia a la API</h2>
+          <p>id dinamico</p>
+          <p>date time</p>
+          <p>waiter name</p>
+           <pre>{JSON.stringify(jason,null,1)}</pre>
+          <h2>cocina y barra se conectan a la API y reciben respectivamente:</h2>
+          <div className='row'>
+            <div className='col colcolor'>
+              <pre>{JSON.stringify([jason[0],jason[1]],null,1)}</pre>
+            </div>
+            <div className='col colcolor'>
+            <pre>{JSON.stringify([jason[0],jason[2]],null,1)}</pre>
+            </div>
+
+          </div>
+        </div>
         }
     </div>
   )

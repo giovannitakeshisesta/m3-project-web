@@ -1,10 +1,10 @@
 import React from "react";
 import "./Order.css";
 
-export default function Order({ order1}) {
-    const food = order1[0].food;
-    const drink = order1[1].drink;
-    const {people, table, urgent, takeAway } = order1[2].tableInfo
+export default function Order({ order}) {
+    const food = order[1].food;
+    const drink = order[2].drink;
+    const {people, table, urgent, takeAway } = order[0].tableInfo
 
     const calculateBill = (type) => {
         return type.reduce((acc, item) => {
@@ -13,8 +13,25 @@ export default function Order({ order1}) {
         }, 0);
     };
 
+    const OrderLine = ({tipo,item}) =>{
+        return(
+            <>
+                {item.type === tipo && (
+                <>
+                    <div className="d-flex">
+                    <p className="itemOrderQty">{item.quantity}</p>
+                    <p>{item.name}</p>
+                    <p className="itemOrderMsg">{item.message}</p>
+                    </div>
+                </>
+                )}
+            </>
+        )
+    }
+
     return (
     <div>
+        {/* ------------------------TABLE INFO------------------------ */}
         <div className="frca">
             {urgent && <i className="fas fa-exclamation-circle "></i>}
 
@@ -35,41 +52,26 @@ export default function Order({ order1}) {
             </div>
         </div>    
 
+        {/* ------------------------FOOD ORDER----------------------- */}
         {food.map((item) => {
             return (
-            <div key={item.id}>
-                {item.type === "food" && (
-                <>
-                    <div className="d-flex">
-                    <p className="itemOrderQty">{item.quantity}</p>
-                    <p>{item.name}</p>
-                    <p className="itemOrderMsg">{item.message}</p>
-                    </div>
-                </>
-                )}
-            </div>
+                <OrderLine key={item.id} tipo="food" item={item}/>
             );
         })}
 
+        {/* ------------------------DRINK ORDER----------------------- */}
         {drink.length > 0 && (
-            <>
+        <>
             <hr />
             {drink.map((item) => {
                 return (
-                <div key={item.id}>
-                    {item.type === "drink" && (
-                    <div className="d-flex">
-                        <p>{item.quantity}</p>
-                        <p>{item.name}</p>
-                        <p className="itemOrderMsg">{item.message}</p>
-                    </div>
-                    )}
-                </div>
+                    <OrderLine key={item.id} tipo="drink" item={item}/>
                 );
             })}
-            </>
+        </>
         )}
 
+        {/* ------------------------ FOOTER ----------------------- */}
         <hr />
         <div className="frcb">
             <p>waiter :</p>

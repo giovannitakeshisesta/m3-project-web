@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './Item.css'
 
 const Item = ({id,name,description,price,allergens,quantity,type,message,addOneItem,deleteOneItem,openModal, order})  => {
-
   return (
     <div className='dishMainDiv'>
     
@@ -15,7 +14,7 @@ const Item = ({id,name,description,price,allergens,quantity,type,message,addOneI
           <p className='itemQty'>{order[0].quantity}</p>
           <div>
             <i className="fa-solid fa-minus" onClick={() => deleteOneItem(id,type)}></i>
-            <i className="fas fa-comment" onClick={() => openModal(id)}></i>
+            <i className="fas fa-comment" onClick={() => openModal(order[0].message,id,type)}></i>
           </div>
         </>
         }

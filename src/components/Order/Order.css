@@ -9,3 +9,10 @@
     white-space: pre-wrap;
     margin-left: auto;
 }
+
+
+.renderedList li {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}

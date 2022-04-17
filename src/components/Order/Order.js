@@ -15,29 +15,11 @@ export default function Order({ order,submitOrder}) {
         }, 0);
     };
 
-    const OrderLine = ({tipo,item}) =>{
-        return(
-            <>
-                {item.type === tipo && (
-                <>
-                    <div className="d-flex">
-                    <p className="itemOrderQty">{item.quantity}</p>
-                    <p>{item.name}</p>
-                    <p className="itemOrderMsg">{item.message}</p>
-                    </div>
-                </>
-                )}
-            </>
-        )
-    }
-
     const [renderedListFood, setRenderedListFood] = useState(food);
     const [renderedListDrink, setRenderedListDrink] = useState(drink);
-
     const sendInfo = (info,type) => {
       type === "food" ? setRenderedListFood(info) : setRenderedListDrink(info)
     }
-    
     const finalOrder = [order[0],{"food": renderedListFood},{"drink": renderedListDrink}]
      
     
@@ -64,22 +46,9 @@ export default function Order({ order,submitOrder}) {
             </div>
         </div>    
 
-        {/* ------------------------FOOD ORDER----------------------- */}
+        {/* --------------------FOOD DRINK ORDERS----------------- */}
         <OrderDrag list={food} sendInfo={sendInfo}/>
-        {/* ------------------------DRINK ORDER----------------------- */}
         <OrderDrag list={drink} sendInfo={sendInfo}/>
-
-        {/* {drink.length > 0 && (
-        <>
-            <hr />
-            {drink.map((item) => {
-                return (
-                    <OrderLine key={item.id} tipo="drink" item={item}/>
-                );
-            })}
-        </>
-        )} */}
-
         {/* ------------------------ FOOTER ----------------------- */}
         <hr />
         <div className="frcb">
@@ -87,7 +56,7 @@ export default function Order({ order,submitOrder}) {
             <p>Total : {calculateBill(food) + calculateBill(drink)}€</p>
         </div> 
         <button onClick={()=>submitOrder(finalOrder)} className='submitOrder btn'>send</button>
-{/* condizioni array vacio */}
+        {/* condizioni array vacio */}
     </div>
     );
 }

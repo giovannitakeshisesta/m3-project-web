@@ -10,7 +10,7 @@ export default function OrderDrag({list,sendInfo}) {
     useEffect(() => {
         setOrderList(list)
         setRenderedList(list)
-        if (list.length > 0) sendInfo(list,list[0].type)
+        if (list.length > 0) {sendInfo(list,list[0].type)}
     }, [list]);
 
     const [renderedList, setRenderedList] = useState(orderList);

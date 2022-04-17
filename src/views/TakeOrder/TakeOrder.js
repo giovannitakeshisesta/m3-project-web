@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Formallergens from '../../components/FormAllergens/FormAllergens'
 import Item from '../../components/Item/Item'
 import Modal from '../../components/Modal/Modal'
@@ -22,44 +22,83 @@ export default function Menu() {
   const list = [...menuJson]            // list we use for the menu
   const listLight = cleanList(list)     // list we use for the order
   const [order, setOrder] = useState([])
-  
+
+  const [foodOrder, setFoodOrder]= useState([])
+  const [drinkOrder, setDrinkOrder]= useState([])
+  const [tableInfo,setTableInfo]= useState({"table":0, "people":0 , "urgent":false, "takeAway":false})
+  const [order1, setOrder1] = useState([{food:foodOrder},{drink:drinkOrder},{tableInfo:tableInfo}])
+  const FoodAndDrink = [...order1[0].food, ...order1[1].drink]
+
+  useEffect(() => {
+    setOrder1([{food:foodOrder},{drink:drinkOrder},{tableInfo:tableInfo}])
+  }, [foodOrder,drinkOrder,tableInfo]);
+
+
   const [filterBy, setFilterBy]= useState([])
   const [modalFilter, setModalFilter]= useState(false)
   const [modalMsg, setModalMsg]= useState(false)
   
 
-
-  const addOneItem = (itemId) => {
-    const itemIndex = order.findIndex(el => el.id === itemId)
-    let addedItem = listLight.find(item => item.id===itemId)
-  
-    //if the item passed to the function is already in the order => update the quantity
-    if (itemIndex > -1) {
-      let newOrder = [...order]
-      newOrder[itemIndex].quantity += 1
-      setOrder(newOrder)
-      // else : add the item to the order
-    } else  {
-      addedItem.quantity=1
-      setOrder([...order, addedItem])
+  //------------------------ ADD ITEM ----------------------------
+  //if the item passed to the function is already in the order => update the quantity
+  // else : add the item to the order
+  const addOneItem = (itemId,type) => {
+    if (type === "food"){
+      const itemIndex = foodOrder.findIndex(el => el.id === itemId)
+      const addedItem = listLight.find(item => item.id===itemId)
+      if (itemIndex > -1) {
+        let newOrder = [...foodOrder]
+        newOrder[itemIndex].quantity += 1
+        setFoodOrder(newOrder)
+      } else  {
+        addedItem.quantity=1
+        setFoodOrder([...foodOrder, addedItem])
+      }
+    }
+    if (type === "drink"){
+      const itemIndex = drinkOrder.findIndex(el => el.id === itemId)
+      const addedItem = listLight.find(item => item.id===itemId)
+      if (itemIndex > -1) {
+        let newOrder = [...drinkOrder]
+        newOrder[itemIndex].quantity += 1
+        setDrinkOrder(newOrder)
+      } else  {
+        addedItem.quantity=1
+        setDrinkOrder([...drinkOrder, addedItem])
+      }
     }
   }
 
-  const deleteOneItem = (itemId) => {
-    let newOrder = [...order]
-    const itemIndex = order.findIndex(el => el.id === itemId)
-    
-    if (order[itemIndex]) {
-      const currentQuantity = order[itemIndex].quantity
+  //------------------------ DELETE ITEM ----------------------------
+  const deleteOneItem = (itemId,type) => {
+    if (type === "food"){
+      let newOrder = [...foodOrder]
+      const itemIndex = foodOrder.findIndex(el => el.id === itemId)
+      
+      const currentQuantity = foodOrder[itemIndex].quantity
       if (currentQuantity>1){
         newOrder[itemIndex].quantity -= 1
-        setOrder(newOrder)
+        setFoodOrder(newOrder)
       }
       if (currentQuantity === 1){
         newOrder[itemIndex].quantity = 0
-        setOrder(newOrder.filter(item => item.id !== itemId))
+        setFoodOrder(newOrder.filter(item => item.id !== itemId))
       }
-    } 
+    }
+    if (type === "drink"){
+      let newOrder = [...drinkOrder]
+      const itemIndex = drinkOrder.findIndex(el => el.id === itemId)
+      
+      const currentQuantity = drinkOrder[itemIndex].quantity
+      if (currentQuantity>1){
+        newOrder[itemIndex].quantity -= 1
+        setDrinkOrder(newOrder)
+      }
+      if (currentQuantity === 1){
+        newOrder[itemIndex].quantity = 0
+        setDrinkOrder(newOrder.filter(item => item.id !== itemId))
+      }
+    }
   }
 
   //------------------------FILTER----------------------------
@@ -95,10 +134,6 @@ export default function Menu() {
     setModalMsg(false)
   }
   //---------------------TABLE INFO---------------------------
-  const [tableInfo,setTableInfo]= useState(
-    {"table":0, "people":0 , "urgent":false, "takeAway":false}
-    )
-
   const [urgentTk, setUrgentTk]= useState(false)
   const [takeAway, setTakeAway]= useState(false)
 
@@ -153,7 +188,8 @@ export default function Menu() {
     const beverage = order.filter(el => el.type === "drink")
     setxxx({"id":123, "tableInfo":tableInfo, "food":food, "beverage":beverage})
   }
-  console.log(xxx)
+  // console.log(xxx)
+
 
   return (
     <div>
@@ -198,7 +234,7 @@ export default function Menu() {
                 <div key={dish.id}>
                   <Item 
                     {...dish} 
-                    order={order.filter(el => el.id === dish.id)}
+                    order={FoodAndDrink.filter(el => el.id === dish.id)}
                     addOneItem={addOneItem} 
                     deleteOneItem={deleteOneItem} 
                     openModal={openModal}
@@ -212,7 +248,7 @@ export default function Menu() {
         {/* //--------------------ORDER TICKET ---------------------- */}
         <div className='col colcolor'>
           <h2 className='frcc'>Order</h2>
-          <Order order={order} {...tableInfo}/>
+          <Order order1={order1}/>
         </div>
 
       </div>

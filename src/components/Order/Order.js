@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import "./Order.css";
+import "./Order.css"
 
 import {useState} from "react";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-export default function Order({ order}) {
+export default function Order({ order,submitOrder}) {
     const food = order[1].food;
     const drink = order[2].drink;
     const {people, table, urgent, takeAway } = order[0].tableInfo
@@ -14,7 +14,7 @@ export default function Order({ order}) {
         setOrderList(food)
         setRenderedList(food)
     }, [food]);
-    console.log(orderList)
+    
 
     const calculateBill = (type) => {
         return type.reduce((acc, item) => {
@@ -39,24 +39,7 @@ export default function Order({ order}) {
         )
     }
 
-    // const orderList = [
-    //     {
-    //       "id": "1",
-    //       "type": "food",
-    //       "name": "Gazpacho",
-    //       "price": 6,
-    //       "quantity": 1,
-    //       "message": ""
-    //      },
-    //      {
-    //       "id": "2",
-    //       "type": "food",
-    //       "name": "Ensaladilla rusa",
-    //       "price": 7,
-    //       "quantity": 1,
-    //       "message": ""
-    //      }
-    //     ]
+
     const [renderedList, setRenderedList] = useState(orderList);
 
     function handleOnDragEnd(result) {
@@ -76,6 +59,9 @@ export default function Order({ order}) {
       setRenderedList(newArr);
     }
     
+    const finalOrder = [order[0],{"food": renderedList},order[2]]
+    console.log(finalOrder)
+    console.log("renderedList",renderedList)
     return (
     <div>
         {/* ------------------------TABLE INFO------------------------ */}
@@ -103,37 +89,28 @@ export default function Order({ order}) {
         <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="renderedList" direction='vertical'>
           {(provided) => (
-            <ul className="renderedList" {...provided.droppableProps} ref={provided.innerRef}>
+            <div {...provided.droppableProps} ref={provided.innerRef}>
 
-              {renderedList.map(({id, name}, index) => {
+              {renderedList.map((item, index) => {
                 return (
-                  <Draggable key={id} draggableId={id} index={index}>  
+                  <Draggable key={item.id} draggableId={item.id} index={index}>  
                     {(provided) => (
                       <li 
                       ref={provided.innerRef} 
                       {...provided.draggableProps}  
                       {...provided.dragHandleProps}>
-                        <p>{name}</p>
+                        <OrderLine  tipo="food" item={item}/>
                       </li>
                     )}
                   </Draggable>
                 );
               })}
-
               {provided.placeholder}
-
-            </ul>
+            </div>
           )}
         </Droppable>
         
       </DragDropContext>
-        {/* ------------------------FOOD ORDER----------------------- */}
-        {/* {food.map((item) => {
-            return (
-                <OrderLine key={item.id} tipo="food" item={item}/>
-            );
-        })} */}
-
         {/* ------------------------DRINK ORDER----------------------- */}
         {drink.length > 0 && (
         <>
@@ -152,6 +129,8 @@ export default function Order({ order}) {
             <p>waiter :</p>
             <p>Total : {calculateBill(food) + calculateBill(drink)}€</p>
         </div> 
+        <button onClick={()=>submitOrder(finalOrder)} className='submitOrder btn'>send</button>
+
     </div>
     );
 }

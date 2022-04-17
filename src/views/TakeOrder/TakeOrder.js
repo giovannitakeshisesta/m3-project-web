@@ -176,10 +176,9 @@ export default function Menu() {
   }
 
   //---------------------   json ---------------------------
-
   const [jason,setjason]= useState()
-  const submitOrder = () => {
-    setjason(order)
+  const submitOrder = (renderedList) => {
+    setjason(renderedList)
   }
 
   return (
@@ -190,7 +189,6 @@ export default function Menu() {
           <div className='frcc'> 
             <h2>Menu</h2>
             <i className="fa-solid fa-pepper-hot" onClick={() => setModalFilter(true)}></i>
-            <button onClick={submitOrder} className='submitOrder btn'>send</button>
           </div>
 
           {/* //--------------------TABLE INFO------------------ */}
@@ -237,7 +235,7 @@ export default function Menu() {
         {/* //--------------------ORDER TICKET ---------------------- */}
         <div className='col colcolor'>
           <h2 className='frcc'>Order</h2>
-          <Order order={order}/>
+          <Order order={order} submitOrder={submitOrder}/>
         </div>
 
       </div>
@@ -272,13 +270,16 @@ export default function Menu() {
           reactPortal />
         }
 
+
+        
+
         {jason &&
         <div>
           <h2>Json que se envia a la API</h2>
           <p>id dinamico</p>
           <p>date time</p>
           <p>waiter name</p>
-           <pre>{JSON.stringify(jason,null,1)}</pre>
+          <pre>{JSON.stringify(jason,null,1)}</pre>
           <h2>cocina y barra se conectan a la API y reciben respectivamente:</h2>
           <div className='row'>
             <div className='col colcolor'>

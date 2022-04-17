@@ -12,7 +12,7 @@ const Item = ({id,name,description,price,allergens,quantity,type,message,addOneI
 
         {order[0]?.quantity > 0 && 
         <>
-          <p className='itemQty'>{quantity}</p>
+          <p className='itemQty'>{order[0].quantity}</p>
           <div>
             <i className="fa-solid fa-minus" onClick={() => deleteOneItem(id)}></i>
             <i className="fas fa-comment" onClick={() => openModal(message,id)}></i>

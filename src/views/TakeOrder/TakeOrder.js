@@ -112,11 +112,12 @@ export default function Menu() {
     }))
   }
 
-  console.log(tableInfo,takeAway);
+  console.log(order);
 
   return (
     <div>
       <div className='row'>
+      <pre>{JSON.stringify(order)}</pre>
                         {/* -12 col-sm-12 col-md-6 */}
         <div className='col  colcolor scroll'> 
           <div className='frcc'> 

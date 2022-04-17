@@ -58,6 +58,7 @@ export default function Order({ order, people,table,urgent,takeAway }) {
             );
         })}
 
+        <hr />
         <div className="frcb">
             <p>waiter :</p>
             <p>Total : {calculateBill()}€</p>

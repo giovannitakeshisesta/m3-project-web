@@ -1,16 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import ReactDOM from 'react-dom'
-import Formallergens from "../FormAllergens/FormAllergens";
 import './Modal.css'
 
 
 const ModalContent = (props) => {
-    // const [text, setText]= useState("")
-    // const handleChange = (e) =>{
-    //     setText(e.target.value)
-    // }
 
-    // console.log(text)
     return (
         <div className="dialog_my" role="dialog">
             <div className="modal-dialog modal-dialog_my" role="document">

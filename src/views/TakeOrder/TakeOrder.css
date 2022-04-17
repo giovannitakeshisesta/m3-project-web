@@ -1,6 +1,7 @@
-.inputPeople{
-    width: 50px;
-    margin-right: 10px;
+/* --------------------TOP PAGE ------------------ */
+.submitOrder{
+    background-color: orange;
+    margin-left: auto;
 }
 
 .fa-pepper-hot{
@@ -9,17 +10,23 @@
     cursor: pointer;
 }
 
+/* --------------------TABLE INFO------------------ */
+.inputNumbers{
+    width: 50px;
+    margin-right: 10px;
+}
+
 .imgTable{
     height: 60px;
 }
 
-.fa-exclamation-circle{
-    color: green;
+.fa-users{
     font-size: 30px;
     cursor: pointer;
 }
 
-.fa-users{
+.fa-exclamation-circle{
+    color: green;
     font-size: 30px;
     cursor: pointer;
 }
@@ -30,7 +37,7 @@
     cursor: pointer;
 }
 
-
+/* --------------------COLUMNS ------------------ */
 .colcolor{
     background-color: rgba(208, 223, 44, 0.758);
     border-radius: 10px;
@@ -42,3 +49,4 @@
     overflow-y: scroll;
     height: 600px;
 } 
+

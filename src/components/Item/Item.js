@@ -1,7 +1,7 @@
 import React from 'react'
 import './Item.css'
 
-const Item = ({id,name,description,price,allergens,quantity,type,message,addOneItem,deleteOneItem,openModal, order})  => {
+const Item = ({id,name,description,price,allergens,quantity,type,message,addOneItem,deleteOneItem,openModal, order,changeCourse})  => {
   return (
     <div className='dishMainDiv'>
     
@@ -15,6 +15,7 @@ const Item = ({id,name,description,price,allergens,quantity,type,message,addOneI
           <div>
             <i className="fa-solid fa-minus" onClick={() => deleteOneItem(id,type)}></i>
             <i className="fas fa-comment" onClick={() => openModal(order[0].message,id,type)}></i>
+            <i className="fas fa-ellipsis-h" onClick={() => changeCourse(type,id,order[0].course)}></i>
           </div>
         </>
         }

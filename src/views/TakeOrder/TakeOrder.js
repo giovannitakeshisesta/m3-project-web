@@ -30,7 +30,11 @@ export default function Menu() {
   const FoodAndDrink = [...order[1].food, ...order[2].drink]
 
   useEffect(() => {
-    setOrder([{tableInfo:tableInfo},{food:foodOrder},{drink:drinkOrder}])
+    setOrder([
+      
+      {tableInfo:tableInfo},
+      {food:foodOrder.sort((a, b) => a.course - b.course)},
+      {drink:drinkOrder.sort((a, b) => a.course - b.course)}])
   }, [foodOrder,drinkOrder,tableInfo]);
 
   // Table info
@@ -149,6 +153,34 @@ export default function Menu() {
       setModalMsg(false)
     }
   }
+  //---------------------CHANGE COURSE---------------------------
+  const changeCourse = (type,itemId,course) => {
+    console.log("course",type,course)
+    if (type === "food"){
+      const itemIndex = foodOrder.findIndex(item => item.id === itemId)
+ 
+      let newOrder = [...foodOrder]
+      if (course < 3 ){
+        newOrder[itemIndex].course +=1
+      } else{
+        newOrder[itemIndex].course =1
+      }
+      // newOrder .sort((a, b) => a.course - b.course)
+      setFoodOrder(newOrder)
+    }
+    if (type === "drink"){
+      const itemIndex = drinkOrder.findIndex(item => item.id === itemId)
+  
+      let newOrder = [...drinkOrder]
+      if (course < 3 ){
+        newOrder[itemIndex].course +=1
+      } else{
+        newOrder[itemIndex].course =1
+      }
+      // newOrder .sort((a, b) => a.course - b.course)
+      setDrinkOrder(newOrder)
+    }
+  }
   //---------------------TABLE INFO---------------------------
   const handleChange = (e) => {
     const { name , value } = e.target
@@ -225,6 +257,7 @@ export default function Menu() {
                     addOneItem={addOneItem} 
                     deleteOneItem={deleteOneItem} 
                     openModal={openModal}
+                    changeCourse={changeCourse}
                   />
                 </div>
               )
@@ -235,7 +268,7 @@ export default function Menu() {
         {/* //--------------------ORDER TICKET ---------------------- */}
         <div className='col colcolor'>
           <h2 className='frcc'>Order</h2>
-          <Order order={order} submitOrder={submitOrder}/>
+          <Order order={order} submitOrder={submitOrder} />
         </div>
 
       </div>

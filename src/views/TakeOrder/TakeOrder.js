@@ -30,7 +30,11 @@ export default function Menu() {
   const FoodAndDrink = [...order[1].food, ...order[2].drink]
 
   useEffect(() => {
-    setOrder([{tableInfo:tableInfo},{food:foodOrder},{drink:drinkOrder}])
+    setOrder([
+      
+      {tableInfo:tableInfo},
+      {food:foodOrder.sort((a, b) => a.course - b.course)},
+      {drink:drinkOrder.sort((a, b) => a.course - b.course)}])
   }, [foodOrder,drinkOrder,tableInfo]);
 
   // Table info
@@ -149,6 +153,34 @@ export default function Menu() {
       setModalMsg(false)
     }
   }
+  //---------------------CHANGE COURSE---------------------------
+  const changeCourse = (type,itemId,course) => {
+    console.log("course",type,course)
+    if (type === "food"){
+      const itemIndex = foodOrder.findIndex(item => item.id === itemId)
+ 
+      let newOrder = [...foodOrder]
+      if (course < 3 ){
+        newOrder[itemIndex].course +=1
+      } else{
+        newOrder[itemIndex].course =1
+      }
+      // newOrder .sort((a, b) => a.course - b.course)
+      setFoodOrder(newOrder)
+    }
+    if (type === "drink"){
+      const itemIndex = drinkOrder.findIndex(item => item.id === itemId)
+  
+      let newOrder = [...drinkOrder]
+      if (course < 3 ){
+        newOrder[itemIndex].course +=1
+      } else{
+        newOrder[itemIndex].course =1
+      }
+      // newOrder .sort((a, b) => a.course - b.course)
+      setDrinkOrder(newOrder)
+    }
+  }
   //---------------------TABLE INFO---------------------------
   const handleChange = (e) => {
     const { name , value } = e.target
@@ -176,10 +208,9 @@ export default function Menu() {
   }
 
   //---------------------   json ---------------------------
-
   const [jason,setjason]= useState()
-  const submitOrder = () => {
-    setjason(order)
+  const submitOrder = (renderedList) => {
+    setjason(renderedList)
   }
 
   return (
@@ -190,7 +221,6 @@ export default function Menu() {
           <div className='frcc'> 
             <h2>Menu</h2>
             <i className="fa-solid fa-pepper-hot" onClick={() => setModalFilter(true)}></i>
-            <button onClick={submitOrder} className='submitOrder btn'>send</button>
           </div>
 
           {/* //--------------------TABLE INFO------------------ */}
@@ -227,6 +257,7 @@ export default function Menu() {
                     addOneItem={addOneItem} 
                     deleteOneItem={deleteOneItem} 
                     openModal={openModal}
+                    changeCourse={changeCourse}
                   />
                 </div>
               )
@@ -237,7 +268,7 @@ export default function Menu() {
         {/* //--------------------ORDER TICKET ---------------------- */}
         <div className='col colcolor'>
           <h2 className='frcc'>Order</h2>
-          <Order order={order}/>
+          <Order order={order} submitOrder={submitOrder} />
         </div>
 
       </div>
@@ -272,13 +303,16 @@ export default function Menu() {
           reactPortal />
         }
 
+
+        
+
         {jason &&
         <div>
           <h2>Json que se envia a la API</h2>
           <p>id dinamico</p>
           <p>date time</p>
           <p>waiter name</p>
-           <pre>{JSON.stringify(jason,null,1)}</pre>
+          <pre>{JSON.stringify(jason,null,1)}</pre>
           <h2>cocina y barra se conectan a la API y reciben respectivamente:</h2>
           <div className='row'>
             <div className='col colcolor'>

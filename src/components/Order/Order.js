@@ -1,34 +1,26 @@
-import React from "react";
-import "./Order.css";
+import React, { useState } from "react";
+import "./Order.css"
+import OrderDrag from "./OrderDrag";
 
-export default function Order({ order}) {
+export default function Order({ order,submitOrder,updateOrder}) {
     const food = order[1].food;
     const drink = order[2].drink;
     const {people, table, urgent, takeAway } = order[0].tableInfo
 
+    const [renderedListFood, setRenderedListFood]   = useState(food);
+    const [renderedListDrink, setRenderedListDrink] = useState(drink);
+    const finalOrder = [order[0],{"food": renderedListFood},{"drink": renderedListDrink}]
+
+    const sendInfo = (info,type) => {
+      type === "food" ? setRenderedListFood(info) : setRenderedListDrink(info)
+    }
+    
     const calculateBill = (type) => {
         return type.reduce((acc, item) => {
         acc += item.price * item.quantity;
         return acc;
         }, 0);
     };
-
-    const OrderLine = ({tipo,item}) =>{
-        return(
-            <>
-                {item.type === tipo && (
-                <>
-                    <div className="d-flex">
-                    <p className="itemOrderQty">{item.quantity}</p>
-                    <p>{item.name}</p>
-                    <p className="itemOrderMsg">{item.message}</p>
-                    </div>
-                </>
-                )}
-            </>
-        )
-    }
-
     return (
     <div>
         {/* ------------------------TABLE INFO------------------------ */}
@@ -52,31 +44,24 @@ export default function Order({ order}) {
             </div>
         </div>    
 
-        {/* ------------------------FOOD ORDER----------------------- */}
-        {food.map((item) => {
-            return (
-                <OrderLine key={item.id} tipo="food" item={item}/>
-            );
-        })}
+        {/* --------------------FOOD DRINK ORDERS----------------- */}
+        <OrderDrag list={food} sendInfo={sendInfo}/>
 
-        {/* ------------------------DRINK ORDER----------------------- */}
-        {drink.length > 0 && (
-        <>
-            <hr />
-            {drink.map((item) => {
-                return (
-                    <OrderLine key={item.id} tipo="drink" item={item}/>
-                );
-            })}
-        </>
-        )}
-
+        {drink.length > 0 && 
+        <div>
+            <hr/>
+            <OrderDrag list={drink} sendInfo={sendInfo}/>
+        </div>
+        }
+        
         {/* ------------------------ FOOTER ----------------------- */}
         <hr />
         <div className="frcb">
             <p>waiter :</p>
             <p>Total : {calculateBill(food) + calculateBill(drink)}€</p>
-        </div>
+        </div> 
+        <button onClick={()=>submitOrder(finalOrder)} className='submitOrder btn'>send</button>
+        {/* condizioni array vacio */}
     </div>
     );
 }

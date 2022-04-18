@@ -5,28 +5,26 @@ import './Drag.css'
 
 export default function Drag() {
     const orderList = [
-        {
-          id: '1',
-          name: 'comanda 1'
-        },
-        {
-          id: '2',
-          name: 'comanda 2'
-        },
-        {
-          id: '3',
-          name: 'comanda 3'
-        },
-        {
-          id: '4',
-          name: 'comanda 4'
-        },
-        {
-          id: '5',
-          name: 'comanda 5'
-        }
+      {
+        "id": "1",
+        "type": "food",
+        "name": "Gazpacho",
+        "price": 6,
+        "quantity": 1,
+        "message": ""
+       },
+       {
+        "id": "2",
+        "type": "food",
+        "name": "Ensaladilla rusa",
+        "price": 7,
+        "quantity": 1,
+        "message": ""
+       }
       ]
-
+      
+        
+       
       
     const [renderedList, setRenderedList] = useState(orderList);
 
@@ -62,7 +60,7 @@ export default function Drag() {
       <h1>Kitchen Ticket Holder</h1>
 
       <DragDropContext onDragEnd={handleOnDragEnd}>
-        <Droppable droppableId="renderedList" direction='horizontal'>
+        <Droppable droppableId="renderedList" direction='vertical'>
           {(provided) => (
             <ul className="renderedList" {...provided.droppableProps} ref={provided.innerRef}>
 

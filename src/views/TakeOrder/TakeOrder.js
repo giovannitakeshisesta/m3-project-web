@@ -4,7 +4,7 @@ import Item from '../../components/Item/Item'
 import Modal from '../../components/Modal/Modal'
 import Order from '../../components/Order/Order'
 import menuJson from '../../data/menu.json'
-import './TakeOrder.css'
+import './TakeOrder.scss'
 
 
 const cleanList = (originalList) =>{
@@ -40,6 +40,12 @@ export default function Menu() {
   // Table info
   const [urgentTk, setUrgentTk]= useState(false)
   const [takeAway, setTakeAway]= useState(false)
+
+
+  // Modal descripcion
+  const [modalDescription, setModalDescription] = useState(false)
+  const [modalDescriptioninfo, setModalDescriptioninfo] = useState([])
+
 
   // Modal filter
   const [filterBy, setFilterBy]= useState([])
@@ -113,6 +119,12 @@ export default function Menu() {
         setDrinkOrder(newOrder.filter(item => item.id !== itemId))
       }
     }
+  }
+
+  //------------------MODAL DESCRIPTION------------------------
+  const openModalDescription = (name,description,price) => {
+    setModalDescription(true)
+    setModalDescriptioninfo([name,description,price])
   }
 
   //------------------------FILTER----------------------------
@@ -257,6 +269,7 @@ export default function Menu() {
                     addOneItem={addOneItem} 
                     deleteOneItem={deleteOneItem} 
                     openModal={openModal}
+                    openModalDescription={openModalDescription}
                     changeCourse={changeCourse}
                   />
                 </div>
@@ -273,6 +286,22 @@ export default function Menu() {
 
       </div>
 
+
+        {/* //---------------------DESCRIPTION MODAL--------------------*/}
+        {modalDescription && 
+        <div>
+          <Modal
+            title = {
+              <div className='frcb'>
+                  <h2>{modalDescriptioninfo[0]}</h2>
+                  <h2 className='ms-5'>{modalDescriptioninfo[2]} € </h2>
+              </div>
+            }
+            body = {modalDescriptioninfo[1]}
+            onClose={() => setModalDescription(false)}
+            reactPortal />
+        </div>
+        }
 
         {/* //---------------------FILTER MODAL--------------------*/}
         {modalFilter && 

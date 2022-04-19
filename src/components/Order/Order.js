@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Order.css"
+import "./Order.scss"
 import OrderDrag from "./OrderDrag";
 
 export default function Order({ order,submitOrder,updateOrder}) {

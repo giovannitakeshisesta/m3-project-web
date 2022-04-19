@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {  BrowserRouter} from "react-router-dom";
 
-import './styles/index.css';
+import './styles/index.scss';
 import { AuthContextProvider } from './contexts/AuthContext';
 
 ReactDOM.render(

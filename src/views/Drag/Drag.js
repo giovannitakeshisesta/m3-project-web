@@ -1,7 +1,7 @@
 import React from 'react'
 import {useState} from "react";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import './Drag.css'
+import './Drag.scss'
 
 export default function Drag() {
     const orderList = [

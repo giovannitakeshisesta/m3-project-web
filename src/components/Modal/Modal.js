@@ -1,16 +1,16 @@
 import React, {useEffect} from "react";
 import ReactDOM from 'react-dom'
-import './Modal.css'
+import './Modal.scss'
 
 
 const ModalContent = (props) => {
 
     return (
-        <div className="dialog_my" role="dialog">
+        <div className="dialog_my" role="dialog" >
             <div className="modal-dialog modal-dialog_my" role="document">
                 <div className="modal-content">
                 <div className="modal-header">
-                    <h5 className="modal-title">Modal title</h5>
+                    <h5 className="modal-title">{props.title}</h5>
                     <button type="button" onClick={props.onClose}  className="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -47,3 +47,5 @@ const Modal = (props) => {
 
 
 export default Modal
+
+

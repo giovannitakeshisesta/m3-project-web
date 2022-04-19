@@ -1,5 +1,5 @@
 import { Routes, Route} from "react-router-dom";
-import './styles/app.css'
+import './styles/app.scss'
 import Navbar from "./components/Navbar/Navbar";
 import ProtectedRoute from "./guards/ProtectedRoute";
 import { useAuthContext } from "./contexts/AuthContext";
@@ -15,6 +15,7 @@ import Drag from "./views/Drag/Drag";
 import KitchenWall from "./views/KitchenWall/KitchenWall";
 import Tables from "./views/Tables/Tables";
 import TakeOrder from "./views/TakeOrder/TakeOrder";
+import UserDetails from "./Users/User.Details";
 
 
 function App() {
@@ -42,6 +43,8 @@ function App() {
             <Route path="/" element={<ProtectedRoute/>} >
               <Route path="profile"    element={<Profile />} />
               <Route path="favourites" element={<Favourites />} />
+              <Route path="users/:id"  element={<UserDetails/>} />
+
             </Route>
           </Routes>
         )}

@@ -4,6 +4,7 @@ import Item from '../../components/Item/Item'
 import Modal from '../../components/Modal/Modal'
 import Order from '../../components/Order/Order'
 import menuJson from '../../data/menu.json'
+import { postOrder } from '../../services/OrderService'
 import './TakeOrder.scss'
 
 
@@ -222,8 +223,18 @@ export default function Menu() {
   //---------------------   json ---------------------------
   const [jason,setjason]= useState()
   const submitOrder = (renderedList) => {
-    setjason(renderedList)
+    // convert the array to object
+    const order = Object.assign({}, ...renderedList)
+    setjason(order)// display json
+
+    // duda  JSON.stringify
+    postOrder(order)
+    .then(()=> console.log("dentro el then"))
+    .catch(()=> console.log("hay un error"))
   }
+
+
+
 
   return (
     <div>

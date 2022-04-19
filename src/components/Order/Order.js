@@ -60,7 +60,14 @@ export default function Order({ order,submitOrder,updateOrder}) {
             <p>waiter :</p>
             <p>Total : {calculateBill(food) + calculateBill(drink)}€</p>
         </div> 
-        <button onClick={()=>submitOrder(finalOrder)} className='submitOrder btn'>send</button>
+        {finalOrder[1].food.length > 0 &&
+        
+        <button 
+            onClick={()=>submitOrder(finalOrder)} 
+            className='submitOrder btn'>send
+        </button>
+        }
+
         {/* condizioni array vacio */}
     </div>
     );

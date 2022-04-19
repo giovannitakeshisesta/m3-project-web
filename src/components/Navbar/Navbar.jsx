@@ -68,6 +68,12 @@ const Navbar = () => {
                     Take Order
                   </NavLink>
                 </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link"  
+                    to="/comanda">
+                    pinta las comandas
+                  </NavLink>
+                </li>
               </>
             ) : (   
               <>

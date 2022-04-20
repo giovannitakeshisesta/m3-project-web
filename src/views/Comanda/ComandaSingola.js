@@ -1,15 +1,14 @@
 import React from 'react';
 
-const Comandasingola = ({tableInfo, food, createdAt}) => {
-
-    const {people, table, urgent, takeAway } = tableInfo
+const Comandasingola = ({tableInfo,food,drink,createdAt}) => {
+    const {people, table, urgent, takeAway, waiter } = tableInfo
     const time = createdAt.substring(11,16)
     const day = createdAt.substring(0,10) 
 
     return (
     <div className='ticket1'>
     {/* ------------------------TABLE INFO------------------------ */}
-        <div className="frca">
+       <div className="frca">
             {urgent && <i className="fas fa-exclamation-circle "></i>}
 
             <div className="frcc">
@@ -28,7 +27,7 @@ const Comandasingola = ({tableInfo, food, createdAt}) => {
                 {takeAway && <i className="fas fa-bicycle "></i>}
             </div>
         </div>
-
+ 
 
 
     {/* --------------------FOOD DRINK ORDERS----------------- */}
@@ -53,7 +52,7 @@ const Comandasingola = ({tableInfo, food, createdAt}) => {
                 <p>{day}</p>
             </div>   
             <div>
-                <p>Waiter:</p>
+                <p>Waiter: {waiter} </p>
             </div>                     
         </div>
      

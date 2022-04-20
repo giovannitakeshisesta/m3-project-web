@@ -5,7 +5,7 @@ import OrderDrag from "./OrderDrag";
 export default function Order({ order,submitOrder,updateOrder}) {
     const food = order[1].food;
     const drink = order[2].drink;
-    const {people, table, urgent, takeAway } = order[0].tableInfo
+    const {people, table, urgent, takeAway, waiter } = order[0].tableInfo
 
     const [renderedListFood, setRenderedListFood]   = useState(food);
     const [renderedListDrink, setRenderedListDrink] = useState(drink);
@@ -57,7 +57,7 @@ export default function Order({ order,submitOrder,updateOrder}) {
         {/* ------------------------ FOOTER ----------------------- */}
         <hr />
         <div className="frcb">
-            <p>waiter :</p>
+            <p>waiter :{waiter}</p>
             <p>Total : {calculateBill(food) + calculateBill(drink)}€</p>
         </div> 
         {finalOrder[1].food.length > 0 &&

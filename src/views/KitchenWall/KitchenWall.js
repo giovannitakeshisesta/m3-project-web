@@ -46,7 +46,6 @@ const KitchenWall = () => {
       ))
   }, [allOrders]);
 
-  console.log(holders);
     const onDragEnd = (result, holders, setHolders) => {
       if (!result.destination) return;
       const { source, destination } = result;

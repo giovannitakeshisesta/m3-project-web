@@ -16,6 +16,7 @@ import KitchenWall from "./views/KitchenWall/KitchenWall";
 import Tables from "./views/Tables/Tables";
 import TakeOrder from "./views/TakeOrder/TakeOrder";
 import UserDetails from "./Users/User.Details";
+import Comanda from "./views/Comanda/Comanda";
 
 
 function App() {
@@ -30,17 +31,18 @@ function App() {
           <p>Loading...</p>
         ) : (
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="drag"    element={<Drag />} />
-            <Route path="drag"    element={<Drag />} />
-            <Route path="KitchenWall"    element={<KitchenWall />} />
-            <Route path="tables"    element={<Tables />} />
+            <Route path="/"            element={<Home />} />
+            <Route path="drag"         element={<Drag />} />
+            <Route path="drag"         element={<Drag />} />
+            <Route path="KitchenWall"  element={<KitchenWall />} />
+            <Route path="tables"       element={<Tables />} />
             <Route path="takeOrder"    element={<TakeOrder />} />
+            <Route path="comanda"      element={<Comanda />} />
 
-            <Route path="register" element={<Register />} />
-            <Route path="login"    element={<Login />} />
+            <Route path="register"     element={<Register />} />
+            <Route path="login"        element={<Login />} />
 
-            <Route path="/" element={<ProtectedRoute/>} >
+            <Route path="/"            element={<ProtectedRoute/>} >
               <Route path="profile"    element={<Profile />} />
               <Route path="favourites" element={<Favourites />} />
               <Route path="users/:id"  element={<UserDetails/>} />

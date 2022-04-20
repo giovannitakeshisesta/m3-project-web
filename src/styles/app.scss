@@ -27,7 +27,50 @@
     justify-content: space-around;
 }
 
+/* ----------------------------------------- */
+p{
+    margin-bottom: 0;
+}
 .red{
     background-color: red;
 }
 
+
+
+/* ----------------------COMANDA------------------------- */
+.ticket1{
+    background-color: rgb(187, 247, 237);
+    width: 40vw;
+    border-radius: 10px;
+    padding: 0 20px;
+    margin: 5px;
+
+
+    .ticketBody{
+        display: flex;
+        .ticketMessage{
+            color: green;
+            max-width: 50%;
+            word-break: break-word;
+            white-space: pre-wrap;
+            margin-left: auto;
+        }
+    }
+
+    .ticketFooter{
+        padding: 5px 0;
+
+        margin-top: 10px;
+        border-top: 1px solid black;
+
+        .ticketTimeDay{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .ticketTime{
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+}

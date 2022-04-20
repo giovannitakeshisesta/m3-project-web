@@ -11,21 +11,16 @@ const Comanda = () => {
         .catch(err => console.log(err))
     }, []);
 
-    //if (allOrders)  console.log(allOrders[0].food) 
     return (
         <div>
             {allOrders &&
-             
              allOrders.map(order => {
                  return (
                      <div key={order._id}>
-                    {/* <pre>XXXXXX{JSON.stringify(order.food, null, 1)}</pre> */}
                     <Comandasingola {...order}/>
-                    <hr/>
                      </div>
                  )
              })
-            
             }
         </div>
     );

@@ -3,10 +3,10 @@ import Formallergens from '../../components/FormAllergens/FormAllergens'
 import Item from '../../components/Item/Item'
 import Modal from '../../components/Modal/Modal'
 import Order from '../../components/Order/Order'
+import { useAuthContext } from '../../contexts/AuthContext'
 import menuJson from '../../data/menu.json'
 import { postOrder } from '../../services/OrderService'
 import './TakeOrder.scss'
-
 
 const cleanList = (originalList) =>{
   const cleanedList = originalList.map(element => {
@@ -21,12 +21,13 @@ const cleanList = (originalList) =>{
 
 export default function Menu() {
   
+  const { user } = useAuthContext()
   const list = [...menuJson]            // list we use for the menu
   const listLight = cleanList(list)     // list we use for the order
 
   const [foodOrder, setFoodOrder]= useState([])
   const [drinkOrder, setDrinkOrder]= useState([])
-  const [tableInfo,setTableInfo]= useState({"table":0, "people":0 , "urgent":false, "takeAway":false})
+  const [tableInfo,setTableInfo]= useState({"table":0, "people":0 , "urgent":false, "takeAway":false, "waiter":user.name})
   const [order, setOrder] = useState([{tableInfo:tableInfo},{food:foodOrder},{drink:drinkOrder}])
   const FoodAndDrink = [...order[1].food, ...order[2].drink]
 
@@ -226,8 +227,6 @@ export default function Menu() {
     // convert the array to object
     const order = Object.assign({}, ...renderedList)
     setjason(order)// display json
-
-    // duda  JSON.stringify
     postOrder(order)
     .then(()=> console.log("dentro el then"))
     .catch(()=> console.log("hay un error"))

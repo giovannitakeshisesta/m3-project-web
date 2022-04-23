@@ -34,19 +34,19 @@ const KitchenWall = () => {
       const { hold1, hold2, hold3, hold4 } = response[0];
       setHolders({hold1, hold2, hold3, hold4})
     })
+    .catch(err => console.log(err))
   }, []);
 
   const prevHoldersRef = useRef();
 
-  // duda ,  eliminar console.log
   useEffect(() => {
-    // if (prevHoldersRef.current) {  
+    if (prevHoldersRef.current) {  
       putHolders(holders)
         .then(()=> console.log("updating"))
         .catch(() => {
           setHolders(prevHoldersRef.current);
         });
-    // }
+    }
   }, [holders]);
   
 
@@ -63,6 +63,7 @@ const KitchenWall = () => {
   
       const [removed] = sourceItems.splice(source.index, 1);
       destItems.splice(destination.index, 0, removed);
+
       prevHoldersRef.current = holders;
       setHolders({
         ...holders,
@@ -124,7 +125,7 @@ const KitchenWall = () => {
                         {holder.items.map((ticket, index) => {
                           return (
                             <Draggable
-                              key={index}
+                              key={String(ticket.tableInfo.table)}
                               draggableId={String(ticket.tableInfo.table)}
                               index={index}
                             >

@@ -2,25 +2,29 @@ import React, { useEffect, useState } from "react";
 import "./Order.scss"
 import OrderDrag from "./OrderDrag";
 
-export default function Order({ order,submitOrder}) {
-    const food = order[1].food;
-    const drink = order[2].drink;
-    const {people, table, urgent, takeAway, waiter } = order[0].tableInfo
+export default function Order({ order,submitOrder, editOrder}) {
+    const food = order.food;
+    const drink = order.drink;
+    const {people, table, urgent, takeAway, waiter } = order.tableInfo
 
     const [renderedListFood, setRenderedListFood]   = useState(food);
     const [renderedListDrink, setRenderedListDrink] = useState(drink);
-    const finalOrder = [order[0],{"food": renderedListFood},{"drink": renderedListDrink}]
-
+    const finalOrder = {
+        id: order.id,
+        tableInfo: order.tableInfo,
+        food:renderedListFood,
+        drink: renderedListDrink
+    }
 
     useEffect(() => {
         setRenderedListFood(food)
         setRenderedListDrink(drink)
     }, [order,food,drink]);
 
-
     const sendInfo = (info,type) => {
       type === "food" ? setRenderedListFood(info) : setRenderedListDrink(info)
     }
+
     const calculateBill = (type) => {
         return type.reduce((acc, item) => {
         acc += item.price * item.quantity;
@@ -68,12 +72,17 @@ export default function Order({ order,submitOrder}) {
             <p>Total : {calculateBill(food) + calculateBill(drink)}€</p>
         </div> 
 
-        {finalOrder[1].food.length > 0 || finalOrder[2].drink.length > 0 ?
-        <button 
-            onClick={()=>submitOrder(finalOrder)} 
-            className='submitOrder btn'>send
-        </button>
-        : null
+        {/* ------------------------ BUTTONS ---------------------- */}
+        {order.id ?
+            <button 
+                onClick={()=> editOrder(finalOrder)} 
+                className=' btn btn-success'>update
+            </button>
+        :
+            <button 
+                onClick={()=>submitOrder(finalOrder)} 
+                className='submitOrder btn'>send
+            </button>  
         } 
 
         {/* condizioni array vacio */}

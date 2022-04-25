@@ -42,7 +42,7 @@ const KitchenWall = () => {
   useEffect(() => {
     if (prevHoldersRef.current) {  
       putHolders(holders)
-        .then(()=> console.log("updating"))
+        .then(()=> {})
         .catch(() => {
           setHolders(prevHoldersRef.current);
         });

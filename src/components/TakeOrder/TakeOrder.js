@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate }    from 'react-router-dom'
-import { postOrder }      from '../../services/OrderService'
+import { createOrder, editOrder }      from '../../services/OrderService'
 import { useAuthContext } from '../../contexts/AuthContext'
 import './TakeOrder.scss'
 import Formallergens from '../FormAllergens/FormAllergens'
@@ -24,7 +24,7 @@ export default function Menu({openTableNum, data}) {
   // console.log(openTableNum)
   const navigate = useNavigate()
   const { user } = useAuthContext()
-  
+
   const list = [...menuJson]            // list we use for the menu
   const listLight = cleanList(list)     // list we use for the order
   
@@ -39,8 +39,13 @@ export default function Menu({openTableNum, data}) {
     
   const [foodOrder, setFoodOrder] = useState([])
   const [drinkOrder,setDrinkOrder]= useState([])
-  const [order, setOrder] = useState([{tableInfo:tableInfo},{food:foodOrder},{drink:drinkOrder}])
-  const FoodAndDrink = [...order[1].food, ...order[2].drink]
+  const currentOrder = {
+    tableInfo,
+    food: data ? data.food : [],
+    drink: data ? data.drink : []
+  }
+  const [order, setOrder] = useState(currentOrder)
+  const FoodAndDrink = [...order.food, ...order.drink]
 
   useEffect(() => {
     if (data){
@@ -49,7 +54,6 @@ export default function Menu({openTableNum, data}) {
       setDrinkOrder(data.drink)
     }
   }, [data]);
-  // console.log(order);
 
   useEffect(() => {
     setTableInfo((prevState) => ({
@@ -59,11 +63,14 @@ export default function Menu({openTableNum, data}) {
   }, [openTableNum]);
 
   useEffect(() => {
-    setOrder([
-      {tableInfo:tableInfo},
-      {food:foodOrder.sort((a, b) => a.course - b.course)},
-      {drink:drinkOrder.sort((a, b) => a.course - b.course)}])
-  }, [foodOrder,drinkOrder,tableInfo]);
+    setOrder(
+      {
+        id: data._id,
+        tableInfo: tableInfo,
+        food:foodOrder.sort((a, b) => a.course - b.course),
+        drink:drinkOrder.sort((a, b) => a.course - b.course)
+      })
+  }, [foodOrder,drinkOrder,tableInfo,data._id]);
 
   // Table info
   const [urgentTk, setUrgentTk]= useState(false)
@@ -204,7 +211,6 @@ export default function Menu({openTableNum, data}) {
       } else{
         newOrder[itemIndex].course =1
       }
-      // newOrder .sort((a, b) => a.course - b.course)
       setFoodOrder(newOrder)
     }
     if (type === "drink"){
@@ -216,7 +222,6 @@ export default function Menu({openTableNum, data}) {
       } else{
         newOrder[itemIndex].course =1
       }
-      // newOrder .sort((a, b) => a.course - b.course)
       setDrinkOrder(newOrder)
     }
   }
@@ -247,21 +252,21 @@ export default function Menu({openTableNum, data}) {
   }
 
   //---------------------   SUBMIT ---------------------------
-  const [jason,setjason]= useState()
-
-  const submitOrder = (renderedList) => {
+  const submitOrder = (order) => {
     // convert the array to object
-    const order = Object.assign({}, ...renderedList)
-    setjason(order)// display json
-    postOrder(order)
-    .then(()=> {
-      navigate('/tables', { state: order.tableInfo.table})
-    })
+  
+    createOrder(order)
+    .then(()=> navigate('/KitchenWall'))
     .catch((err)=> console.log(err))
   }
 
-
-
+  const handleEdit = (order) => {
+    const {id, food, drink, tableInfo } = order
+    editOrder(id, { food, drink, tableInfo })
+      .then(order => {
+        navigate('/KitchenWall')
+      })
+  }
 
   return (
     <div>
@@ -319,7 +324,7 @@ export default function Menu({openTableNum, data}) {
         {/* //--------------------ORDER TICKET ---------------------- */}
         <div className='col colcolor'>
           <h2 className='frcc'>Order</h2>
-          <Order order={order} submitOrder={submitOrder} />
+          <Order order={order} submitOrder={submitOrder} editOrder={handleEdit}/>
         </div>
 
       </div>
@@ -370,28 +375,6 @@ export default function Menu({openTableNum, data}) {
           reactPortal />
         }
 
-
-        
-
-        {jason &&
-        <div>
-          <h2>Json que se envia a la API</h2>
-          <p>id dinamico</p>
-          <p>date time</p>
-          <p>waiter name</p>
-          <pre>{JSON.stringify(jason,null,1)}</pre>
-          <h2>cocina y barra se conectan a la API y reciben respectivamente:</h2>
-          <div className='row'>
-            <div className='col colcolor'>
-              <pre>{JSON.stringify([jason[0],jason[1]],null,1)}</pre>
-            </div>
-            <div className='col colcolor'>
-            <pre>{JSON.stringify([jason[0],jason[2]],null,1)}</pre>
-            </div>
-
-          </div>
-        </div>
-        }
     </div>
   )
 }

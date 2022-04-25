@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import Formallergens from '../../components/FormAllergens/FormAllergens'
-import Item from '../../components/Item/Item'
-import Modal from '../../components/Modal/Modal'
-import Order from '../../components/Order/Order'
-import menuJson from '../../data/menu.json'
-import { postOrder } from '../../services/OrderService'
+import { useNavigate }    from 'react-router-dom'
+import { postOrder }      from '../../services/OrderService'
+import { useAuthContext } from '../../contexts/AuthContext'
 import './TakeOrder.scss'
-
+import Formallergens from '../FormAllergens/FormAllergens'
+import Item          from '../Item/Item'
+import Modal         from '../Modal/Modal'
+import Order         from '../Order/Order'
+import menuJson      from '../../data/menu.json'
 
 const cleanList = (originalList) =>{
   const cleanedList = originalList.map(element => {
@@ -19,26 +20,53 @@ const cleanList = (originalList) =>{
 }
 
 
-export default function Menu() {
+export default function Menu({openTableNum, data}) {
+  // console.log(openTableNum)
+  const navigate = useNavigate()
+  const { user } = useAuthContext()
   
   const list = [...menuJson]            // list we use for the menu
   const listLight = cleanList(list)     // list we use for the order
-
-  const [foodOrder, setFoodOrder]= useState([])
-  const [drinkOrder, setDrinkOrder]= useState([])
-  const [tableInfo,setTableInfo]= useState({"table":0, "people":0 , "urgent":false, "takeAway":false})
+  
+  const [tableInfo,setTableInfo] = useState(
+    {
+      "table":openTableNum , 
+      "people": 0, 
+      "urgent":false, 
+      "takeAway":false, 
+      "waiter":user.name
+    });
+    
+  const [foodOrder, setFoodOrder] = useState([])
+  const [drinkOrder,setDrinkOrder]= useState([])
   const [order, setOrder] = useState([{tableInfo:tableInfo},{food:foodOrder},{drink:drinkOrder}])
   const FoodAndDrink = [...order[1].food, ...order[2].drink]
 
   useEffect(() => {
+    if (data){
+      setTableInfo(data.tableInfo)
+      setFoodOrder(data.food)
+      setDrinkOrder(data.drink)
+    }
+  }, [data]);
+  // console.log(order);
+
+  useEffect(() => {
+    setTableInfo((prevState) => ({
+        ...prevState,
+        "table":openTableNum
+      }));
+  }, [openTableNum]);
+
+  useEffect(() => {
     setOrder([
-      
       {tableInfo:tableInfo},
       {food:foodOrder.sort((a, b) => a.course - b.course)},
       {drink:drinkOrder.sort((a, b) => a.course - b.course)}])
   }, [foodOrder,drinkOrder,tableInfo]);
 
   // Table info
+  const [table, setTable]= useState(openTableNum)
   const [urgentTk, setUrgentTk]= useState(false)
   const [takeAway, setTakeAway]= useState(false)
 
@@ -102,8 +130,8 @@ export default function Menu() {
         setFoodOrder(newOrder)
       }
       if (currentQuantity === 1){
-        newOrder[itemIndex].quantity = 0
-        setFoodOrder(newOrder.filter(item => item.id !== itemId))
+        newOrder.splice(itemIndex,1)
+        setFoodOrder(newOrder)
       }
     }
     if (type === "drink"){
@@ -116,8 +144,8 @@ export default function Menu() {
         setDrinkOrder(newOrder)
       }
       if (currentQuantity === 1){
-        newOrder[itemIndex].quantity = 0
-        setDrinkOrder(newOrder.filter(item => item.id !== itemId))
+        newOrder.splice(itemIndex,1)
+        setDrinkOrder(newOrder)
       }
     }
   }
@@ -168,7 +196,6 @@ export default function Menu() {
   }
   //---------------------CHANGE COURSE---------------------------
   const changeCourse = (type,itemId,course) => {
-    console.log("course",type,course)
     if (type === "food"){
       const itemIndex = foodOrder.findIndex(item => item.id === itemId)
  
@@ -198,6 +225,7 @@ export default function Menu() {
   const handleChange = (e) => {
     const { name , value } = e.target
 
+    setTable(e.value)
     setTableInfo(prevState => ({
       ...prevState,
       [name] : Number(value)
@@ -220,17 +248,18 @@ export default function Menu() {
     }))
   }
 
-  //---------------------   json ---------------------------
+  //---------------------   SUBMIT ---------------------------
   const [jason,setjason]= useState()
+
   const submitOrder = (renderedList) => {
     // convert the array to object
     const order = Object.assign({}, ...renderedList)
     setjason(order)// display json
-
-    // duda  JSON.stringify
     postOrder(order)
-    .then(()=> console.log("dentro el then"))
-    .catch(()=> console.log("hay un error"))
+    .then(()=> {
+      navigate('/tables', { state: order.tableInfo.table})
+    })
+    .catch((err)=> console.log(err))
   }
 
 
@@ -252,7 +281,7 @@ export default function Menu() {
             <img src="images/table_icon_125938.png" alt="table" className='imgTable'/>
             <input className='inputNumbers' type="number" min={0}
               name="table"
-              placeholder={0}
+              placeholder={tableInfo.table}
               onChange={handleChange}
             />
             <i className="fas fa-users"></i>

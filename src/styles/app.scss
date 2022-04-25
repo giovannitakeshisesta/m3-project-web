@@ -39,18 +39,43 @@ p{
 
 /* ----------------------COMANDA------------------------- */
 .ticket1{
-    background-color: rgb(187, 247, 237);
-    width: 40vw;
+    background-color: rgba(220, 246, 241,0.6);
+    width: 100%;
     border-radius: 10px;
     padding: 0 20px;
     margin: 5px;
 
 
-    .ticketBody{
+    .ticketHeader{
         display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        border-bottom: 1px solid rgb(189, 187, 187);
+        margin-bottom: 10px;
+
+        .fa-exclamation-circle{
+            font-size: 25px;
+        }
+
+        .imgTable{
+            height: 40px;
+        }
+        .fa-users{
+            font-size: 20px;
+        }
+        .fa-bicycle{
+            font-size: 25px;
+            margin-left: 15px;
+        }
+
+    }
+    .ticketBody{
+    
         .ticketMessage{
             color: green;
-            max-width: 50%;
+            max-width: 80%;
+            text-align: end;
             word-break: break-word;
             white-space: pre-wrap;
             margin-left: auto;
@@ -61,16 +86,54 @@ p{
         padding: 5px 0;
 
         margin-top: 10px;
-        border-top: 1px solid black;
+        border-top: 1px solid rgb(189, 187, 187);
 
         .ticketTimeDay{
             display: flex;
             align-items: center;
             justify-content: space-between;
+
+            margin-bottom: 3px;
             .ticketTime{
                 display: flex;
                 align-items: center;
             }
         }
     }
+}
+
+
+/* ----------------------TABLE------------------------- */
+.tablesBtnDiv{
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .tableBtn{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+    
+        background-color: #34B187;
+        margin: 5px;
+    
+        
+        color: white;
+        font-size: 35px;
+        
+    }
+}
+
+
+.tableTicketDiv{
+    width: 50vw;
+    margin-top: 20px;
+}
+.tableMenuOrder{
+    width: 90vw;
 }

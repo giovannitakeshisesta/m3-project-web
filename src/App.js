@@ -14,9 +14,9 @@ import Home from "./views/Home/Home";
 import Drag from "./views/Drag/Drag";
 import KitchenWall from "./views/KitchenWall/KitchenWall";
 import Tables from "./views/Tables/Tables";
-import TakeOrder from "./views/TakeOrder/TakeOrder";
+import TakeOrder from "./components/TakeOrder/TakeOrder";
 import UserDetails from "./Users/User.Details";
-import Comanda from "./views/Comanda/Comanda";
+import Todo from "./views/Todo";
 
 
 function App() {
@@ -35,9 +35,9 @@ function App() {
             <Route path="drag"         element={<Drag />} />
             <Route path="drag"         element={<Drag />} />
             <Route path="KitchenWall"  element={<KitchenWall />} />
-            <Route path="tables"       element={<Tables />} />
             <Route path="takeOrder"    element={<TakeOrder />} />
-            <Route path="comanda"      element={<Comanda />} />
+            <Route path="todo"         element={<Todo />} />
+            <Route path="tables"       element={<Tables />} />
 
             <Route path="register"     element={<Register />} />
             <Route path="login"        element={<Login />} />
@@ -46,6 +46,7 @@ function App() {
               <Route path="profile"    element={<Profile />} />
               <Route path="favourites" element={<Favourites />} />
               <Route path="users/:id"  element={<UserDetails/>} />
+              
 
             </Route>
           </Routes>

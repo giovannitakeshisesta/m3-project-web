@@ -11,6 +11,14 @@ export default function Order({ order,submitOrder,updateOrder}) {
     const [renderedListDrink, setRenderedListDrink] = useState(drink);
     const finalOrder = [order[0],{"food": renderedListFood},{"drink": renderedListDrink}]
 
+<<<<<<< Updated upstream
+=======
+    useEffect(() => {
+        setRenderedListFood(food)
+        setRenderedListDrink(drink)
+    }, [order,food,drink]);
+
+>>>>>>> Stashed changes
     const sendInfo = (info,type) => {
       type === "food" ? setRenderedListFood(info) : setRenderedListDrink(info)
     }

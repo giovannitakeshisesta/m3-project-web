@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { getHolders }  from '../../services/OrderService';
-import Comandasingola from '../Comanda/ComandaSingola';
-import TakeOrder      from '../../views/TakeOrder/TakeOrder';
+import Comandasingola from '../../components/Ticket/Ticket';
+import TakeOrder      from '../../components/TakeOrder/TakeOrder';
 import { useLocation } from 'react-router-dom';
 
 const Tables = () => {
@@ -10,7 +10,7 @@ const Tables = () => {
     const [allOrdersArr, setAllOrdersArr]  =useState([])   // all the orders from the API
     const [occupiedTbArr, setOccupiedTbArr]=useState([])   // occupied tables
     const [tableOrder, setTableOrder]=useState()           // order of the table
-    const [openTableNum, setOpenTableNum]  =useState(false)      // open the table and show take order component
+    const [openTableNum, setOpenTableNum]  =useState(false)// open the table and show take order component
         
     // set the allOrders Array & occupied Tables Array
     useEffect(() => {
@@ -50,8 +50,6 @@ const Tables = () => {
         }
     },[allOrdersArr, isOkk])
 
-    console.log(occupiedTbArr,location.state);
-
 
     return (
         <div className='fccc'>
@@ -76,7 +74,9 @@ const Tables = () => {
                 <div className='tableTicketDiv'>
                 <Comandasingola {...tableOrder}/>
                 </div>
-                <button className='btn btn-warning' >
+                <button className='btn btn-warning' 
+                    onClick={()=> setOpenTableNum(tableOrder.tableInfo.table)}
+                >
                     update
                 </button>
                 </>
@@ -85,7 +85,7 @@ const Tables = () => {
             {/* if the table is not occupied => show the take order component*/}
             {openTableNum &&
                 <div className='tableMenuOrder'>
-                <TakeOrder openTableNum={openTableNum} />
+                <TakeOrder openTableNum={openTableNum} data={tableOrder}/>
                 </div>
             }
         </div>

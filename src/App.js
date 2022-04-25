@@ -14,7 +14,7 @@ import Home from "./views/Home/Home";
 import Drag from "./views/Drag/Drag";
 import KitchenWall from "./views/KitchenWall/KitchenWall";
 import Tables from "./views/Tables/Tables";
-import TakeOrder from "./views/TakeOrder/TakeOrder";
+import TakeOrder from "./components/TakeOrder/TakeOrder";
 import UserDetails from "./Users/User.Details";
 import Todo from "./views/Todo";
 

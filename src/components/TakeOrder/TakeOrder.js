@@ -3,10 +3,10 @@ import { useNavigate }    from 'react-router-dom'
 import { postOrder }      from '../../services/OrderService'
 import { useAuthContext } from '../../contexts/AuthContext'
 import './TakeOrder.scss'
-import Formallergens from '../../components/FormAllergens/FormAllergens'
-import Item          from '../../components/Item/Item'
-import Modal         from '../../components/Modal/Modal'
-import Order         from '../../components/Order/Order'
+import Formallergens from '../FormAllergens/FormAllergens'
+import Item          from '../Item/Item'
+import Modal         from '../Modal/Modal'
+import Order         from '../Order/Order'
 import menuJson      from '../../data/menu.json'
 
 const cleanList = (originalList) =>{
@@ -20,7 +20,7 @@ const cleanList = (originalList) =>{
 }
 
 
-export default function Menu({openTableNum}) {
+export default function Menu({openTableNum, data}) {
   // console.log(openTableNum)
   const navigate = useNavigate()
   const { user } = useAuthContext()
@@ -41,6 +41,15 @@ export default function Menu({openTableNum}) {
   const [drinkOrder,setDrinkOrder]= useState([])
   const [order, setOrder] = useState([{tableInfo:tableInfo},{food:foodOrder},{drink:drinkOrder}])
   const FoodAndDrink = [...order[1].food, ...order[2].drink]
+
+  useEffect(() => {
+    if (data){
+      setTableInfo(data.tableInfo)
+      setFoodOrder(data.food)
+      setDrinkOrder(data.drink)
+    }
+  }, [data]);
+  // console.log(order);
 
   useEffect(() => {
     setTableInfo((prevState) => ({
@@ -121,8 +130,8 @@ export default function Menu({openTableNum}) {
         setFoodOrder(newOrder)
       }
       if (currentQuantity === 1){
-        newOrder[itemIndex].quantity = 0
-        setFoodOrder(newOrder.filter(item => item.id !== itemId))
+        newOrder.splice(itemIndex,1)
+        setFoodOrder(newOrder)
       }
     }
     if (type === "drink"){
@@ -135,8 +144,8 @@ export default function Menu({openTableNum}) {
         setDrinkOrder(newOrder)
       }
       if (currentQuantity === 1){
-        newOrder[itemIndex].quantity = 0
-        setDrinkOrder(newOrder.filter(item => item.id !== itemId))
+        newOrder.splice(itemIndex,1)
+        setDrinkOrder(newOrder)
       }
     }
   }
@@ -248,7 +257,6 @@ export default function Menu({openTableNum}) {
     setjason(order)// display json
     postOrder(order)
     .then(()=> {
-      // console.log(order.tableInfo.table)
       navigate('/tables', { state: order.tableInfo.table})
     })
     .catch((err)=> console.log(err))

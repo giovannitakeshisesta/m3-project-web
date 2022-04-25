@@ -3,7 +3,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 import "./KitchenWall.scss";
 import { getHolders, getOrders, putHolders } from '../../services/OrderService';
-import Comandasingola from "../Comanda/ComandaSingola";
+import Comandasingola from "../../components/Ticket/Ticket";
 
 const holdersInitialState = {
   hold1: {
@@ -125,8 +125,8 @@ const KitchenWall = () => {
                         {holder.items.map((ticket, index) => {
                           return (
                             <Draggable
-                              key={String(ticket.tableInfo.table)}
-                              draggableId={String(ticket.tableInfo.table)}
+                              key={String(ticket._id)}
+                              draggableId={String(ticket._id)}
                               index={index}
                             >
                               {(provided, snapshot) => {

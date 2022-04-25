@@ -2,8 +2,8 @@ import React from 'react';
 
 const Comandasingola = ({tableInfo,food,drink,createdAt}) => {
     const {people, table, urgent, takeAway, waiter } = tableInfo;
-    // const time = createdAt.substring(11,16);
-    // const day = createdAt.substring(0,10);
+    const time = createdAt.substring(11,16);
+    const day = createdAt.substring(0,10);
 
     return (
     <div className='ticket1'>
@@ -65,9 +65,9 @@ const Comandasingola = ({tableInfo,food,drink,createdAt}) => {
             <div className='ticketTimeDay'>
                 <div className='ticketTime'>
                     <i className="far fa-clock"></i>
-                    {/* <p>{time} </p> */}
+                    <p>{time} </p>
                 </div>
-                {/* <p>{day}</p> */}
+                <p>{day}</p>
             </div>   
             <div>
                 <p>Waiter: {waiter} </p>

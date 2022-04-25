@@ -17,6 +17,7 @@ import Tables from "./views/Tables/Tables";
 import TakeOrder from "./components/TakeOrder/TakeOrder";
 import UserDetails from "./Users/User.Details";
 import Todo from "./views/Todo";
+import FormMenu from "./views/FormMenu/FormMenu";
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
             <Route path="takeOrder"    element={<TakeOrder />} />
             <Route path="todo"         element={<Todo />} />
             <Route path="tables"       element={<Tables />} />
+            <Route path="menuForm"     element={<FormMenu />} />
 
             <Route path="register"     element={<Register />} />
             <Route path="login"        element={<Login />} />

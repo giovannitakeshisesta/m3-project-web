@@ -82,12 +82,12 @@ const Navbar = () => {
                     Tables
                   </NavLink>
                 </li>
-                {/* <li className="nav-item">
+                <li className="nav-item">
                   <NavLink className="nav-link"  
-                    to="/takeOrder">
-                    Take Order
+                    to="/menuForm">
+                    menuForm
                   </NavLink>
-                </li> */}
+                </li>
 
                 <li className="nav-link" onClick={logout}>
                    Logout                  

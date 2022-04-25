@@ -49,6 +49,26 @@ const Navbar = () => {
                   </NavLink>
                 </li>
 
+
+      
+              </>
+            ) : (   
+              <>
+              {/* ----  SHOW WHEN IS LOGGED IN   ---- */}
+                {/* <li className="nav-item">
+                  <NavLink className="nav-link"  
+                    to="/profile"> 
+                    Profile
+                  </NavLink>
+                </li>
+
+                <li className="nav-item">
+                  <NavLink className="nav-link"
+                    to="/favourites" > 
+                    Favourites
+                  </NavLink>
+                </li> */}
+
                 <li className="nav-item">
                   <NavLink className="nav-link"  
                     to="/KitchenWall">
@@ -62,40 +82,21 @@ const Navbar = () => {
                     Tables
                   </NavLink>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <NavLink className="nav-link"  
                     to="/takeOrder">
                     Take Order
                   </NavLink>
+                </li> */}
+
+                <li className="nav-link" onClick={logout}>
+                   Logout                  
                 </li>
                 <li className="nav-item">
                   <NavLink className="nav-link"  
-                    to="/comanda">
-                    pinta las comandas
+                    to="/todo">
+                    to do 
                   </NavLink>
-                </li>
-              </>
-            ) : (   
-              <>
-              {/* ----  SHOW WHEN IS LOGGED IN   ---- */}
-                <li className="nav-item">
-                  <NavLink className="nav-link"  
-                    to="/profile"> 
-                    Profile
-                  </NavLink>
-                </li>
-
-                <li className="nav-item">
-                  <NavLink className="nav-link"
-                    to="/favourites" > 
-                    Favourites
-                  </NavLink>
-                </li>
-
-                <li className="nav-item">
-                  <button onClick={logout}>
-                   Logout
-                  </button>
                 </li>
 
               </>

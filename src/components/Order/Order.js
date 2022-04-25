@@ -1,26 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Order.scss"
 import OrderDrag from "./OrderDrag";
 
-export default function Order({ order,submitOrder,updateOrder}) {
+export default function Order({ order,submitOrder}) {
     const food = order[1].food;
     const drink = order[2].drink;
-    const {people, table, urgent, takeAway } = order[0].tableInfo
+    const {people, table, urgent, takeAway, waiter } = order[0].tableInfo
 
     const [renderedListFood, setRenderedListFood]   = useState(food);
     const [renderedListDrink, setRenderedListDrink] = useState(drink);
     const finalOrder = [order[0],{"food": renderedListFood},{"drink": renderedListDrink}]
 
+    useEffect(() => {
+        setRenderedListFood(food)
+        setRenderedListDrink(drink)
+    }, [order]);
+
     const sendInfo = (info,type) => {
       type === "food" ? setRenderedListFood(info) : setRenderedListDrink(info)
     }
-    
     const calculateBill = (type) => {
         return type.reduce((acc, item) => {
         acc += item.price * item.quantity;
         return acc;
         }, 0);
     };
+
     return (
     <div>
         {/* ------------------------TABLE INFO------------------------ */}
@@ -57,16 +62,17 @@ export default function Order({ order,submitOrder,updateOrder}) {
         {/* ------------------------ FOOTER ----------------------- */}
         <hr />
         <div className="frcb">
-            <p>waiter :</p>
+            <p>waiter :{waiter}</p>
             <p>Total : {calculateBill(food) + calculateBill(drink)}€</p>
         </div> 
-        {finalOrder[1].food.length > 0 &&
-        
+
+        {finalOrder[1].food.length > 0 || finalOrder[2].drink.length > 0 ?
         <button 
             onClick={()=>submitOrder(finalOrder)} 
             className='submitOrder btn'>send
         </button>
-        }
+        : null
+        } 
 
         {/* condizioni array vacio */}
     </div>

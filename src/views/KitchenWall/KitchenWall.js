@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 import "./KitchenWall.scss";
-import allTheTikets from "../../data/orders.json";
-import Ticket from "../../components/Tickets/Ticket";
+import { getHolders, getOrders, putHolders } from '../../services/OrderService';
+import Comandasingola from "../../components/Ticket/Ticket";
 
-const allTheTicketHolders = {
+const holdersInitialState = {
   hold1: {
     name: "Incoming Tickets",
-    items: allTheTikets,
+    items: [],
   },
   hold2: {
     name: "First Course",
@@ -22,67 +22,92 @@ const allTheTicketHolders = {
     name: "Done",
     items: [],
   },
-};
+}; 
 
-const onDragEnd = (result, holders, setHolders) => {
-  if (!result.destination) return;
-  const { source, destination } = result;
-
-  if (source.droppableId !== destination.droppableId) {
-    const sourceHolder = holders[source.droppableId];
-    const destHolder = holders[destination.droppableId];
-    const sourceItems = [...sourceHolder.items];
-    const destItems = [...destHolder.items];
-
-    const [removed] = sourceItems.splice(source.index, 1);
-    destItems.splice(destination.index, 0, removed);
-
-    setHolders({
-      ...holders,
-      [source.droppableId]: {
-        ...sourceHolder,
-        items: sourceItems,
-      },
-      [destination.droppableId]: {
-        ...destHolder,
-        items: destItems,
-      },
-    });
-
-  } else {
-
-    const holder = holders[source.droppableId];
-    const copiedItems = [...holder.items];
-    const [removed] = copiedItems.splice(source.index, 1);
-    
-    copiedItems.splice(destination.index, 0, removed);
-    setHolders({
-      ...holders,
-      [source.droppableId]: {
-        ...holder,
-        items: copiedItems,
-      },
-    });
-  }
-};
 
 const KitchenWall = () => {
-  const [holders, setHolders] = useState(allTheTicketHolders);
-  console.log(holders);
+  const [holders, setHolders] = useState(holdersInitialState);
+  // get holders from api, store them in holders
+  useEffect(() => {
+    getHolders()
+    .then(response => {
+      const { hold1, hold2, hold3, hold4 } = response[0];
+      setHolders({hold1, hold2, hold3, hold4})
+    })
+    .catch(err => console.log(err))
+  }, []);
 
+  const prevHoldersRef = useRef();
+
+  useEffect(() => {
+    if (prevHoldersRef.current) {  
+      putHolders(holders)
+        .then(()=> console.log("updating"))
+        .catch(() => {
+          setHolders(prevHoldersRef.current);
+        });
+    }
+  }, [holders]);
+  
+
+  const onDragEnd = (result, holders, setHolders) => {
+    if (!result.destination) return;
+    const { source, destination } = result;
+    
+    //if drag in other holders 
+    if (source.droppableId !== destination.droppableId) {
+      const sourceHolder = holders[source.droppableId];
+      const destHolder = holders[destination.droppableId];
+      const sourceItems = [...sourceHolder.items];
+      const destItems = [...destHolder.items];
+  
+      const [removed] = sourceItems.splice(source.index, 1);
+      destItems.splice(destination.index, 0, removed);
+
+      prevHoldersRef.current = holders;
+      setHolders({
+        ...holders,
+        [source.droppableId]: {
+          ...sourceHolder,
+          items: sourceItems,
+        },
+        [destination.droppableId]: {
+          ...destHolder,
+          items: destItems,
+        },
+      });
+    } 
+    else {
+      //if drag in the same position,same holder
+      const holder = holders[source.droppableId];
+      const copiedItems = [...holder.items];
+      const [removed] = copiedItems.splice(source.index, 1);
+      copiedItems.splice(destination.index, 0, removed);
+
+      prevHoldersRef.current = holders;
+      setHolders({
+        ...holders,
+        [source.droppableId]: {
+          ...holder,
+          items: copiedItems,
+        },
+      });
+    }
+  };
+    
   return (
     <div>
       <DragDropContext
         onDragEnd={(result) => onDragEnd(result, holders, setHolders)}
       >
-        {Object.entries(holders).map(([holderId, holder], index) => {
+        {Object.entries(holders).map(([holdX, holder]) => {
           return (
-            <div key={holderId} className="titleAndBar">
+            <div key={holdX} className="titleAndBar">
               <h2>{holder.name}</h2>
               <>
                 <Droppable
-                  droppableId={holderId}
-                  key={holderId}
+                  droppableId={holdX}
+                  key={holdX}
                   direction="horizontal"
                 >
                   {(provided, snapshot) => {
@@ -100,8 +125,8 @@ const KitchenWall = () => {
                         {holder.items.map((ticket, index) => {
                           return (
                             <Draggable
-                              key={ticket.id}
-                              draggableId={ticket.id}
+                              key={String(ticket._id)}
+                              draggableId={String(ticket._id)}
                               index={index}
                             >
                               {(provided, snapshot) => {
@@ -110,16 +135,16 @@ const KitchenWall = () => {
                                     ref={provided.innerRef}
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
-                                    className="ticket"
+                                    className=""
                                     style={{
                                       backgroundColor: snapshot.isDragging
                                         ? "#263B4A"
-                                        : "#456C86",
-                                      color: "white",
+                                        : "rgba(210, 210, 210,0.4)",
+                                      
                                       ...provided.draggableProps.style,
                                     }}
                                   >
-                                    <Ticket {...ticket}/>
+                                  <Comandasingola {...ticket}/>
                                   </div>
                                 );
                               }}
@@ -135,7 +160,7 @@ const KitchenWall = () => {
             </div>
           );
         })}
-      </DragDropContext>
+      </DragDropContext> 
     </div>
   );
 };

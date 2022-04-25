@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { getHolders }  from '../../services/OrderService';
-import Comandasingola from '../../components/Ticket/Ticket';
+import Ticket from '../../components/Ticket/Ticket';
 import TakeOrder      from '../../components/TakeOrder/TakeOrder';
 import { useLocation } from 'react-router-dom';
 
@@ -9,8 +9,9 @@ const Tables = () => {
     const arrTablesBtn = [1,2,3,4,5,6,7,8,9,10]
     const [allOrdersArr, setAllOrdersArr]  =useState([])   // all the orders from the API
     const [occupiedTbArr, setOccupiedTbArr]=useState([])   // occupied tables
-    const [tableOrder, setTableOrder]=useState()           // order of the table
+    const [tableOrder, setTableOrder]=useState([])           // order of the table
     const [openTableNum, setOpenTableNum]  =useState(false)// open the table and show take order component
+    const [newOrder,setNewOrder]= useState(false)
         
     // set the allOrders Array & occupied Tables Array
     useEffect(() => {
@@ -28,7 +29,6 @@ const Tables = () => {
         .catch(err => console.log(err))
 
         if (location.state){
-            console.log("dentro location if")
             goToTable(location.state)
         }
     }, [location.state]);
@@ -44,12 +44,17 @@ const Tables = () => {
         setTableOrder(false);
         
         if (isOkk(num)){
-            setTableOrder(allOrdersArr.find(el => el.tableInfo.table === num))
+            setTableOrder(allOrdersArr.filter(el => el.tableInfo.table === num))
         } else {
             setOpenTableNum(num); 
         }
     },[allOrdersArr, isOkk])
 
+    const editTableId = (table,id) => {
+        setOpenTableNum(table)
+        setTableOrder(allOrdersArr.find(el => el._id === id))
+    }
+    console.log();
 
     return (
         <div className='fccc'>
@@ -69,23 +74,37 @@ const Tables = () => {
             </div>
 
             {/*  if the table is occupied => show the order */}
-            {tableOrder && 
+            {tableOrder.length>0 && 
                 <>
                 <div className='tableTicketDiv'>
-                <Comandasingola {...tableOrder}/>
+                {
+                    tableOrder.map(ticket => {
+                        return (
+                            <Ticket key={ticket._id} {...ticket} editTableId={editTableId}/>
+                        )
+                    })
+                }
                 </div>
                 <button className='btn btn-warning' 
-                    onClick={()=> setOpenTableNum(tableOrder.tableInfo.table)}
+                    onClick={()=> {
+                        setOpenTableNum(tableOrder[0].tableInfo.table)
+                        setNewOrder(true)
+                    }}
                 >
-                    update
+                    new order
                 </button>
                 </>
             }
 
             {/* if the table is not occupied => show the take order component*/}
-            {openTableNum &&
+            {openTableNum && !newOrder &&
                 <div className='tableMenuOrder'>
                 <TakeOrder openTableNum={openTableNum} data={tableOrder}/>
+                </div>
+            }
+            {newOrder &&
+                <div className='tableMenuOrder'>
+                <TakeOrder openTableNum={openTableNum} data={{tableInfo:tableOrder[0].tableInfo,food:[],drink:[]}}/>
                 </div>
             }
         </div>

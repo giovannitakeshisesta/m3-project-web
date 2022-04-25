@@ -84,8 +84,6 @@ export default function Order({ order,submitOrder, editOrder}) {
                 className='submitOrder btn'>send
             </button>  
         } 
-
-        {/* condizioni array vacio */}
     </div>
     );
 }

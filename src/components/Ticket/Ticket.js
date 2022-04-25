@@ -1,9 +1,19 @@
 import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { deleteOrder } from '../../services/OrderService';
 
-const Comandasingola = ({tableInfo,food,drink,createdAt}) => {
+const Ticket = ({tableInfo,food,drink,createdAt,_id,editTableId}) => {
     const {people, table, urgent, takeAway, waiter } = tableInfo;
     const time = createdAt.substring(11,16);
     const day = createdAt.substring(0,10);
+    const navigate = useNavigate()
+    let location = useLocation()
+
+    const deleteOrd = (id) => {
+        deleteOrder(id)
+        .then(()=>navigate('/KitchenWall'))
+        .catch((err) => console.log(err) )
+    }
 
     return (
     <div className='ticket1'>
@@ -73,9 +83,25 @@ const Comandasingola = ({tableInfo,food,drink,createdAt}) => {
                 <p>Waiter: {waiter} </p>
             </div>                     
         </div>
+
+        {location.pathname==='/tables' &&
+        <>
+        <button className='deleteOrderBtn'
+            onClick={()=>deleteOrd(_id) }
+        >
+            Delete
+        </button>
+
+        <button className='btn btn-warning' 
+            onClick={()=> editTableId(table,_id)}
+        >
+            update
+        </button>
+        </>
+        }
      
     </div>
     );
 }
 
-export default Comandasingola;
+export default Ticket;

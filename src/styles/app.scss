@@ -137,3 +137,39 @@ p{
 .tableMenuOrder{
     width: 90vw;
 }
+
+
+
+/* ----------------------MENU FORM------------------------- */
+.menuForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px;
+
+    background-color: #34B187;
+    width: 40vw;
+
+
+    .descriptionField{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .priceField{
+        width: 80px;
+        display: flex;
+        flex-direction: column;
+    }
+    .allergensFields{
+        width: 100%;
+        margin:5px;
+        border: 1px solid black;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+}
+

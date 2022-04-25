@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 import "./KitchenWall.scss";
-import { getHolders, getOrders, putHolders } from '../../services/OrderService';
+import { getHolders, putHolders } from '../../services/OrderService';
 import Comandasingola from "../../components/Ticket/Ticket";
 
 const holdersInitialState = {

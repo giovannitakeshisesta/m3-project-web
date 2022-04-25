@@ -66,7 +66,6 @@ export default function Menu({openTableNum, data}) {
   }, [foodOrder,drinkOrder,tableInfo]);
 
   // Table info
-  const [table, setTable]= useState(openTableNum)
   const [urgentTk, setUrgentTk]= useState(false)
   const [takeAway, setTakeAway]= useState(false)
 
@@ -225,7 +224,6 @@ export default function Menu({openTableNum, data}) {
   const handleChange = (e) => {
     const { name , value } = e.target
 
-    setTable(e.value)
     setTableInfo(prevState => ({
       ...prevState,
       [name] : Number(value)

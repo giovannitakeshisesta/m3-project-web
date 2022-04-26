@@ -31,12 +31,11 @@ export default function Menu({openTableNum, data}) {
   const [tableInfo,setTableInfo] = useState(
     {
       "table":openTableNum , 
-      "people": 0, 
+      "people": data ? data.tableInfo.people : 0, 
       "urgent":false, 
       "takeAway":false, 
       "waiter":user.name
     });
-    
   const [foodOrder, setFoodOrder] = useState([])
   const [drinkOrder,setDrinkOrder]= useState([])
   const currentOrder = {
@@ -77,7 +76,7 @@ export default function Menu({openTableNum, data}) {
   const [takeAway, setTakeAway]= useState(false)
 
 
-  // Modal descripcion
+  // Modal description
   const [modalDescription, setModalDescription] = useState(false)
   const [modalDescriptioninfo, setModalDescriptioninfo] = useState([])
 

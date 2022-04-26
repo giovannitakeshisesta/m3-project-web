@@ -32,9 +32,7 @@ const Login = () => {
 
     loginRequest(data)  // (data) => http.post('/login', data)
       .then(response => {
-        console.log(response);
-
-        login(response.access_token, () => navigate(from, { replace: true }))
+       login(response.access_token, () => navigate(from, { replace: true }))
       })
       .catch(err => {
         setError(err?.response?.data?.message)

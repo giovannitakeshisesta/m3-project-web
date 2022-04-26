@@ -1,17 +1,20 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { getHolders }  from '../../services/OrderService';
-import Ticket from '../../components/Ticket/Ticket';
-import TakeOrder      from '../../components/TakeOrder/TakeOrder';
-import { useLocation } from 'react-router-dom';
+import { useLocation }  from 'react-router-dom';
+import { getHolders }   from '../../services/OrderService';
+import Ticket           from '../../components/Ticket/Ticket';
+import TakeOrder        from '../../components/TakeOrder/TakeOrder';
+import Bill             from '../../components/Bill/Bill';
 
 const Tables = () => {
     let location = useLocation()
     const arrTablesBtn = [1,2,3,4,5,6,7,8,9,10]
     const [allOrdersArr, setAllOrdersArr]  =useState([])   // all the orders from the API
     const [occupiedTbArr, setOccupiedTbArr]=useState([])   // occupied tables
-    const [tableOrder, setTableOrder]=useState([])           // order of the table
-    const [openTableNum, setOpenTableNum]  =useState(false)// open the table and show take order component
-    const [newOrder,setNewOrder]= useState(false)
+    const [tableOrder, setTableOrder]=useState([])         // orders of the table
+    const [openTableNum, setOpenTableNum]  =useState(false)// open the table and show take order 
+    const [showTakeOrder,setShowTakeOrder]= useState(false)
+    const [showBill,setShowBill]    = useState(false)
+    const [showTicket,setShowTicket]= useState(true)
         
     // set the allOrders Array & occupied Tables Array
     useEffect(() => {
@@ -36,10 +39,12 @@ const Tables = () => {
     // function to check if the table is occupied
     const isOkk = useCallback ((val) => {return occupiedTbArr.includes(val)} , [occupiedTbArr])
     
-    // if the table is occupied => show the order
+    // when click on the table buttons, if the table is occupied => show the order
     // else open a table and show the take order component 
-    const goToTable = useCallback (
-        (num) => {
+    const goToTable = useCallback ((num) => {
+        setShowBill(false)
+        setShowTicket(true)
+        setShowTakeOrder(false)
         setOpenTableNum(false);
         setTableOrder(false);
         
@@ -50,15 +55,15 @@ const Tables = () => {
         }
     },[allOrdersArr, isOkk])
 
+    // function called from the ticket edit button
     const editTableId = (table,id) => {
         setOpenTableNum(table)
         setTableOrder(allOrdersArr.find(el => el._id === id))
     }
-    console.log();
 
     return (
         <div className='fccc'>
-       
+            {/* ------------- BUTTONS ------------- */}
             <div className='tablesBtnDiv'>
                 {arrTablesBtn.map(tableBtn => {
                     return (
@@ -73,8 +78,8 @@ const Tables = () => {
                 })}
             </div>
 
-            {/*  if the table is occupied => show the order */}
-            {tableOrder.length>0 && 
+            {/*  if there are orders for the table => show the tickets */}
+            {tableOrder.length > 0 && showTicket &&
                 <>
                 <div className='tableTicketDiv'>
                 {
@@ -85,26 +90,38 @@ const Tables = () => {
                     })
                 }
                 </div>
+                
                 <button className='btn btn-warning' 
                     onClick={()=> {
                         setOpenTableNum(tableOrder[0].tableInfo.table)
-                        setNewOrder(true)
+                        setShowTakeOrder(true)
+                        setShowTicket(false)
                     }}
                 >
                     new order
                 </button>
+                <button onClick={()=> { 
+                    setShowTicket(false)
+                    setShowBill(true) 
+                    }}>Bill</button>
                 </>
             }
 
             {/* if the table is not occupied => show the take order component*/}
-            {openTableNum && !newOrder &&
+            {openTableNum && !showTakeOrder &&
                 <div className='tableMenuOrder'>
                 <TakeOrder openTableNum={openTableNum} data={tableOrder}/>
                 </div>
             }
-            {newOrder &&
+            {showTakeOrder &&
                 <div className='tableMenuOrder'>
                 <TakeOrder openTableNum={openTableNum} data={{tableInfo:tableOrder[0].tableInfo,food:[],drink:[]}}/>
+                </div>
+            }
+
+            {showBill &&
+                <div className='tableMenuOrder'>
+                <Bill tableOrder={tableOrder}/>
                 </div>
             }
         </div>

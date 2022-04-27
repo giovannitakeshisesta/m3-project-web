@@ -49,14 +49,24 @@ export default function OrderDrag({list,sendInfo}) {
                     {...provided.dragHandleProps}
                     >
                       {item && (
+                        <>
                         <div className="d-flex">
-                        <p className="itemOrderQty"
-                          style={{display: item.id === "6"||item.id ==="7" ? "none":null}}
-                        >{item.quantity}</p>
-                        <p >{item.name}</p>
-                        <p style={{display: item.id === "6"||item.id ==="7" ? "none":null}}>---{item.course}--</p>
-                        <p className="itemOrderMsg">{item.message}</p>
+                          <p className="itemOrderQty"
+                              style={{display: item.id === "6"||item.id ==="7" ? "none":null}}>
+                              {item.quantity}
+                          </p>
+                          
+                          <p >{item.name}</p>
+
+                          <p 
+                          // style={{display: item.id === "6"||item.id ==="7" ? "none":null}}
+                          >
+                            ---{item.course}---
+                          </p>
+                          
                         </div>
+                        <p className="itemOrderMsg">{item.message}</p>
+                        </>
                       )}
                     </li>
                   )}

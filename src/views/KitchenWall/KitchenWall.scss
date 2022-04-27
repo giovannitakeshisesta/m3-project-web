@@ -24,14 +24,13 @@
     /* justify-content: space-around; */
 }
 
-.ticket{
-    user-select: none;
-    padding: 10px 5px 0 5px;
-    margin: 2px;
-    width: 250px;
+.ticketDraggable{
+    background-color: red;
+    width: 25vw;
 }
 
 /* -----------------TICKET.JS------------------------ */
+
 i{
     margin: 0 5px 0 5px;
 }

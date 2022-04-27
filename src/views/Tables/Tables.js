@@ -34,6 +34,7 @@ const Tables = () => {
         if (location.state){
             goToTable(location.state)
         }
+
     }, [location.state]);
 
     // function to check if the table is occupied

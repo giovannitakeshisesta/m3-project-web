@@ -37,7 +37,7 @@ p{
 
 
 
-/* ----------------------COMANDA------------------------- */
+/* -----------KITCHENWALL TICKET-------------- */
 .ticket1{
     background-color: rgba(220, 246, 241,0.6);
     width: 100%;
@@ -74,11 +74,13 @@ p{
     
         .ticketMessage{
             color: green;
-            max-width: 80%;
+            max-width: 95%;
+            line-height: 13px;
             text-align: end;
             word-break: break-word;
             white-space: pre-wrap;
             margin-left: auto;
+            margin-bottom: 3px;
         }
     }
 
@@ -173,115 +175,95 @@ p{
     }
 }
 
-/* ----------------------BILL TOTAL------------------------- */
-.bill{
+
+
+
+
+/* ----------------- BILL VIEW --------------- */
+.billMainView{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-
-.billTotal{
-    width: 50%;
-    background-color: #b5e7d6;
-    padding: 15px 30px;
-    margin: 10px;
-
-    .billHeader{
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        border-bottom: 1px solid grey;
-    }
-
-    .billOrder{
-        display: flex;
-        justify-content: space-between;
-        margin-top: 10px;
-
-        .billItems{
-            display: flex;
-
-            .billQuantity{
-                margin-right: 10px;
-            }
-            .billName{
-                // width: 30%;
-            }
-            .billPrice{
-                // width: 10%;
-            }
-
-        }
-    }
-
-    .billFooter{
-        border-top: 1px solid grey;
-        margin-top: 10px;
-
-        .waiterTotal{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 10px 0 15px;
-        }
-
-        .xperson{
-            text-align: right;
-        }
-    }
-}
-
-
-/* ----------------------BILL SPLIT------------------------- */
-
-
 .splitRow{
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-around;
+    background-color: rgb(160, 67, 17);
 }
 .splitLeft{
     width: 48%;
     height: 50vw;
-    background-color: rgb(209, 225, 220);
-    padding: 20px;
-
-    .billHeader{
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        border-bottom: 1px solid grey;
-    }
-    .billOrderSplit{
-        display: flex;
-        justify-content: space-between;
-        margin-top: 10px;
-    
-        .billItems{
-            display: flex;
-            
-    
-            .billQuantity{
-                margin-right: 10px;
-            }
-    
-        }
-    }
-
-    .billFooter{
-        border-top: 1px solid grey;
-        margin-top: 10px;
-        padding: 10px 0 ;
-    }
-
+    background-color: rgb(17, 160, 115);
 }
-
-
-
 .splitRight{
     width: 48%;
     height: 50vw;
     background-color: rgb(222, 223, 231);
 }
+.staticBillDiv{
+    width: 60%;
+}
+.billTicketDiv{
+    width: 95%;
+}
+/* -------------PAID BILLS------------ */
+.paidBills{
+    width: 50%;
+}
+
+/* ---------  BILL TICKET COMPONENT --------- */
+.billTotal{
+    width: 100%;
+    background-color: #b5e7d6;
+    padding: 15px 30px;
+    margin: 10px;
+}
+
+.billHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom: 1px solid grey;
+}
+
+.billBody{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+
+    .billItems{
+        display: flex;
+
+        .billQuantity{
+            margin-right: 10px;
+        }
+    }
+}
+
+.billFooter{
+    border-top: 1px solid grey;
+    margin-top: 10px;
+
+    .waiterTotal{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 10px 0 15px;
+    }
+
+    .xperson{
+        text-align: right;
+    }
+}
+
+
+.arrowBtnsBill{
+    display: flex;
+    align-items: center;
+}
+
+
+

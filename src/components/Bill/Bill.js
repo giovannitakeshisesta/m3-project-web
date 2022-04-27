@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import Splitpayment from './SplitPayment';
-import TotalBill from './TotalBill';
+import BillTicket from './BillTicket';
 
 const calculateBill = (arr) => {
     return arr.reduce((acc, item) => {
@@ -10,10 +9,10 @@ const calculateBill = (arr) => {
 };
 
 const Bill = ({tableOrder}) => {
-    
     const [showTotalBill, setShowTotalBill]= useState(false)
     const [showSplitPayment, setShowSplitPayment]= useState(true)
 
+    // table orders details
     const tableInfo = tableOrder[0].tableInfo
     const foodTotArr = []
     const drinkTotArr = []
@@ -21,9 +20,11 @@ const Bill = ({tableOrder}) => {
             foodTotArr.push(...tick.food); drinkTotArr.push(...tick.drink)
         })
     const foodANDdrink = [...foodTotArr,...drinkTotArr]
-    console.log("foodANDdrink",foodANDdrink);
+
+    // variables for the partial payment
     const copyFoodAndDrink = JSON.parse(JSON.stringify(foodANDdrink))
     const copyFoodAndDrinkReset = copyFoodAndDrink.map(obj => {return {...obj, quantity:0}});
+
     const [currentFad,setCurrentFad]=useState(JSON.parse(JSON.stringify(foodANDdrink)))
     const [restToPay, setRestToPay] =useState(JSON.parse(JSON.stringify(foodANDdrink)))
 
@@ -31,7 +32,7 @@ const Bill = ({tableOrder}) => {
     const [paidBills, setPaidBills] =useState([])
     
 
-    
+    // function => rest 1 to the order, add 1 to the current payment
     const editQty = (index) => {
         let newCurrentFad   = [...currentFad ]
         let newCurrentBill  = [...currentBill ]
@@ -44,6 +45,7 @@ const Bill = ({tableOrder}) => {
         }
     }
 
+    // function => add 1 to the order, rest 1 to the current payment
     const editQtyReverse = (index) => {
         let newCurrentFad   = [...currentFad ]
         let newCurrentBill  = [...currentBill ]
@@ -57,8 +59,10 @@ const Bill = ({tableOrder}) => {
         }
     }
 
-    const partialPay = () => {
-        console.log("dentro partial");
+    // function => store the current payment in an array,
+    // sets the new rest to pay
+    // reset the current payment
+    const partialPayBtn = () => {
         const newRestToPay = JSON.parse(JSON.stringify(currentFad))
         const newArr = [...paidBills] 
         newArr.push([currentBill])
@@ -67,11 +71,9 @@ const Bill = ({tableOrder}) => {
         setRestToPay(newRestToPay)
     }
     
-     console.log("paidBills",paidBills);
-    //  console.log("restToPay",restToPay);
 
     return (
-        <div className='bill'>
+        <div className='billMainView'>
             <button
                 onClick={()=>{
                     setShowTotalBill(!showTotalBill);
@@ -79,45 +81,61 @@ const Bill = ({tableOrder}) => {
                 >{showTotalBill? "partial bill" : "total Bill"}
             </button>
 
+            {/* STATIC BILL */}
             {showTotalBill &&
-                <TotalBill 
-                    {...tableInfo} 
+            <div className='staticBillDiv'>
+                <BillTicket
+                    tableInfo={tableInfo}
                     foodANDdrink={foodANDdrink}
                     calculateBill={calculateBill}
+                    showTotalXperson={true}
                 />
+            </div>
             }
 
+            {/* SPLIT PAYMENT LEFT  &  RIGHT */}
             {showSplitPayment &&
-                <Splitpayment
-                    {...tableInfo} 
-                    foodANDdrink={currentFad}
-                    calculateBill={calculateBill}
-                    editQty={editQty}
-                    editQtyReverse={editQtyReverse}
-                    currentBill={currentBill}
-                    partialPay={partialPay}
-                />
-            }
-
-            {paidBills &&
-                paidBills.map(el => {
-                    console.log(el)
-                    return ( 
-                        <TotalBill 
-                            {...tableInfo} 
-                            foodANDdrink={el[0]}
+            <div className='splitRow '>
+                <div className='splitLeft'>
+                    <div className='billTicketDiv'>
+                        <BillTicket
+                            tableInfo={tableInfo}
+                            foodANDdrink={currentFad}
                             calculateBill={calculateBill}
-                            splitView={true}
+                            editQty={editQty}
+                            editQtyReverse={editQtyReverse}
                         />
+                    </div>
+                </div>
 
+                <div className=' splitRight'>
+                    <div className='billTicketDiv'>
+                        <BillTicket
+                            tableInfo={tableInfo}
+                            foodANDdrink={currentBill}
+                            calculateBill={calculateBill}
+                            partialPayBtn={partialPayBtn}
+                        />
+                    </div>
+                </div>
+            </div>
+            } 
+
+            {/* PAID BILLS */}
+            {paidBills &&
+                paidBills.map((el,index )=> {
+                    return ( 
+                        <div className='paidBills' key={index}>
+                            <BillTicket
+                                tableInfo={tableInfo}
+                                foodANDdrink={el[0]}
+                                calculateBill={calculateBill}
+                            />
+                        </div>
                     )
                 })
             }
-            <div>
-
-            </div>
         </div>
-
     );
 }
 
@@ -125,10 +143,10 @@ export default Bill;
 
 
     
-    // const racerScores = foodANDdrink.reduce((acc, { name, quantity,price }) => {
+    // const xxx = foodANDdrink.reduce((acc, { name, quantity,price }) => {
     //     acc[name] = acc[name] || { name, quantity: 0 ,price};
     //     acc[name].quantity += quantity;
     //     return acc;  
     //   }, []);
       
-    //   console.log(racerScores)
+    //   console.log(xxx)

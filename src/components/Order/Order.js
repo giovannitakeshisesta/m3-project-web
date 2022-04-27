@@ -58,13 +58,10 @@ export default function Order({ order,submitOrder, editOrder}) {
         {/* --------------------FOOD DRINK ORDERS----------------- */}
         <OrderDrag list={food} sendInfo={sendInfo}/>
 
-        {drink.length > 0 && 
-        <div>
-            <hr/>
-            <OrderDrag list={drink} sendInfo={sendInfo}/>
-        </div>
-        }
+        {drink.length > 0 &&  <hr/> }
         
+        <OrderDrag list={drink} sendInfo={sendInfo}/>
+       
         {/* ------------------------ FOOTER ----------------------- */}
         <hr />
         <div className="frcb">

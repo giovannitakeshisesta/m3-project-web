@@ -3,7 +3,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 import "./KitchenWall.scss";
 import { getHolders, putHolders } from '../../services/OrderService';
-import Comandasingola from "../../components/Ticket/Ticket";
+import Ticket from "../../components/Ticket/Ticket";
 
 const holdersInitialState = {
   hold1: {
@@ -27,14 +27,20 @@ const holdersInitialState = {
 
 const KitchenWall = () => {
   const [holders, setHolders] = useState(holdersInitialState);
-  // get holders from api, store them in holders
-  useEffect(() => {
+
+  const getHOLDERS = () => {
     getHolders()
     .then(response => {
       const { hold1, hold2, hold3, hold4 } = response[0];
       setHolders({hold1, hold2, hold3, hold4})
     })
     .catch(err => console.log(err))
+  }
+
+  useEffect(() => {
+    getHOLDERS()
+    const interval = setInterval(() => {getHOLDERS()}, 500000);
+    return () => clearInterval(interval);
   }, []);
 
   const prevHoldersRef = useRef();
@@ -135,7 +141,7 @@ const KitchenWall = () => {
                                     ref={provided.innerRef}
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
-                                    className=""
+                                    className="ticketDraggable"
                                     style={{
                                       backgroundColor: snapshot.isDragging
                                         ? "#263B4A"
@@ -144,7 +150,7 @@ const KitchenWall = () => {
                                       ...provided.draggableProps.style,
                                     }}
                                   >
-                                  <Comandasingola {...ticket}/>
+                                  <Ticket {...ticket}/>
                                   </div>
                                 );
                               }}

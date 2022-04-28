@@ -11,7 +11,8 @@ const schema = yup.object({
     name: yup.string().required('A name is required'),
     description: yup.string().required('A description is required'),
     price: yup.number().typeError("Must be a number").min(1).required('A price is required'),
-    type: yup.string().required('A sdfsdfsdf is required'),
+    
+    type: yup.string().typeError("Must be a asdasdasdas").required(''), //radio
 
 }).required();
 
@@ -48,22 +49,22 @@ export default function FormMenu() {
         <form onSubmit={handleSubmit(onSubmit)} className="menuForm">
 
             {/* type: radio */}
-            <div className='d-flex'>
-                <div className='me-3'>
-                    <input className='me-2'
+            <div className={`d-flex form-group radio-form-group ${backErrors?.type || errors.type?.message ? 'has-error' : ''}`}>
+                <div className='me-3 form-check'>
+                    <input className={`me-2 ${backErrors?.type || errors.type?.message ? 'is-invalid' : ''}`}
                         {...register("type", { required: true })} 
                         type="radio" value="food"      
                     />
                     <label>Food</label>
                 </div>
-                <div>
-                    <input className='me-2'
+                <div className='form-check'>
+                    <input className={`me-2 ${backErrors?.type || errors.type?.message ? 'is-invalid' : ''}`}
                         {...register("type", { required: true })} 
                         type="radio" value="drink" 
                     />
                     <label>Drink</label>
+                    <p className="absolute-error invalid-feedback">{backErrors?.type || errors.type?.message}</p>
                 </div>
-                <p className="invalid-feedback">{backErrors?.type || errors.type?.message}</p>
                 {/* <p>{errors.type?.type === 'required' && 'A type is required'}</p> */}
             </div>
 
@@ -103,6 +104,7 @@ export default function FormMenu() {
                 <label className='mt-3'>price</label>
                 <input className={`form-control ${backErrors?.price || errors.price?.message ? 'is-invalid' : ''}`}
                     type="number" 
+                    step="any"
                     {...register("price", {required: true, max: 30, min: 0})}
                 />
                 <p className="invalid-feedback">{backErrors?.price || errors.price?.message}</p>

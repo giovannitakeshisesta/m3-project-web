@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { deleteOrder, editOrder } from '../../services/OrderService';
 import BillTicket from './BillTicket';
 
 const calculateBill = (arr) => {
@@ -8,7 +10,15 @@ const calculateBill = (arr) => {
     }, 0);
 };
 
+const reduceOrders = (orders) => {
+    return orders.reduce((acc,el)=>{ 
+        acc[el._id]=el
+        return acc
+    },{})
+}
+
 const Bill = ({tableOrder}) => {
+    const navigate = useNavigate()
     const [showTotalBill, setShowTotalBill]= useState(false)
     const [showSplitPayment, setShowSplitPayment]= useState(true)
 
@@ -16,59 +26,80 @@ const Bill = ({tableOrder}) => {
     const tableInfo = tableOrder[0].tableInfo
     const foodTotArr = []
     const drinkTotArr = []
-        tableOrder.forEach(tick => {
-            foodTotArr.push(...tick.food); drinkTotArr.push(...tick.drink)
-        })
+    tableOrder.forEach(tick => {
+        foodTotArr.push(...tick.food); drinkTotArr.push(...tick.drink)
+    })
     const foodANDdrink = [...foodTotArr,...drinkTotArr]
 
-    // variables for the partial payment
-    const copyFoodAndDrink = JSON.parse(JSON.stringify(foodANDdrink))
-    const copyFoodAndDrinkReset = copyFoodAndDrink.map(obj => {return {...obj, quantity:0}});
-
-    const [currentFad,setCurrentFad]=useState(JSON.parse(JSON.stringify(foodANDdrink)))
-    const [restToPay, setRestToPay] =useState(JSON.parse(JSON.stringify(foodANDdrink)))
-
-    const [currentBill, setCurrentBill] =useState(copyFoodAndDrinkReset)
-    const [paidBills, setPaidBills] =useState([])
+    //---------------------------------------------
+    const tableOrderReduce = reduceOrders(tableOrder)
+    const [allOrders,setAllOrders] = useState(tableOrderReduce)
+    const [partialPayment, setPartialPayment]= useState([])
+    const maxQty=JSON.parse(JSON.stringify(tableOrder))
     
+    // function => rest 1 to the order, add 1 to the partial payment
+    const editQty = (id , type, name ) => {
+        // allOrders
+        const newOrder = structuredClone(allOrders)
+        const item = newOrder[id][type].find(el => el.name === name)
 
-    // function => rest 1 to the order, add 1 to the current payment
-    const editQty = (index) => {
-        let newCurrentFad   = [...currentFad ]
-        let newCurrentBill  = [...currentBill ]
-        if (currentFad[index].quantity >0){
-            newCurrentFad[index].quantity -=1
-            setCurrentFad(newCurrentFad)
+        if (item.quantity>0) {
+            item.quantity -=1
+            setAllOrders(newOrder)
 
-            newCurrentBill[index].quantity +=1
-            setCurrentBill(newCurrentBill)
+            // partial Payment
+            const newPartialPayment =partialPayment
+            if (!newPartialPayment.some(el => el.name===item.name)){
+                const newItem = {...item}
+                newItem.quantity=1
+                newPartialPayment.push(newItem)
+                setPartialPayment(newPartialPayment)
+            } else {
+                const newItem = newPartialPayment.find(el => el.name === item.name)
+                newItem.quantity+=1
+                setPartialPayment(newPartialPayment)
+            }
+        } 
+    }
+
+
+    // function => add 1 to the order, rest 1 to the partial payment
+    const editQtyReverse = (id,type, name ) => {
+        const itemMaxQty = 
+            maxQty.find(el => el._id===id)[type]
+            .find(el=>el.name===name).quantity
+
+        const newOrder = structuredClone(allOrders)
+        const item = newOrder[id][type].find(el => el.name === name)
+        if(item.quantity<itemMaxQty){
+            // allOrders
+            item.quantity +=1
+            setAllOrders(newOrder)
+    
+            // partial Payment
+            const newPartialPayment =partialPayment
+            const newItem=newPartialPayment.find(el=>el.name===name)
+            newItem.quantity-=1
         }
     }
 
-    // function => add 1 to the order, rest 1 to the current payment
-    const editQtyReverse = (index) => {
-        let newCurrentFad   = [...currentFad ]
-        let newCurrentBill  = [...currentBill ]
-
-        if (currentFad[index].quantity < restToPay[index].quantity){
-            newCurrentFad[index].quantity +=1
-            setCurrentFad(newCurrentFad)
-
-            newCurrentBill[index].quantity -=1
-            setCurrentBill(newCurrentBill)
-        }
-    }
-
-    // function => store the current payment in an array,
-    // sets the new rest to pay
-    // reset the current payment
+    // function => store the changes in the API
     const partialPayBtn = () => {
-        const newRestToPay = JSON.parse(JSON.stringify(currentFad))
-        const newArr = [...paidBills] 
-        newArr.push([currentBill])
-        setPaidBills(newArr)
-        setCurrentBill(copyFoodAndDrinkReset)
-        setRestToPay(newRestToPay)
+        Object.entries(allOrders).forEach(el=>{
+            const {_id,food,drink,tableInfo} = el[1]
+            if([...food,...drink].some(el=>el.quantity>0))
+            {
+                editOrder(_id, { food, drink, tableInfo })
+                .then(() => {navigate('/Kitchenwall')})
+                .catch((err) => console.log(err))
+            }
+            else
+            {
+                deleteOrder(_id)
+                .then(() => {navigate('/Kitchenwall')})
+                .catch((err) => console.log(err))
+            }
+        })
     }
     
 
@@ -81,7 +112,7 @@ const Bill = ({tableOrder}) => {
                 >{showTotalBill? "partial bill" : "total Bill"}
             </button>
 
-            {/* STATIC BILL */}
+            {/* TOTAL BILL */}
             {showTotalBill &&
             <div className='staticBillDiv'>
                 <BillTicket
@@ -97,22 +128,27 @@ const Bill = ({tableOrder}) => {
             {showSplitPayment &&
             <div className='splitRow '>
                 <div className='splitLeft'>
-                    <div className='billTicketDiv'>
-                        <BillTicket
-                            tableInfo={tableInfo}
-                            foodANDdrink={currentFad}
-                            calculateBill={calculateBill}
-                            editQty={editQty}
-                            editQtyReverse={editQtyReverse}
-                        />
-                    </div>
+                {Object.entries(allOrders).map(ticket => {
+                    return(
+                        <div className='billTicketDiv' key={ticket[0]}>
+                            <BillTicket
+                                tableInfo={tableInfo}
+                                foodANDdrink={[...ticket[1].food,...ticket[1].drink]}
+                                calculateBill={calculateBill}
+                                editQty={editQty}
+                                editQtyReverse={editQtyReverse}
+                                ticketId={ticket[0]}
+                            />
+                        </div>
+                    )
+                })}
                 </div>
 
                 <div className=' splitRight'>
                     <div className='billTicketDiv'>
                         <BillTicket
                             tableInfo={tableInfo}
-                            foodANDdrink={currentBill}
+                            foodANDdrink={partialPayment}
                             calculateBill={calculateBill}
                             partialPayBtn={partialPayBtn}
                         />
@@ -120,21 +156,6 @@ const Bill = ({tableOrder}) => {
                 </div>
             </div>
             } 
-
-            {/* PAID BILLS */}
-            {paidBills &&
-                paidBills.map((el,index )=> {
-                    return ( 
-                        <div className='paidBills' key={index}>
-                            <BillTicket
-                                tableInfo={tableInfo}
-                                foodANDdrink={el[0]}
-                                calculateBill={calculateBill}
-                            />
-                        </div>
-                    )
-                })
-            }
         </div>
     );
 }
@@ -143,7 +164,4 @@ export default Bill;
 
 
     
-// const tableOrderReduce = tableOrder.reduce((acc,el)=>{ 
-//     acc[el._id]=el
-//     return acc
-// },{})
+

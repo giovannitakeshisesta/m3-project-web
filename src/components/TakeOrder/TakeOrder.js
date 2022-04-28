@@ -251,9 +251,7 @@ export default function Menu({openTableNum, data}) {
   }
 
   //---------------------   SUBMIT ---------------------------
-  const submitOrder = (order) => {
-    // convert the array to object
-  
+  const submitOrder = (order) => {  
     createOrder(order)
     .then(()=> navigate('/KitchenWall'))
     .catch((err)=> console.log(err))
@@ -262,15 +260,13 @@ export default function Menu({openTableNum, data}) {
   const handleEdit = (order) => {
     const {id, food, drink, tableInfo } = order
     editOrder(id, { food, drink, tableInfo })
-      .then(order => {
-        navigate('/KitchenWall')
-      })
+      .then(order => { navigate('/KitchenWall') })
+      .catch((err)=> console.log(err))
   }
 
   return (
     <div>
       <div className='row'>      
-                        {/* -12 col-sm-12 col-md-6 */}
         <div className='col  colcolor scroll'> 
           <div className='frcc'> 
             <h2>Menu</h2>
@@ -301,7 +297,7 @@ export default function Menu({openTableNum, data}) {
           </div>
 
           {/* //--------------------LIST OF DISHES ------------------ */}
-          {list.map(dish => {
+          {tableInfo.people>0 && list.map(dish => {
             if (filterBy.every(i => !dish.allergens.includes(i))) {
               return (
                 <div key={dish.id}>

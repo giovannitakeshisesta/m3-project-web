@@ -1,18 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { deleteOrder } from '../../services/OrderService';
 
 const Ticket = ({tableInfo,food,drink,createdAt,_id,editTableId}) => {
     const {people, table, urgent, takeAway, waiter } = tableInfo;
-    const time = createdAt.substring(11,16);
+    const time = String(Number(createdAt.substring(11,13))+2)+ createdAt.substring(13,16);
     const day = createdAt.substring(0,10);
     const navigate = useNavigate()
     let location = useLocation()
+    const [changeColor,setChangeColor]=useState(true)
 
     const deleteOrd = (id) => {
         deleteOrder(id)
         .then(()=>navigate('/KitchenWall'))
         .catch((err) => console.log(err) )
+    }
+
+    const dishDone = (name,id) => {
+        console.log(name,id);
+        // api call findbyIdandUpdate{id,name isDone:true}
     }
 
     return (
@@ -62,7 +68,7 @@ const Ticket = ({tableInfo,food,drink,createdAt,_id,editTableId}) => {
                     <p className='me-3'
                     style={{display: dish.id === "6"||dish.id ==="7" ? "none":null}}
                     >{dish.quantity}</p>
-                    <p>{dish.name}</p>
+                    <p onClick={()=> dishDone(dish.name,_id)}>{dish.name}</p>
                 </div>
                 <p className='ticketMessage'>{dish.message}</p>
                 </div>                    

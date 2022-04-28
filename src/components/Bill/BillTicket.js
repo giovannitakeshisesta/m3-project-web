@@ -5,7 +5,8 @@ export default function BillTicket({
     calculateBill,
     partialPayBtn,
     showTotalXperson,
-    editQty,editQtyReverse
+    editQty,editQtyReverse,
+    ticketId    
 }) 
 {
     const {table,people,waiter}={...tableInfo}
@@ -45,13 +46,13 @@ export default function BillTicket({
                             <p className='billPricexqt me-3'>{el.quantity*el.price} €</p>   
                             
                             <i className="far fa-arrow-alt-circle-right"
-                                onClick={()=> editQty(index)}
+                                onClick={()=> editQty(ticketId,el.type,el.name)}
                             />
                         
                             <p className='billPrice'>{el.price}€</p>
 
                             <i className="far fa-arrow-alt-circle-left" 
-                                onClick={()=> editQtyReverse(index)}
+                                onClick={()=> editQtyReverse(ticketId,el.type,el.name)}
                             />
                         </div>
                     </div>
@@ -59,7 +60,7 @@ export default function BillTicket({
             })
             :
             foodANDdrink.map((el,index) => {
-                if (el.quantity > 0) {
+                if (el.quantity >= 0) {
                     return (
                         <div key={index} className="billBody">
                             <div className="billItems">

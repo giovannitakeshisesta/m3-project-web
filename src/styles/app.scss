@@ -161,7 +161,7 @@ p{
         flex-direction: column;
     }
     .priceField{
-        width: 80px;
+        width: 120px;
         display: flex;
         flex-direction: column;
     }
@@ -172,6 +172,18 @@ p{
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
+    }
+    .radio-form-group {
+        position: relative;
+        
+        .absolute-error {
+            position: absolute;
+            left: 24px;
+        }
+    }
+
+    .has-error {
+        margin-bottom: 22px;
     }
 }
 

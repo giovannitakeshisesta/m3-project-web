@@ -143,10 +143,7 @@ export default Bill;
 
 
     
-    // const xxx = foodANDdrink.reduce((acc, { name, quantity,price }) => {
-    //     acc[name] = acc[name] || { name, quantity: 0 ,price};
-    //     acc[name].quantity += quantity;
-    //     return acc;  
-    //   }, []);
-      
-    //   console.log(xxx)
+// const tableOrderReduce = tableOrder.reduce((acc,el)=>{ 
+//     acc[el._id]=el
+//     return acc
+// },{})

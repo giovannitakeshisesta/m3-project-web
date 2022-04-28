@@ -60,7 +60,7 @@ export default function BillTicket({
             })
             :
             foodANDdrink.map((el,index) => {
-                if (el.quantity >= 0) {
+                if (el.quantity > 0) {
                     return (
                         <div key={index} className="billBody">
                             <div className="billItems">

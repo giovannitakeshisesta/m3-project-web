@@ -28,6 +28,7 @@ export default function FormMenu() {
       setBackErrors({})
       setIsSubmitting(true)
   
+        console.log(data);
       addItemMenu(data)
         .then(() => {
           navigate('/menuForm')
@@ -112,7 +113,7 @@ export default function FormMenu() {
 
 
             <label className='mt-3'>allergens</label>
-            <div className='allergensFields'>
+            {/* <div className='allergensFields'>
                 <div className='me-2'>
                     <input type="checkbox" id="vegetarian" {...register("vegetarian", {})} />
                     <label htmlFor="vegetarian">vegetarian</label>
@@ -129,6 +130,26 @@ export default function FormMenu() {
                     <input type="checkbox" id="gluten" {...register("gluten", {})} />
                     <label htmlFor="gluten">gluten</label>
                 </div>
+
+            </div> */}
+            <div className='allergensFields'>
+                <div className='me-2'>
+                    <input type="checkbox" id="vegetarian" value={"vegetarian"} {...register("allergens", {})} />
+                    <label htmlFor="vegetarian">vegetarian</label>
+                </div>
+                <div className='me-2'>
+                    <input type="checkbox" id="eggs" value={"eggs"} {...register("allergens", {})} />
+                    <label htmlFor="eggs">eggs</label>
+                </div>
+                <div className='me-2'>
+                    <input type="checkbox" id="milk" value={"milk"} {...register("allergens", {})} />
+                    <label htmlFor="milk">milk</label>
+                </div>
+                <div className='me-2'>
+                    <input type="checkbox" id="gluten" value={"gluten"} {...register("allergens", {})} />
+                    <label htmlFor="gluten">gluten</label>
+                </div>
+
             </div>
 
             <button 

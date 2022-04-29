@@ -37,9 +37,10 @@ const KitchenWall = () => {
     .catch(err => console.log(err))
   }
 
+  // set interval
   useEffect(() => {
     getHOLDERS()
-    const interval = setInterval(() => {getHOLDERS()}, 500000);
+    const interval = setInterval(() => {getHOLDERS()}, 300000);
     return () => clearInterval(interval);
   }, []);
 

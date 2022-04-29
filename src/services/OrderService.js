@@ -12,6 +12,10 @@ export const editOrder = (id, order) => http.patch(`/orders/${id}`, order)
 // delete order
 export const deleteOrder = (id) => http.delete(`/orders/${id}`)
 
+// change isDone
+
+export const editIsDone = (id, name) => http.patch(`/orders/isdone/${id}`, name)
+
 
 //---------------------- HOLDERS ----------------------
 // get  the holders ()

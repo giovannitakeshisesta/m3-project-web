@@ -7,7 +7,8 @@ import Formallergens from '../FormAllergens/FormAllergens'
 import Item          from '../Item/Item'
 import Modal         from '../Modal/Modal'
 import Order         from '../Order/Order'
-import menuJson      from '../../data/menu.json'
+import { getMenu } from '../../services/menu.service'
+// import menuJson      from '../../data/menu.json'
 
 const cleanList = (originalList) =>{
   const cleanedList = originalList.map(element => {
@@ -21,7 +22,13 @@ const cleanList = (originalList) =>{
 
 
 export default function Menu({openTableNum, data}) {
-  // console.log(openTableNum)
+  const [menuJson,setMenuJson]=useState([])
+  useEffect(() => {
+    getMenu()
+    .then((response)=>setMenuJson(response))
+    .catch((err)=> console.log(err))
+  }, []);
+
   const navigate = useNavigate()
   const { user } = useAuthContext()
 

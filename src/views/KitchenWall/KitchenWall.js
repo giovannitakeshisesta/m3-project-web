@@ -27,12 +27,26 @@ const holdersInitialState = {
 
 const KitchenWall = () => {
   const [holders, setHolders] = useState(holdersInitialState);
+  const [before,setbefore]=useState(holders.hold1.items.length)
+  const [after,setAfter]=useState()
+  const audio = new Audio('/mixkit-retro-game-notification-212.wav');
+  
+  if (before>after){
+    audio.play();
+  }
+  const ding = (val) =>{
+    setbefore(val)
+    setTimeout(() => {
+      setAfter(val)
+    }, 1000);
+  }
 
   const getHOLDERS = () => {
     getHolders()
     .then(response => {
       const { hold1, hold2, hold3, hold4 } = response[0];
       setHolders({hold1, hold2, hold3, hold4})
+      ding(hold1.items.length)
     })
     .catch(err => console.log(err))
   }
@@ -40,9 +54,12 @@ const KitchenWall = () => {
   // set interval
   useEffect(() => {
     getHOLDERS()
-    const interval = setInterval(() => {getHOLDERS()}, 300000);
+    const interval = setInterval(() => {getHOLDERS()}, 6000);
     return () => clearInterval(interval);
   }, []);
+
+
+
 
   const prevHoldersRef = useRef();
 
@@ -55,7 +72,7 @@ const KitchenWall = () => {
         });
     }
   }, [holders]);
-  
+
 
   const onDragEnd = (result, holders, setHolders) => {
     if (!result.destination) return;
@@ -115,6 +132,7 @@ const KitchenWall = () => {
                 <Droppable
                   droppableId={holdX}
                   key={holdX}
+                  isDropDisabled={holdX === "hold1" ? true : false}
                   direction="horizontal"
                 >
                   {(provided, snapshot) => {

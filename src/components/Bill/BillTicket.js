@@ -1,4 +1,6 @@
 import React from 'react'
+import { useAuthContext } from '../../contexts/AuthContext'
+import TicketHeader from '../TicketHeader/TicketHeader'
 
 export default function BillTicket({
     tableInfo,foodANDdrink,
@@ -6,33 +8,22 @@ export default function BillTicket({
     partialPayBtn,
     showTotalXperson,
     editQty,editQtyReverse,
-    ticketId    
+    ticketId,
+    header
 }) 
 {
-    const {table,people,waiter}={...tableInfo}
+    const {people,waiter}={...tableInfo}
+    const { user } = useAuthContext()
+
 
     return (
         <div className='billTotal'>
-            {/* ------------------------TABLE INFO------------------------ */}
-            <div className="billHeader">
-                <div className="frcc">
-                    <img
-                    src="images/table_icon_125938.png"
-                    alt="table"
-                    className="imgTable"
-                    />
-                    <h3>{table}</h3>
-                </div>
+            {/* ------------------------ HEADER------------------------ */}
+            {header &&
+            <TicketHeader {...tableInfo} showTotalXperson={showTotalXperson}/>
+            }
 
-                {!showTotalXperson && <p>Partial Payment</p>}
-
-                <div className="frcc">
-                    <i className="fas fa-users ms-2"></i>
-                    <h3>{people}</h3>
-                </div>
-            </div>
-
-            {/* --------------------FOOD DRINK ORDERS----------------- */}
+            {/* ------------------------ BODY  ------------------------ */}
             {editQty ?
             foodANDdrink.map((el,index) => {
                 return (
@@ -78,7 +69,7 @@ export default function BillTicket({
             {/* ------------------------ FOOTER ----------------------- */}
             <div className='billFooter'>
                 <div className='waiterTotal'>
-                    <p>Waiter: {waiter} </p>
+                    {<p> Waiter:{editQty || showTotalXperson ?  waiter : user.name } </p>}
                     <p> {editQty ? "Current total": "Total:" } {calculateBill(foodANDdrink)} €</p>
                 </div> 
 

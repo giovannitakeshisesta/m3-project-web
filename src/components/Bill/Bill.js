@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteOrder, editOrder } from '../../services/OrderService';
+import TicketHeader from '../TicketHeader/TicketHeader';
 import BillTicket from './BillTicket';
 
 const calculateBill = (arr) => {
@@ -87,16 +88,22 @@ const Bill = ({tableOrder}) => {
     const partialPayBtn = () => {
         Object.entries(allOrders).forEach(el=>{
             const {_id,food,drink,tableInfo} = el[1]
-            if([...food,...drink].some(el=>el.quantity>0))
+            if ([...food,...drink].some(el=>el.quantity>0))
             {
                 editOrder(_id, { food, drink, tableInfo })
-                .then(() => {navigate('/Kitchenwall')})
+                .then(() => {
+                    navigate('/tables') 
+                    // window.location.reload(false)
+                })
                 .catch((err) => console.log(err))
             }
             else
             {
                 deleteOrder(_id)
-                .then(() => {navigate('/Kitchenwall')})
+                .then(() => {
+                    navigate('/tables')
+                    window.location.reload(false)
+                 })
                 .catch((err) => console.log(err))
             }
         })
@@ -109,7 +116,7 @@ const Bill = ({tableOrder}) => {
                 onClick={()=>{
                     setShowTotalBill(!showTotalBill);
                     setShowSplitPayment(!showSplitPayment)}}
-                >{showTotalBill? "partial bill" : "total Bill"}
+                >{showTotalBill? "Partial Bill" : "Total Bill"}
             </button>
 
             {/* TOTAL BILL */}
@@ -117,6 +124,7 @@ const Bill = ({tableOrder}) => {
             <div className='staticBillDiv'>
                 <BillTicket
                     tableInfo={tableInfo}
+                    header={true}
                     foodANDdrink={foodANDdrink}
                     calculateBill={calculateBill}
                     showTotalXperson={true}
@@ -128,26 +136,51 @@ const Bill = ({tableOrder}) => {
             {showSplitPayment &&
             <div className='splitRow '>
                 <div className='splitLeft'>
-                {Object.entries(allOrders).map(ticket => {
-                    return(
-                        <div className='billTicketDiv' key={ticket[0]}>
-                            <BillTicket
-                                tableInfo={tableInfo}
-                                foodANDdrink={[...ticket[1].food,...ticket[1].drink]}
-                                calculateBill={calculateBill}
-                                editQty={editQty}
-                                editQtyReverse={editQtyReverse}
-                                ticketId={ticket[0]}
-                            />
-                        </div>
-                    )
-                })}
+                {Object.entries(allOrders).length>1 ?
+                    // if multiple tickets => show only 1 header 
+                    <div>
+                        <TicketHeader {...tableInfo}/>
+                        {Object.entries(allOrders).map(ticket => {
+                            console.log(Object.entries(allOrders))
+                            return(
+                                <div className='billTicketDiv' key={ticket[0]}>
+                                    <BillTicket
+                                        ticketId={ticket[0]}
+                                        tableInfo={ticket[1].tableInfo}
+                                        header={false}
+                                        foodANDdrink={[...ticket[1].food,...ticket[1].drink]}
+                                        calculateBill={calculateBill}
+                                        editQty={editQty}
+                                        editQtyReverse={editQtyReverse}
+                                    />
+                                </div>
+                            )
+                        })}
+                    </div>
+                    : // else show header
+                    Object.entries(allOrders).map(ticket => {
+                        return(
+                            <div className='billTicketDiv' key={ticket[0]}>
+                                <BillTicket
+                                    ticketId={ticket[0]}
+                                    tableInfo={tableInfo}
+                                    header={true}
+                                    foodANDdrink={[...ticket[1].food,...ticket[1].drink]}
+                                    editQty={editQty}
+                                    editQtyReverse={editQtyReverse}
+                                    calculateBill={calculateBill}
+                                />
+                            </div>
+                        )
+                    })
+                }
                 </div>
 
                 <div className=' splitRight'>
                     <div className='billTicketDiv'>
                         <BillTicket
                             tableInfo={tableInfo}
+                            header={true}
                             foodANDdrink={partialPayment}
                             calculateBill={calculateBill}
                             partialPayBtn={partialPayBtn}

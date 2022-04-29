@@ -22,16 +22,16 @@ const cleanList = (originalList) =>{
 
 
 export default function Menu({openTableNum, data}) {
+  const navigate = useNavigate()
+  const { user } = useAuthContext()
   const [menuJson,setMenuJson]=useState([])
+
   useEffect(() => {
     getMenu()
     .then((response)=>setMenuJson(response))
     .catch((err)=> console.log(err))
   }, []);
-
-  const navigate = useNavigate()
-  const { user } = useAuthContext()
-
+console.log(data);
   const list = [...menuJson]            // list we use for the menu
   const listLight = cleanList(list)     // list we use for the order
   
@@ -43,8 +43,10 @@ export default function Menu({openTableNum, data}) {
       "takeAway":false, 
       "waiter":user.name
     });
+
   const [foodOrder, setFoodOrder] = useState([])
   const [drinkOrder,setDrinkOrder]= useState([])
+  
   const currentOrder = {
     tableInfo,
     food: data ? data.food : [],
@@ -55,7 +57,7 @@ export default function Menu({openTableNum, data}) {
 
   useEffect(() => {
     if (data){
-      setTableInfo(data.tableInfo)
+      // setTableInfo(data.tableInfo)
       setFoodOrder(data.food)
       setDrinkOrder(data.drink)
     }
@@ -292,7 +294,7 @@ export default function Menu({openTableNum, data}) {
             <i className="fas fa-users"></i>
             <input className='inputNumbers' type="number" min={0}
               name="people"
-              placeholder={0}
+              placeholder={data ? data.tableInfo.people : 0}
               onChange={handleChange}
             />
             <i className="fas fa-exclamation-circle "

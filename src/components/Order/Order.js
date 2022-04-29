@@ -76,6 +76,7 @@ export default function Order({ order,submitOrder, editOrder}) {
                 className=' btn btn-success'>update
             </button>
         :
+            [...food,...drink].length > 0 &&
             <button 
                 onClick={()=>submitOrder(finalOrder)} 
                 className='submitOrder btn'>send

@@ -17,7 +17,8 @@ import Tables from "./views/Tables/Tables";
 import TakeOrder from "./components/TakeOrder/TakeOrder";
 import UserDetails from "./Users/User.Details";
 import Todo from "./views/Todo";
-import FormMenu from "./views/FormMenu/FormMenu";
+import Menu from "./views/Menu/Menu";
+import MenuDetails from "./components/MenuDetails.js/MenuDetails";
 
 
 function App() {
@@ -39,7 +40,8 @@ function App() {
             <Route path="takeOrder"    element={<TakeOrder />} />
             <Route path="todo"         element={<Todo />} />
             <Route path="tables"       element={<Tables />} />
-            <Route path="menuForm"     element={<FormMenu />} />
+            <Route path="menu"         element={<Menu />} />
+            <Route path="menu/:id"     element={<MenuDetails />} />
 
             <Route path="register"     element={<Register />} />
             <Route path="login"        element={<Login />} />

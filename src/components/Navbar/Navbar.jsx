@@ -84,8 +84,8 @@ const Navbar = () => {
                 </li>
                 <li className="nav-item">
                   <NavLink className="nav-link"  
-                    to="/menuForm">
-                    menuForm
+                    to="/menu">
+                    Menu
                   </NavLink>
                 </li>
 

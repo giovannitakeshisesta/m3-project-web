@@ -21,7 +21,7 @@ const cleanList = (originalList) =>{
 }
 
 
-export default function Menu({openTableNum, data}) {
+export default function TakeOrder({openTableNum, data}) {
   const navigate = useNavigate()
   const { user } = useAuthContext()
   const [menuJson,setMenuJson]=useState([])

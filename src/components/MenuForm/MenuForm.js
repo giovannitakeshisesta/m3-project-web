@@ -1,17 +1,37 @@
-import React from 'react'
-import { useState } from 'react' 
+import React ,{ useState } from 'react' 
 import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import { useNavigate } from 'react-router-dom'
 import { addItemMenu, editMenuDetails } from '../../services/menu.service';
+import InputGroup from "../../components/InputGroup"
 
-const schema = yup.object({
-    type: yup.string().typeError("Must be a asdasdasdas").required(''),
-    name: yup.string().required('A name is required'),
-    description: yup.string().min(2).required('A description is required'),
-    price: yup.number().typeError("Must be a number").min(1).required('A price is required')
+
+const schema = yup.object().shape({
+    type: yup.string()
+        .typeError("Select one option")
+        .required(''),
+    name: yup.string()
+        .required('A name is required'),
+    description: yup.string()
+        .min(2)
+        .required('A description is required'),
+    price: yup.number()
+        .typeError("Must be a number")
+        .min(1)
+        .required('A price is required'),
+    image: yup.mixed()
+        .test('required', "You need to provide a file", (value) =>{
+            return value && value.length
+        } )
+        .test("fileSize", "The file is too large", (value, context) => {
+            return value && value[0] && value[0].size <= 200000;
+        })
+        .test("type", "We only support jpeg & png", function (value) {
+            return value && value[0] && value[0].type === "image/jpeg"||"image/png";
+        })
 }).required();
+
 
 export default function MenuForm({id,prefillValues,toggleShowForm}) {
     const navigate = useNavigate()
@@ -23,24 +43,45 @@ export default function MenuForm({id,prefillValues,toggleShowForm}) {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const allergens = ["vegetarian", "milk", "egg", "gluten"]
   
+    // create item
     const onSubmit = (data) => {
-      setBackErrors({})
-      setIsSubmitting(true)
+        setBackErrors({})
+        setIsSubmitting(true)
   
-      addItemMenu(data)
-        .then((response) => {
-           navigate(`/menu/${response.id}`)
-        })
-        .catch(err => {
-          setBackErrors(err?.response?.data?.errors)
-        })
-        .finally(() => {
-          setIsSubmitting(false)
-        })
+        const bodyFormData = new FormData()
+        const { image, ...rest } = data
+        Object.keys(rest).forEach(key => {
+            bodyFormData.append(key, rest[key])
+            })
+        if (image[0]) {
+            bodyFormData.append('image', image[0])
+        }
+        
+        addItemMenu(bodyFormData)
+            .then((response) => {
+            navigate(`/menu/${response.id}`)
+            })
+            .catch(err => {
+            setBackErrors(err?.response?.data?.errors)
+            })
+            .finally(() => {
+            setIsSubmitting(false)
+            })
     };
 
+    // edit item
     const onSubmitEdit = (data) => {
-        editMenuDetails(id,data)
+
+        const bodyFormData = new FormData()
+        const { image, ...rest } = data
+        Object.keys(rest).forEach(key => {
+            bodyFormData.append(key, rest[key])
+            })
+        if (!image[0].length) {
+            bodyFormData.append('image', image[0])
+        }
+
+        editMenuDetails(id,bodyFormData)
         .then(()=>{
             toggleShowForm()
             navigate(`/menu/${id}`)
@@ -48,12 +89,12 @@ export default function MenuForm({id,prefillValues,toggleShowForm}) {
         .catch(()=>{})
     };
 
+
   return (
     <div className='fccc'>
         <h1 className="mt-3">Menu</h1>
 
         <form  className="menuForm">
-
             {/* type */}
             <div className={`d-flex form-group radio-form-group ${backErrors?.type || errors.type?.message ? 'has-error' : ''}`}>
                 <div className='me-3 form-check'>
@@ -78,15 +119,12 @@ export default function MenuForm({id,prefillValues,toggleShowForm}) {
             </div>
 
             {/* name */}
-            <div className="mb-3">
-                <label className="form-label"> Name </label>
-                <input
-                    className={`form-control ${backErrors?.name || errors.name?.message ? 'is-invalid' : ''}`}
-                    type="text"
-                    {...register("name")}
-                />
-                <p className="invalid-feedback">{backErrors?.name || errors.name?.message}</p>
-            </div>
+            <InputGroup
+                label="Name"
+                id="name"
+                register={register}
+                error={backErrors?.name || errors.name?.message}
+            />
 
             {/* description */}
             <div className='descriptionField'>
@@ -99,16 +137,13 @@ export default function MenuForm({id,prefillValues,toggleShowForm}) {
             </div>
 
             {/* price */}
-            <div className='priceField'>
-                <label className='mt-3'>price</label>
-                <input 
-                    className={`form-control ${backErrors?.price || errors.price?.message ? 'is-invalid' : ''}`}
-                    type="number" 
-                    step="any"
-                    {...register("price")}
-                />
-                <p className="invalid-feedback">{backErrors?.price || errors.price?.message}</p>
-            </div>
+            <InputGroup
+                label="Price"
+                id="price"
+                type="number"
+                register={register}
+                error={backErrors?.price || errors.price?.message}
+            />
 
             {/* allergens */}
             <label className='mt-3'>allergens</label>
@@ -122,6 +157,16 @@ export default function MenuForm({id,prefillValues,toggleShowForm}) {
                     )
                 })}
             </div>
+
+            {/* image */}
+            <InputGroup
+                // name="image"
+                label="Image"
+                id="image"
+                type="file"
+                register={register}
+                error={backErrors?.image || errors.image?.message}
+            />
 
             {prefillValues ? 
                 <button 

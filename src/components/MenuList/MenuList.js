@@ -4,11 +4,17 @@ import { deleteMenuItem, getMenu } from '../../services/menu.service';
 
 export default function MenuList() {
     const navigate = useNavigate()
-    const [menuList, setMenuList]= useState([])
-    const[refresh, setRefresh]=useState(false)
+    const [foodList, setFoodList]= useState([])
+    const [drinkList, setDrinkList]= useState([])
+    const [refresh, setRefresh]=useState(false)
+
+
     useEffect(() => {
         getMenu()
-        .then((response) => setMenuList(response))
+        .then((response) => {
+            setFoodList(response.filter(el =>el.type === "food"))
+            setDrinkList(response.filter(el =>el.type === "drink"))
+        })
         .catch((err) => console.log(err))
     }, [refresh]);
 
@@ -21,20 +27,30 @@ export default function MenuList() {
         .catch((err)=> console.log(err))
     }
   return (
-    <div>
-    <h1>MenuList</h1>
-    {menuList && 
-        menuList.map(item => {
-            return ( 
-                <div key={item.id} className="d-flex">
-                    <p> <Link to={`/menu/${item.id}`}>{item.name}</Link></p>
-                    <button onClick={()=>{
-                        deleteItem(item.id)
-                    }}> delete</button>
-                </div>
-            )
-        })
-    }
-    </div>
+     
+        <div className='menuListRow'>
+        <div className='menuListCol'>
+        <h2>Food</h2>
+            {foodList.map(item => {
+                return (
+                    <div key={item.id} className="menuListItem">
+                        <p> <Link to={`/menu/${item.id}`}>{item.name}</Link></p>
+                        <i className="fas fa-trash-alt" onClick={()=>{deleteItem(item.id)}}></i>
+                    </div>
+                )
+            })}
+        </div>
+        <div className='menuListCol'>
+            <h2>Drinks</h2>
+            {drinkList.map(item => {
+                return (
+                    <div key={item.id} className="menuListItem">
+                        <p> <Link to={`/menu/${item.id}`}>{item.name}</Link></p>
+                        <i className="fas fa-trash-alt" onClick={()=>{deleteItem(item.id)}}></i>
+                    </div>
+                )
+            })}
+        </div>
+        </div>
   )
 }

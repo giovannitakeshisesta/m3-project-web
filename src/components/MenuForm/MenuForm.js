@@ -9,27 +9,27 @@ import InputGroup from "../../components/InputGroup"
 
 const schema = yup.object().shape({
     type: yup.string()
-        .typeError("Select one option")
+        .typeError('Required')
         .required(''),
     name: yup.string()
-        .required('A name is required'),
+        .required('Required'),
     description: yup.string()
-        .min(2)
-        .required('A description is required'),
-    price: yup.number()
-        .typeError("Must be a number")
-        .min(1)
-        .required('A price is required'),
+        .required('Required')
+        .min(2),
+        price: yup.number()
+        .required()
+        .typeError('Required')
+        .min(1),
     image: yup.mixed()
-        .test('required', "You need to provide a file", (value) =>{
+        .test('required', 'Required', (value) =>{
             return value && value.length
         } )
-        .test("fileSize", "The file is too large", (value, context) => {
-            return value && value[0] && value[0].size <= 200000;
-        })
-        .test("type", "We only support jpeg & png", function (value) {
-            return value && value[0] && value[0].type === "image/jpeg"||"image/png";
-        })
+        // .test("fileSize", "The file is too large", (value, context) => {
+        //     return value && value[0] && value[0].size <= 200000;
+        // })
+        // .test("type", "We only support jpeg & png", function (value) {
+        //     return value && value[0] && value[0].type === "image/jpeg"||value[0].type === "image/png";
+        // })
 }).required();
 
 

@@ -12,41 +12,54 @@ export default function MenuDetails() {
         getMenuDetails(id)
         .then((response)=> setDetails(response))
         .catch((err) => console.log(err))
-    }, [showForm]);
+    }, [showForm,id]);
 
     const toggleShowForm = () => {
         setShowForm(!showForm)
     }
-    
-    return (
-    <div>MenuDetails
-        <Link to={'/menu'}>Menu</Link>
-        {details && 
 
+    return (
+    <div>
+        <div className='frcb'>
+            <h2>Item Details</h2>
+            
+            <i className="fas fa-arrow-left"><Link to={'/menu'}> Menu </Link> </i>
+        </div>
+        {details && 
             <div>
-                <button
-                    onClick={()=>toggleShowForm()}>
-                    edit
-                </button>
-                <div >
-                    <p>{details.name}</p>
-                    <p>{details.description}</p>
-                    <p>{details.price} €</p>
-                
-                    {details.allergens.map((el, index) => {
-                        return (
-                            <li key={index}>{el}</li>
-                        )
-                    })}
-                    
-                    {details.image ? (
-                        <img src={details.image} alt="" />
-                    ) : (
-                        <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt="" />
-                    )}
-                </div>
-                {showForm &&
-                <MenuForm prefillValues={details} id={id} toggleShowForm={toggleShowForm}/>
+                {showForm ?
+                    <MenuForm prefillValues={details} id={id} toggleShowForm={toggleShowForm}/>
+                    :
+                    <div className='menuDetailsMainDiv'>
+                        <h1>{details.name}</h1>
+    
+                        <div className='d-flex'>
+                            <div className='menuDetailsInfoDiv'>
+                                <p><b>Price: </b>{details.price} €</p>
+                                <p><b>Filter :</b>
+                                    {details.allergens == 'false' ? "None" : details.allergens}
+                                </p>
+                                
+                                <div>
+                                    <p><b>Description:</b></p>
+                                    <p>{details.description}</p>
+                                </div>
+                                <button
+                                    onClick={()=>toggleShowForm()}>
+                                    edit
+                                </button>
+                            </div>
+
+                            
+                            <div className='menuDetailsImgDiv'> 
+                                {details.image ? (
+                                    <img className='menuDetailsImg' src={details.image} alt="" />
+                                ) : (
+                                    <img className='menuDetailsImg' src="/images/placeholder-image.jpeg" alt="" />
+                                )}
+                            </div>
+                        </div>
+                    </div>
                 }
             </div>              
         }

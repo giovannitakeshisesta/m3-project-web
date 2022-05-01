@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import "./Order.scss"
+import "../../Order/Order.scss"
 
 
 export default function MenuDrag({list,sendInfo}) {

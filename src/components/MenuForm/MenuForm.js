@@ -1,6 +1,6 @@
 import React ,{ useState } from 'react' 
 import { useForm } from "react-hook-form";
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { addItemMenu, editMenuDetails } from '../../services/menu.service';
@@ -41,7 +41,7 @@ export default function MenuForm({id,prefillValues,toggleShowForm}) {
     });
     const [backErrors, setBackErrors] = useState({})
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const allergens = ["vegetarian", "milk", "egg", "gluten"]
+    const allergens = ["Vegetarian", "Vegan", "Gluten","Crustaceans","Eggs","Fish","Peanuts","Soybeans","Milk","Nuts","Celery","Mustard","Sesame seeds","Sulphites","Lupin","Molluscs"]
   
     // create item
     const onSubmit = (data) => {
@@ -92,70 +92,69 @@ export default function MenuForm({id,prefillValues,toggleShowForm}) {
 
   return (
     <div className='fccc'>
-        <h1 className="mt-3">Add a new item!</h1>
+        <i className="fas fa-arrow-left topRight2" onClick={()=>toggleShowForm()}> Menu  </i>
 
         <form  className="menuForm">
+            <div className='fccc'>
+                <h2 className="">Add a new product!</h2>
+            </div>
+        
             {/* type */}
-            <div className={`d-flex form-group radio-form-group ${backErrors?.type || errors.type?.message ? 'has-error' : ''}`}>
-                <div className='me-3 form-check'>
-                    <input 
-                        className={`me-2 ${backErrors?.type || errors.type?.message ? 'is-invalid' : ''}`}
-                        type="radio" 
-                        value="food"      
-                        {...register("type")} 
-                    />
-                    <label>Food</label>
-                </div>
-                <div className='form-check'>
-                    <input 
-                        className={`me-2 ${backErrors?.type || errors.type?.message ? 'is-invalid' : ''}`}
-                        type="radio" 
-                        value="drink" 
-                        {...register("type")} 
-                    />
-                    <label>Drink</label>
-                    <p className="absolute-error invalid-feedback">{backErrors?.type || errors.type?.message}</p>
+            <div className='frcc'>
+                <div className={`d-flex form-group radio-form-group ${backErrors?.type || errors.type?.message ? 'has-error' : ''}`}>
+                    <div className='me-3 form-check'>
+                        <input
+                            className={`me-2 ${backErrors?.type || errors.type?.message ? 'is-invalid' : ''}`}
+                            type="radio"
+                            value="food"
+                            {...register("type")}
+                        />
+                        <label>Food</label>
+                    </div>
+                    <div className='form-check'>
+                        <input
+                            className={`me-2 ${backErrors?.type || errors.type?.message ? 'is-invalid' : ''}`}
+                            type="radio"
+                            value="drink"
+                            {...register("type")}
+                        />
+                        <label>Drink</label>
+                        <p className="absolute-error invalid-feedback">{backErrors?.type || errors.type?.message}</p>
+                    </div>
                 </div>
             </div>
 
-            {/* name */}
-            <InputGroup
-                label="Name"
-                id="name"
-                register={register}
-                error={backErrors?.name || errors.name?.message}
-            />
+            <div className='frcb'>
+                {/* name */}
+                <div className='inputName'>
+                    <InputGroup
+                        label="Name"
+                        id="name"
+                        register={register}
+                        error={backErrors?.name || errors.name?.message}
+                    />
+                </div>
+                {/* price */}
+                <div className="inputPrice">
+                    <InputGroup
+                        label="Price"
+                        id="price"
+                        type="number"
+                        register={register}
+                        error={backErrors?.price || errors.price?.message}
+                    />
+                </div>
+            </div>
 
             {/* description */}
-            <div className='descriptionField'>
+            <div className='mb-2'>
                 <label> Description </label>
                 <textarea  
                     className={`form-control ${backErrors?.description || errors.description?.message ? 'is-invalid' : ''}`}
                     { ...register("description") } 
+                    rows="3" cols="50"
                 />
                 <p className="invalid-feedback">{backErrors?.description || errors.description?.message}</p>
-            </div>
-
-            {/* price */}
-            <InputGroup
-                label="Price"
-                id="price"
-                type="number"
-                register={register}
-                error={backErrors?.price || errors.price?.message}
-            />
-
-            {/* allergens */}
-            <label className='mt-3'>allergens</label>
-            <div className='allergensFields'>
-                {allergens.map((el,index)=> {
-                    return (
-                        <div className='me-2' key={index}>
-                            <input type="checkbox" id={el} value={el} {...register("allergens")} />
-                            <label htmlFor={el} >{el} </label>
-                        </div>
-                    )
-                })}
             </div>
 
             {/* image */}
@@ -167,6 +166,22 @@ export default function MenuForm({id,prefillValues,toggleShowForm}) {
                 register={register}
                 error={backErrors?.image || errors.image?.message}
             />
+            
+
+            {/* allergens */}
+            <label>Filters</label>
+            <div className='allergensFields'>
+                {allergens.map((el,index)=> {
+                    return (
+                        <div key={index} className="allergensBoxLabel">
+                            <input type="checkbox" id={el} value={el} {...register("allergens")} />
+                            <p className='ms-2' htmlFor={el} >{el} </p>
+                        </div>
+                    )
+                })}
+            </div>
+
+
 
             {prefillValues ? 
                 <button 

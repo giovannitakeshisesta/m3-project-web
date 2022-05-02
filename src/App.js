@@ -28,7 +28,7 @@ function App() {
     <div className="">
       <Navbar />
 
-      <div className="ms-3 me-3">
+      <div className="">
         {!isAuthenticationFetched ? (
           <p>Loading...</p>
         ) : (

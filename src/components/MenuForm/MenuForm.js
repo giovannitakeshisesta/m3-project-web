@@ -92,7 +92,7 @@ export default function MenuForm({id,prefillValues,toggleShowForm}) {
 
   return (
     <div className='fccc'>
-        <h1 className="mt-3">Menu</h1>
+        <h1 className="mt-3">Add a new item!</h1>
 
         <form  className="menuForm">
             {/* type */}

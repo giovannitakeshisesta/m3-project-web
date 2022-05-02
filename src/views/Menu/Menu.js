@@ -10,21 +10,22 @@ export default function Menu() {
   }
 
   return (
-    <div className='menuMainPage'>
-      <div className='menuMainPageInner'>
-        <div className='menuMainPageTop'>
-          <h1>Menu</h1>
-          <button
-              onClick={()=>toggleShowForm()}>
-              Add new item
-          </button>
+      <div className='menuMainPage'>
+        <div className='menuMainPageInner'>
+          <div className='menuMainPageTop'>
+          {/* <img src="/images/risto_room.webp" alt="" /> */}
+            <h1>Menu</h1>
+            <button
+                onClick={()=>toggleShowForm()}>
+                Add new item
+            </button>
+          </div>
+          {showForm ?
+          <MenuForm />
+          :
+          <MenuList />
+          }
         </div>
-        {showForm ? 
-        <MenuForm />
-        :
-        <MenuList />
-        }
       </div>
-    </div>
   )
 }

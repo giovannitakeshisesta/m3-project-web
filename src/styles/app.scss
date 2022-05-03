@@ -52,7 +52,7 @@ label{
     border-radius: 10px;
     padding: 0 20px;
     margin: 5px;
-
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 40px 40px -10px;
 
     .ticketHeader{
         display: flex;
@@ -109,7 +109,7 @@ label{
                 align-items: center;
             }
         }
-    }
+    }   
 }
 
 
@@ -168,12 +168,30 @@ label{
     }
     }
 }
+.tablesMainDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    // border: 1px solid black;
+    width:900px;
+    margin: 20px auto;
+}
+.tablesInnerDiv{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 50px;
+    margin-top: 20px;
+    // border: 1px solid red;
+}
 
 
 .tableTicketDiv{
-    width: 50vw;
-    margin-top: 20px;
+    width: 35vw;
 }
+
+
 .tableMenuOrder{
     width: 90vw;
 }
@@ -468,4 +486,73 @@ label{
 }
 
 
+
+.button-59 {
+    align-items: center;
+    background-color:hsla(165, 30%, 74%, 0.299);
+    border: 1px solid rgb(150, 145, 145);
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: #000;
+    cursor: pointer;
+    display: inline-flex;
+    fill: #000;
+    font-size: 16px;
+    font-weight: 500;
+    height: 48px;
+    justify-content: center;
+    letter-spacing: -.8px;
+    line-height: 24px;
+    min-width: 10px;
+    outline: 0;
+    padding: 0 10px;
+    margin-left: 10px;
+    text-align: center;
+    text-decoration: none;
+    transition: all .3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .button-59:focus {
+    color: #171e29;
+  }
+  
+  .button-59:hover {
+    border-color: #228b87;
+    color: #228b87;
+    fill: #228b87;
+  }
+  
+  .button-59:active {
+    border-color: #8b3922;
+    color: #8b3922;
+    fill: #8b3922;
+  }
+
+
+
+
+.button-80 {
+  background:#F3EADA;
+  border-radius: .375rem;
+  border: 1px solid grey;
+  color: rgb(49, 48, 48);
+  cursor: pointer;
+  font-family: Circular,Helvetica,sans-serif;
+  font-size: 1.5rem;
+  padding: 1.125rem ;
+  transform: translateZ(0) scale(1);
+  transition: transform .2s;
+  height: 80px;
+  width: 80px;
+  margin-top: 90px;
+
+}
+
+
+.button-80:not(:disabled):hover {
+  transform: scale(1.05);
+}
 

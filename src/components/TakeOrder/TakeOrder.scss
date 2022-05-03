@@ -1,14 +1,17 @@
 /* --------------------COLUMNS ------------------ */
+.row{
+    width: 800px;
+    margin: 0 auto;
+}
 .colcolor{
     background-color: rgba(208, 223, 44, 0.758);
     border-radius: 10px;
     margin: 10px;
 }
 
-
 .scroll{
     overflow-y: scroll;
-    height: 600px;
+    height: 500px;
 } 
 
 

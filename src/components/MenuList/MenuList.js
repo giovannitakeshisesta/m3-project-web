@@ -22,10 +22,10 @@ export default function MenuList({toggleShowForm}) {
      
     <div className='menuListMain'>
         <div className='menuListTop'>
-            <i class="fas fa-utensils"></i>
+            <i className="fas fa-utensils"></i>
             <h1>MENU</h1>
-            <i class="fas fa-glass-cheers"></i>
-            <i class="fas fa-plus-circle topRight3" onClick={()=>toggleShowForm()}></i>
+            <i className="fas fa-glass-cheers"></i>
+            <i className="fas fa-plus-circle topRight3" onClick={()=>toggleShowForm()}></i>
         </div>
         <div className='menuListRow'>
             <div className='menuListCol '>

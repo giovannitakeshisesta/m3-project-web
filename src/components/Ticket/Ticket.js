@@ -90,26 +90,23 @@ const Ticket = ({tableInfo,food,drink,createdAt,_id,editTableId}) => {
                 </div>
                 <p>{day}</p>
             </div>   
-            <div>
+            <div className='frcb'>
                 <p>Waiter: {waiter} </p>
+                {location.pathname==='/tables' &&
+                <div>
+                    <button className='button-59'  
+                        onClick={()=> editTableId(table,_id)}
+                    > update
+                    </button>
+                    <button className='button-59'
+                        onClick={()=>deleteOrd(_id) }
+                    > Delete
+                    </button>
+                </div>
+                }
             </div>                     
         </div>
 
-        {location.pathname==='/tables' &&
-        <>
-        <button className='deleteOrderBtn'
-            onClick={()=>deleteOrd(_id) }
-        >
-            Delete
-        </button>
-
-        <button className='btn btn-warning' 
-            onClick={()=> editTableId(table,_id)}
-        >
-            update
-        </button>
-        </>
-        }
      
     </div>
     );

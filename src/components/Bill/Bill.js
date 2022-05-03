@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { deleteOrder, editOrder } from '../../services/OrderService';
 import TicketHeader from '../TicketHeader/TicketHeader';
 import BillTicket from './BillTicket';
@@ -18,8 +17,8 @@ const reduceOrders = (orders) => {
     },{})
 }
 
-const Bill = ({tableOrder}) => {
-    const navigate = useNavigate()
+
+const Bill = ({tableOrder, refrAfterPay}) => {
     const [showTotalBill, setShowTotalBill]= useState(false)
     const [showSplitPayment, setShowSplitPayment]= useState(true)
 
@@ -38,8 +37,6 @@ const Bill = ({tableOrder}) => {
     const [partialPayment, setPartialPayment]= useState([])
     const maxQty=JSON.parse(JSON.stringify(tableOrder))
 
-    
-    
     // function => rest 1 to the order, add 1 to the partial payment
     const editQty = (id , type, name ) => {
         // allOrders
@@ -68,34 +65,38 @@ const Bill = ({tableOrder}) => {
 
     // function => add 1 to the order, rest 1 to the partial payment
     const editQtyReverse = (id,type, name ) => {
-        const itemMaxQty = 
-            maxQty.find(el => el._id===id)[type]
-            .find(el=>el.name===name).quantity
+    if(partialPayment.find(el => el.name===name))
+        {
+            const itemMaxQty = 
+                maxQty.find(el => el._id===id)[type]
+                .find(el=>el.name===name).quantity
 
-        const newOrder = structuredClone(allOrders)
-        const item = newOrder[id][type].find(el => el.name === name)
-        if(item.quantity<itemMaxQty){
-            // allOrders
-            item.quantity +=1
-            setAllOrders(newOrder)
-    
-            // partial Payment
-            const newPartialPayment =partialPayment
-            const newItem=newPartialPayment.find(el=>el.name===name)
-            newItem.quantity-=1
+            const newOrder = structuredClone(allOrders)
+            const item = newOrder[id][type].find(el => el.name === name)
+            if(item.quantity<itemMaxQty){
+                // allOrders
+                item.quantity +=1
+                setAllOrders(newOrder)
+        
+                // partial Payment
+                const newPartialPayment =partialPayment
+                const newItem=newPartialPayment.find(el=>el.name===name)
+                newItem.quantity-=1
+            }
         }
     }
 
+
     // function => store the changes in the API
     const partialPayBtn = () => {
-        Object.entries(allOrders).forEach(el=>{
-            const {_id,food,drink,tableInfo} = el[1]
-            if ([...food,...drink].some(el=>el.quantity>0))
+        Object.entries(allOrders).forEach((ticket)=>{
+            const {_id,food,drink,tableInfo} = ticket[1]
+            if ([...food,...drink].some((ticket)=>ticket.quantity>0))
             {
                 editOrder(_id, { food, drink, tableInfo })
                 .then(() => {
-                    navigate('/tables') 
-                    // window.location.reload(false)
+                    setPartialPayment([])
+                    refrAfterPay()                   
                 })
                 .catch((err) => console.log(err))
             }
@@ -103,15 +104,14 @@ const Bill = ({tableOrder}) => {
             {
                 deleteOrder(_id)
                 .then(() => {
-                    navigate('/tables')
-                    window.location.reload(false)
-                 })
+                    setPartialPayment([])
+                    refrAfterPay()
+                })
                 .catch((err) => console.log(err))
             }
         })
     }
     
-
     return (
         <div className='billMainView'>
             <button
@@ -143,7 +143,6 @@ const Bill = ({tableOrder}) => {
                     <div>
                         <TicketHeader {...tableInfo}/>
                         {Object.entries(allOrders).map(ticket => {
-                            console.log(Object.entries(allOrders))
                             return(
                                 <div className='billTicketDiv' key={ticket[0]}>
                                     <BillTicket

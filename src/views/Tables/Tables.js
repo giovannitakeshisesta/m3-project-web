@@ -15,6 +15,7 @@ const Tables = () => {
     const [showTakeOrder,setShowTakeOrder]= useState(false)
     const [showBill,setShowBill]    = useState(false)
     const [showTicket,setShowTicket]= useState(true)
+    const [refreshAfterPay,setRefreshAfterPay]= useState(true)
         
     // set the allOrders Array & occupied Tables Array
     useEffect(() => {
@@ -35,7 +36,7 @@ const Tables = () => {
             goToTable(location.state)
         }
 
-    }, [location.state]);
+    }, [location.state, refreshAfterPay]);
 
     // function to check if the table is occupied
     const isOkk = useCallback ((val) => {return occupiedTbArr.includes(val)} , [occupiedTbArr])
@@ -62,8 +63,12 @@ const Tables = () => {
         setTableOrder(allOrdersArr.find(el => el._id === id))
     }
 
+    const refrAfterPay = () => {
+        setRefreshAfterPay(!refreshAfterPay)
+    }
+
     return (
-        <div className='fccc'>
+        <div className='tablesMainDiv'>
             {/* ------------- BUTTONS ------------- */}
             <div className='tablesBtnDiv'>
                 {arrTablesBtn.map(tableBtn => {
@@ -82,7 +87,16 @@ const Tables = () => {
 
             {/*  if there are orders for the table => show the tickets */}
             {tableOrder.length > 0 && showTicket &&
-                <>
+                <div className='tablesInnerDiv'>
+                <button className='button-80 '
+                    onClick={()=> {
+                        setOpenTableNum(tableOrder[0].tableInfo.table)
+                        setShowTakeOrder(true)
+                        setShowTicket(false)
+                    }}
+                > <i class="fa-solid fa-cart-plus"></i>
+                </button>
+
                 <div className='tableTicketDiv'>
                 {
                     tableOrder.map(ticket => {
@@ -92,23 +106,14 @@ const Tables = () => {
                     })
                 }
                 </div>
-                
-                <button className='btn btn-warning' 
+                <button  className='button-80 '
                     onClick={()=> {
-                        setOpenTableNum(tableOrder[0].tableInfo.table)
-                        setShowTakeOrder(true)
                         setShowTicket(false)
-                    }}
-                > New order
+                        setShowBill(true)
+                        }}
+                ><i class="fa-solid fa-circle-dollar-to-slot"></i>
                 </button>
-
-                <button onClick={()=> { 
-                    setShowTicket(false)
-                    setShowBill(true) 
-                    }}
-                > Bill
-                </button>
-                </>
+                </div>
             }
 
             {/* if the table is not occupied => show the take order component*/}
@@ -123,9 +128,9 @@ const Tables = () => {
                 </div>
             }
 
-            {showBill &&
+            {showBill && isOkk(tableOrder[0].tableInfo.table) &&
                 <div className='tableMenuOrder'>
-                <Bill tableOrder={tableOrder}/>
+                <Bill tableOrder={tableOrder} refrAfterPay={refrAfterPay}/>
                 </div>
             }
         </div>

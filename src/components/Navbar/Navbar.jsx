@@ -41,16 +41,6 @@ const Navbar = () => {
                     Register
                   </NavLink>
                 </li>
-
-                <li className="nav-item">
-                  <NavLink className="nav-link"  
-                    to="/drag">
-                    Drag
-                  </NavLink>
-                </li>
-
-
-      
               </>
             ) : (   
               <>
@@ -92,13 +82,6 @@ const Navbar = () => {
                 <li className="nav-link" onClick={logout}>
                    Logout                  
                 </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link"  
-                    to="/todo">
-                    to do 
-                  </NavLink>
-                </li>
-
               </>
             )}
           </ul>

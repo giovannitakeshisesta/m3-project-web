@@ -120,22 +120,52 @@ label{
     flex-wrap: wrap;
     justify-content: center;
 
-    .tableBtn{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    
-        height: 50px;
-        width: 50px;
-        border-radius: 50%;
-    
-        background-color: #34B187;
-        margin: 5px;
-    
-        
-        color: white;
-        font-size: 35px;
-        
+    .tableBtn {
+    appearance: none;
+    background-color: #08b6b3;
+    height: 70px;
+    width: 50px;
+    border-radius: 50%;
+    border-style: none;
+    box-shadow: #3d7f84 0 -5px 6px inset;
+    box-sizing: border-box;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system,sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -.24px;
+    margin: 5px;
+    outline: none;
+    // padding: 1rem 1.3rem;
+    // quotes: auto;
+    // text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    }
+
+    .tableBtn:hover {
+    background-color: #21ae19;
+    box-shadow: #28c50c 0 -6px 8px inset;
+    transform: scale(1.3);
+    }
+
+    .tableBtn:active {
+    transform: scale(1.025);
+    }
+
+    @media (min-width: 768px) {
+    .tableBtn {
+        font-size: 1.5rem;
+        padding: .75rem 2rem;
+    }
     }
 }
 

@@ -37,6 +37,8 @@ const Bill = ({tableOrder}) => {
     const [allOrders,setAllOrders] = useState(tableOrderReduce)
     const [partialPayment, setPartialPayment]= useState([])
     const maxQty=JSON.parse(JSON.stringify(tableOrder))
+
+    
     
     // function => rest 1 to the order, add 1 to the partial payment
     const editQty = (id , type, name ) => {

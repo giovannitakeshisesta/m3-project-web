@@ -31,7 +31,7 @@ export default function TakeOrder({openTableNum, data}) {
     .then((response)=>setMenuJson(response))
     .catch((err)=> console.log(err))
   }, []);
-console.log(data);
+
   const list = [...menuJson]            // list we use for the menu
   const listLight = cleanList(list)     // list we use for the order
   

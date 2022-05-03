@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom';
-import { getMenuDetails } from '../../services/menu.service';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { deleteMenuItem, getMenuDetails } from '../../services/menu.service';
 import MenuForm from '../MenuForm/MenuForm';
 
 export default function MenuDetails() {
     const { id } = useParams()
+    const navigate = useNavigate()
     const [details,setDetails]= useState()
     const [showForm,setShowForm]=useState(false)
+
 
     useEffect(() => {
         getMenuDetails(id)
@@ -18,46 +20,63 @@ export default function MenuDetails() {
         setShowForm(!showForm)
     }
 
+    const deleteItem = (id) => {
+        deleteMenuItem(id)
+        .then(()=> {
+            navigate('/menu')
+        })
+        .catch((err)=> console.log(err))
+    }
+
     return (
-    <div>
-        <div className='frcb'>
-            <h2>Item Details</h2>
-            
-            <i className="fas fa-arrow-left"><Link to={'/menu'}> Menu </Link> </i>
-        </div>
+    <div className='menuDetailsMainDiv'>
         {details && 
-            <div>
+            <div className='menuDetailsInnerDiv'>
                 {showForm ?
                     <MenuForm prefillValues={details} id={id} toggleShowForm={toggleShowForm}/>
                     :
-                    <div className='menuDetailsMainDiv'>
-                        <h1>{details.name}</h1>
-    
-                        <div className='d-flex'>
-                            <div className='menuDetailsInfoDiv'>
-                                <p><b>Price: </b>{details.price} €</p>
-                                <p><b>Filter :</b>
-                                    {details.allergens == 'false' ? "None" : details.allergens}
-                                </p>
-                                
-                                <div>
-                                    <p><b>Description:</b></p>
-                                    <p>{details.description}</p>
+                    <div >
+                        <div className='topRight'>                            
+                            <Link to={'/menu'}><i className="fas fa-arrow-left"> Menu </i></Link> 
+                        </div>
+                        <div>
+                            <h1>{details.name}</h1>
+                            <div className='d-flex'>
+                                <div className='menuDetailsInfoDiv'>
+                                    <p className='mb-1'><b>Price: </b>{details.price} €</p>
+                                    <p className='mb-1'><b>Filter: </b>
+                                        {details.allergens == 'false' ? "None" : details.allergens}
+                                    </p>
+                            
+                                    <div>
+                                        <p><b>Description:</b></p>
+                                        <p>{details.description}</p>
+                                    </div>
+
+                                    <div className='menuDetailsEditBtns'>
+                                        <button
+                                            className=''
+                                            onClick={()=>toggleShowForm()}
+                                            > edit
+                                        </button>
+                                        <button
+                                            className=''
+                                            onClick={()=>{deleteItem(id)}}
+                                            > delete
+                                        </button>
+                                    </div>
                                 </div>
-                                <button
-                                    onClick={()=>toggleShowForm()}>
-                                    edit
-                                </button>
+                                
+                            
+                                <div className='menuDetailsImgDiv'>
+                                    {details.image ? (
+                                        <img className='menuDetailsImg' src={details.image} alt="" />
+                                    ) : (
+                                        <img className='menuDetailsImg' src="/images/placeholder-image.jpeg" alt="" />
+                                    )}
+                                </div>
                             </div>
 
-                            
-                            <div className='menuDetailsImgDiv'> 
-                                {details.image ? (
-                                    <img className='menuDetailsImg' src={details.image} alt="" />
-                                ) : (
-                                    <img className='menuDetailsImg' src="/images/placeholder-image.jpeg" alt="" />
-                                )}
-                            </div>
                         </div>
                     </div>
                 }

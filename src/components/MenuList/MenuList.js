@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
-import { deleteMenuItem, getMenu } from '../../services/menu.service';
+import { Link } from 'react-router-dom';
+import { getMenu } from '../../services/menu.service';
+import MenuProductCard from '../MenuProductCard/MenuProductCard';
 
-export default function MenuList() {
-    const navigate = useNavigate()
+export default function MenuList({toggleShowForm}) {
     const [foodList, setFoodList]= useState([])
     const [drinkList, setDrinkList]= useState([])
-    const [refresh, setRefresh]=useState(false)
 
 
     useEffect(() => {
@@ -16,41 +15,42 @@ export default function MenuList() {
             setDrinkList(response.filter(el =>el.type === "drink"))
         })
         .catch((err) => console.log(err))
-    }, [refresh]);
+    }, []);
 
-    const deleteItem = (id) => {
-        deleteMenuItem(id)
-        .then(()=> {
-            setRefresh(!refresh)
-            navigate('/menu')
-        })
-        .catch((err)=> console.log(err))
-    }
+// console.log(foodList);
   return (
      
+    <div className='menuListMain'>
+        <div className='menuListTop'>
+            <i class="fas fa-utensils"></i>
+            <h1>MENU</h1>
+            <i class="fas fa-glass-cheers"></i>
+            <i class="fas fa-plus-circle topRight3" onClick={()=>toggleShowForm()}></i>
+        </div>
         <div className='menuListRow'>
-        <div className='menuListCol'>
-        <h2>Food</h2>
-            {foodList.map(item => {
-                return (
-                    <div key={item.id} className="menuListItem">
-                        <p> <Link to={`/menu/${item.id}`}>{item.name}</Link></p>
-                        <i className="fas fa-trash-alt" onClick={()=>{deleteItem(item.id)}}></i>
-                    </div>
-                )
-            })}
+            <div className='menuListCol '>
+                {foodList.map(item => {
+                    return (
+                        <div key={item.id} >
+                            <Link to={`/menu/${item.id}`} className="menuCardComponent">
+                                <MenuProductCard {...item}/>
+                            </Link>
+                        </div>
+                    )
+                })}
+            </div>
+            <div className='menuListCol '>
+                {drinkList.map(item => {
+                    return (
+                        <div key={item.id} >
+                            <Link to={`/menu/${item.id}`} className="menuCardComponent">
+                                <MenuProductCard {...item}/>
+                            </Link>
+                        </div>
+                    )
+                })}
+            </div>
         </div>
-        <div className='menuListCol'>
-            <h2>Drinks</h2>
-            {drinkList.map(item => {
-                return (
-                    <div key={item.id} className="menuListItem">
-                        <p> <Link to={`/menu/${item.id}`}>{item.name}</Link></p>
-                        <i className="fas fa-trash-alt" onClick={()=>{deleteItem(item.id)}}></i>
-                    </div>
-                )
-            })}
-        </div>
-        </div>
+    </div>
   )
 }

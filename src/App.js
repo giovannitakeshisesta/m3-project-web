@@ -11,12 +11,11 @@ import Login from "./views/Login/Login";
 import Profile from "./views/Profile/Profile";
 import Favourites from "./views/Favourites/Favourites";
 import Home from "./views/Home/Home";
-import Drag from "./views/Drag/Drag";
+// import Drag from "./views/Drag/Drag";
 import KitchenWall from "./views/KitchenWall/KitchenWall";
 import Tables from "./views/Tables/Tables";
 import TakeOrder from "./components/TakeOrder/TakeOrder";
 import UserDetails from "./Users/User.Details";
-import Todo from "./views/Todo";
 import Menu from "./views/Menu/Menu";
 import MenuDetails from "./components/MenuDetails.js/MenuDetails";
 
@@ -25,20 +24,19 @@ function App() {
   const { isAuthenticationFetched } = useAuthContext()
   
   return (
-    <div className="">
+    <div >
       <Navbar />
 
-      <div className="ms-3 me-3">
+      <div >
         {!isAuthenticationFetched ? (
           <p>Loading...</p>
         ) : (
           <Routes>
             <Route path="/"            element={<Home />} />
-            <Route path="drag"         element={<Drag />} />
-            <Route path="drag"         element={<Drag />} />
+            {/* <Route path="drag"         element={<Drag />} />
+            <Route path="drag"         element={<Drag />} /> */}
             <Route path="KitchenWall"  element={<KitchenWall />} />
             <Route path="takeOrder"    element={<TakeOrder />} />
-            <Route path="todo"         element={<Todo />} />
             <Route path="tables"       element={<Tables />} />
             <Route path="menu"         element={<Menu />} />
             <Route path="menu/:id"     element={<MenuDetails />} />

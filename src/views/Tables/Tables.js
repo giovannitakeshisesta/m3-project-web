@@ -69,7 +69,8 @@ const Tables = () => {
                 {arrTablesBtn.map(tableBtn => {
                     return (
                         <p  key={tableBtn}
-                            className='tableBtn' 
+                            className="tableBtn" 
+                            role="button"
                             onClick={()=> goToTable(tableBtn)}
                             style={{ backgroundColor: isOkk(tableBtn)? "#008E8B": null}}
                             >
@@ -98,13 +99,15 @@ const Tables = () => {
                         setShowTakeOrder(true)
                         setShowTicket(false)
                     }}
-                >
-                    new order
+                > New order
                 </button>
+
                 <button onClick={()=> { 
                     setShowTicket(false)
                     setShowBill(true) 
-                    }}>Bill</button>
+                    }}
+                > Bill
+                </button>
                 </>
             }
 

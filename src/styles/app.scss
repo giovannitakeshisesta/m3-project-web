@@ -40,6 +40,9 @@ a{
     cursor: pointer;
 }
 
+label{
+    font-weight: bold;
+}
 
 
 /* -----------KITCHENWALL TICKET-------------- */
@@ -117,22 +120,52 @@ a{
     flex-wrap: wrap;
     justify-content: center;
 
-    .tableBtn{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    
-        height: 50px;
-        width: 50px;
-        border-radius: 50%;
-    
-        background-color: #34B187;
-        margin: 5px;
-    
-        
-        color: white;
-        font-size: 35px;
-        
+    .tableBtn {
+    appearance: none;
+    background-color: #08b6b3;
+    height: 70px;
+    width: 50px;
+    border-radius: 50%;
+    border-style: none;
+    box-shadow: #3d7f84 0 -5px 6px inset;
+    box-sizing: border-box;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system,sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -.24px;
+    margin: 5px;
+    outline: none;
+    // padding: 1rem 1.3rem;
+    // quotes: auto;
+    // text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    }
+
+    .tableBtn:hover {
+    background-color: #21ae19;
+    box-shadow: #28c50c 0 -6px 8px inset;
+    transform: scale(1.3);
+    }
+
+    .tableBtn:active {
+    transform: scale(1.025);
+    }
+
+    @media (min-width: 768px) {
+    .tableBtn {
+        font-size: 1.5rem;
+        padding: .75rem 2rem;
+    }
     }
 }
 
@@ -234,99 +267,129 @@ a{
 
 
 /* ----------------------MENU MAIN PAGE------------------------- */
-.imga{
 
-}
 .menuMainPage{
-    border: 1px solid green;
-    height: 60vw;
+    height: 700px;
+    background-image: url("https://res.cloudinary.com/dly7e46yt/image/upload/v1651496257/ironhack/ticketezy/risto_room_iddiuy.png");
+    background-size: cover;
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-image: url("https://res.cloudinary.com/dly7e46yt/image/upload/v1651441291/ironhack/ticketezy/risto_room_cplsqh.webp");
-    background-size: cover;
 }
 .menuMainPageInner{
-    border: 1px solid rgb(111, 128, 0);
-    width: 100%;
-}
-.menuMainPageTop{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    background-color: rgba(240, 248, 246, 0.7);
+    border-radius: 10px;
+    padding: 15px ;
+    width: 80%;
 }
 
 /* ----------------------MENU LIST COMPONENT------------------------- */
-.menuListRow{
+.menuListMain{
+    width: 100%;
     display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-.menuListCol{
-    width: 50%;
-}
-.menuListItem{
+.menuListTop{
+    width: 80%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid grey;
+    justify-content: space-around;
+    
+    .fa-glass-cheers,
+    .fa-utensils,
+    .fa-plus-circle{
+        font-size: 30px;
+    }
 }
+.topRight3{
+    position: absolute;
+    cursor: pointer;
+    right: 130px;
+}
+.menuListRow{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.menuListCol{
+    width: 45%;
+    overflow-y: scroll;
+    height: 450px;
+    padding: 5px;
+    background-color: rgba(240, 248, 246, 0.9);
+
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
 /* ----------------------MENU DETAILS COMPONENT------------------------- */
 .menuDetailsMainDiv{
+    height: 700px;
+    background-image: url("https://res.cloudinary.com/dly7e46yt/image/upload/v1651506352/ironhack/ticketezy/risto_room2_zdloik.png");
+    background-size: cover;
+    background-position: 0%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
     p{
-        font-size: 25px;
+        font-size: 20px;
         white-space: pre-wrap;
     }
 }
+
+.menuDetailsInnerDiv{
+    background-color: rgba(240, 248, 246, 0.95);
+    width: 85%;
+    min-height: 500px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.topRight{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin-bottom: -10px;
+}
 .menuDetailsInfoDiv{
     width: 60%;
+    padding: 0 20px 0 0;
 
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    // background-color: #34B187;
+}
+.menuDetailsEditBtns{
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
 }
 .menuDetailsImgDiv{
     width: 40%;
-    max-height: 400px;
+    height: 400px;
 }
 .menuDetailsImg{
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     border-radius: 20px;
-
 }
 /* ----------------------MENU FORM------------------------- */
+
 .menuForm{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    padding: 10px;
-
-    background-color: #34B187;
-    width: 40vw;
-
-
-    .descriptionField{
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-    .priceField{
-        width: 120px;
-        display: flex;
-        flex-direction: column;
-    }
-    .allergensFields{
-        width: 100%;
-        margin:5px;
-        border: 1px solid black;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-    }
+    width: 60vw;
+    margin-top: -20px;
+    .has-error {
+        margin-bottom: 20px;
+    }    
+ 
     .radio-form-group {
         position: relative;
         
@@ -336,7 +399,73 @@ a{
         }
     }
 
-    .has-error {
-        margin-bottom: 22px;
+    .inputName{
+        width: 55% ;
     }
+
+    .allergensFields{
+        column-count: 4;
+        width: 100%;
+    }
+    .allergensBoxLabel{
+        display: flex;
+        align-items: center;
+    }
+
+
 }
+.topRight2{
+    margin-left: auto;
+    cursor: pointer;
+}
+
+
+/* ----------------------MENU PRODUCT CARD COMPONENT------------------------- */
+.menuCardComponent{
+    height: 80px;
+    width: 98%;
+    margin: 10px 5px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+.menuCardMain{
+    height: 90%;
+    width: 95%;
+    padding: 5px;
+    border: 2px solid rgb(248, 171, 29);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.menuCardInner{
+    height: 98%;
+    width: 95%;
+
+    display: flex;
+    align-items: center;
+}
+.menuCardImgDiv{
+    background-color: red;
+    height: 100%;
+    width: 30%;
+}
+
+.menuCardImg{
+    height: 100%;
+    width: 100%;
+}
+
+.menuCardName{
+    width: 50%;
+    margin-left: 10px;
+}
+.menuCardPrice{
+    width: 15%;
+}
+
+
+

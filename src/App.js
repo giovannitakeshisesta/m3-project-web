@@ -21,7 +21,7 @@ function App() {
   const { isAuthenticationFetched } = useAuthContext()
   
   return (
-    <div >
+    <div className="appDiv">
       <Navbar />
       <div >
         {!isAuthenticationFetched ? (

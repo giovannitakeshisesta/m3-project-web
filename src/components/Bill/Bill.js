@@ -20,8 +20,8 @@ const reduceOrders = (orders) => {
 
 
 const Bill = ({tableOrder, refrAfterPay}) => {
-    const [showTotalBill, setShowTotalBill]= useState(false)
-    const [showSplitPayment, setShowSplitPayment]= useState(true)
+    const [showTotalBill, setShowTotalBill]= useState(true)
+    const [showSplitPayment, setShowSplitPayment]= useState(false)
 
     // table orders details
     const tableInfo = tableOrder[0].tableInfo

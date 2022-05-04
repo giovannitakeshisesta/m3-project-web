@@ -54,7 +54,7 @@ const KitchenWall = () => {
   // set interval
   useEffect(() => {
     getHOLDERS()
-    const interval = setInterval(() => {getHOLDERS()}, 4000);
+    const interval = setInterval(() => {getHOLDERS()}, 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -169,7 +169,7 @@ const KitchenWall = () => {
                                       ...provided.draggableProps.style,
                                     }}
                                   >
-                                  <Ticket {...ticket}/>
+                                  <Ticket {...ticket} getHOLDERS={getHOLDERS}/>
                                   </div>
                                 );
                               }}

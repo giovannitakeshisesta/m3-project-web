@@ -7,37 +7,46 @@ import { addItemMenu, editMenuDetails } from '../../services/menu.service';
 import InputGroup from "../../components/InputGroup"
 
 
-const schema = yup.object().shape({
-    type: yup.string()
-        .typeError('Required')
-        .required(''),
-    name: yup.string()
-        .required('Required'),
-    description: yup.string()
-        .required('Required')
-        .min(2),
-        price: yup.number()
-        .required()
-        .typeError('Required')
-        .min(1),
-    image: yup.mixed()
-        .test('required', 'Required', (value) =>{
-            return value && value.length
-        } )
-        // .test("fileSize", "The file is too large", (value, context) => {
-        //     return value && value[0] && value[0].size <= 200000;
-        // })
-        // .test("type", "We only support jpeg & png", function (value) {
-        //     return value && value[0] && value[0].type === "image/jpeg"||value[0].type === "image/png";
-        // })
-}).required();
+const getSchema = (prefillValues) => {
+    return yup.object().shape({
+        type: yup.string()
+            .typeError('Required')
+            .required(''),
+        name: yup.string()
+            .required('Required'),
+        description: yup.string()
+            .required('Required')
+            .min(2),
+            price: yup.number()
+            .required()
+            .typeError('Required')
+            .min(1),
+        image: yup.lazy((value) => {
+            if (!prefillValues?.image || prefillValues?.image !== value) {
+                return yup.mixed()
+                .test('required', 'Required', (value) =>{
+                    return value && value.length
+                } )
+                .test("fileSize", "The file is too large", (value, context) => {
+                    return value && value[0] && value[0].size <= 200000;
+                })
+                .test("type", "We only support jpeg & png", function (value) {
+                    return( value && value[0] && value[0]?.type === "image/jpeg")||(value[0]?.type === "image/png");
+                })
+            } else {
+                return  yup.mixed();
+            }
+        })
+    }).required()
+};
 
 
 export default function MenuForm({id,prefillValues,toggleShowForm}) {
     const navigate = useNavigate()
+    const resolver = getSchema(prefillValues);
     const { register, handleSubmit, formState:{ errors } } = useForm({
         defaultValues:prefillValues,
-        resolver: yupResolver(schema)
+        resolver: yupResolver(resolver)
     });
     const [backErrors, setBackErrors] = useState({})
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -74,13 +83,13 @@ export default function MenuForm({id,prefillValues,toggleShowForm}) {
 
         const bodyFormData = new FormData()
         const { image, ...rest } = data
+
         Object.keys(rest).forEach(key => {
             bodyFormData.append(key, rest[key])
             })
         if (!image[0].length) {
             bodyFormData.append('image', image[0])
         }
-
         editMenuDetails(id,bodyFormData)
         .then(()=>{
             toggleShowForm()

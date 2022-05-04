@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { deleteOrder, editOrder } from '../../services/OrderService';
 import TicketHeader from '../TicketHeader/TicketHeader';
 import BillTicket from './BillTicket';
+import '../../styles/bills.scss'
 
 const calculateBill = (arr) => {
     return arr.reduce((acc, item) => {

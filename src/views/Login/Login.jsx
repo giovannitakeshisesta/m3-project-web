@@ -6,6 +6,8 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import InputGroup from "../../components/InputGroup"
 import { loginRequest } from '../../services/AuthService';
 import { useAuthContext } from '../../contexts/AuthContext';
+import '../../styles/Login.scss'
+
 
 const schema = yup.object({
   email: yup.string().email().required(),
@@ -16,7 +18,7 @@ const Login = () => {
   const navigate = useNavigate()
   let location = useLocation();
 
-  let from = location.state?.from?.pathname || "/profile";
+  let from = location.state?.from?.pathname || "/";
 
   const { login } = useAuthContext()
 
@@ -41,10 +43,11 @@ const Login = () => {
   }
 
   return (
-    <div className="Login">
+    <div className="loginMainDiv">
       <h1 className="mt-3">Login</h1>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form 
+        onSubmit={handleSubmit(onSubmit)} className="formAuth">
         <InputGroup
           label="Email"
           id="email"

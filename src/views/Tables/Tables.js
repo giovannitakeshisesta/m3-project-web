@@ -94,7 +94,7 @@ const Tables = () => {
                         setShowTakeOrder(true)
                         setShowTicket(false)
                     }}
-                > <i class="fa-solid fa-cart-plus"></i>
+                > <i className="fa-solid fa-cart-plus"></i>
                 </button>
 
                 <div className='tableTicketDiv'>
@@ -111,7 +111,7 @@ const Tables = () => {
                         setShowTicket(false)
                         setShowBill(true)
                         }}
-                ><i class="fa-solid fa-circle-dollar-to-slot"></i>
+                ><i className="fa-solid fa-circle-dollar-to-slot"></i>
                 </button>
                 </div>
             }

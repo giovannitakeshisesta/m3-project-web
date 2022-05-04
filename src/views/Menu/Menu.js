@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import MenuForm from '../../components/MenuForm/MenuForm'
 import MenuList from '../../components/MenuList/MenuList'
+import '../../styles/menu.scss'
 
 export default function Menu() {
   const [showForm,setShowForm]=useState(false)

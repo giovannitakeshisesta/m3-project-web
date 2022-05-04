@@ -1,10 +1,9 @@
 import React from 'react'
-import './Item.scss'
+import '../../styles/Item.scss'
 
 const Item = ({id,name,description,price,allergens,quantity,type,message,addOneItem,deleteOneItem,openModal, order,changeCourse,openModalDescription})  => {
   return (
     <div className='dishMainDiv'>
-    
         <p className='itemName' onClick={()=> openModalDescription(name,description,price)}>{name}</p>
         <p className='itemPrice'>{price}€</p>
         <i className="fa-solid fa-plus" onClick={() => addOneItem(id,type)}></i>

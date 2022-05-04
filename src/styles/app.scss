@@ -197,339 +197,51 @@ label{
 }
 
 
-/* ----------------- BILL VIEW --------------- */
-.billMainView{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-.splitRow{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    background-color: rgb(160, 67, 17);
-}
-.splitLeft{
-    width: 48%;
-    height: 50vw;
-    background-color: rgb(17, 160, 115);
-}
-.splitRight{
-    width: 48%;
-    height: 50vw;
-    background-color: rgb(222, 223, 231);
-}
-.staticBillDiv{
-    width: 60%;
-}
-.billTicketDiv{
-    width: 95%;
-}
-/* -------------PAID BILLS------------ */
-.paidBills{
-    width: 50%;
-}
-
-/* ---------  BILL TICKET COMPONENT --------- */
-.billTotal{
-    width: 100%;
-    background-color: #b5e7d6;
-    padding: 15px 30px;
-    margin: 10px;
-}
-
-.billHeader{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    border-bottom: 1px solid grey;
-}
-
-.billBody{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-
-    .billItems{
-        display: flex;
-
-        .billQuantity{
-            margin-right: 10px;
-        }
-    }
-}
-
-.billFooter{
-    border-top: 1px solid grey;
-    margin-top: 10px;
-
-    .waiterTotal{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin: 10px 0 15px;
-    }
-
-    .xperson{
-        text-align: right;
-    }
-}
-
-
-.arrowBtnsBill{
-    display: flex;
-    align-items: center;
-}
-
-
-/* ----------------------MENU MAIN PAGE------------------------- */
-
-.menuMainPage{
-    height: 700px;
-    background-image: url("https://res.cloudinary.com/dly7e46yt/image/upload/v1651496257/ironhack/ticketezy/risto_room_iddiuy.png");
-    background-size: cover;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-.menuMainPageInner{
-    background-color: rgba(240, 248, 246, 0.7);
-    border-radius: 10px;
-    padding: 15px ;
-    width: 80%;
-}
-
-/* ----------------------MENU LIST COMPONENT------------------------- */
-.menuListMain{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.menuListTop{
-    width: 80%;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    
-    .fa-glass-cheers,
-    .fa-utensils,
-    .fa-plus-circle{
-        font-size: 30px;
-    }
-}
-.topRight3{
-    position: absolute;
-    cursor: pointer;
-    right: 130px;
-}
-.menuListRow{
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-}
-.menuListCol{
-    width: 45%;
-    overflow-y: scroll;
-    height: 450px;
-    padding: 5px;
-    background-color: rgba(240, 248, 246, 0.9);
-
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-}
-
-/* ----------------------MENU DETAILS COMPONENT------------------------- */
-.menuDetailsMainDiv{
-    height: 700px;
-    background-image: url("https://res.cloudinary.com/dly7e46yt/image/upload/v1651506352/ironhack/ticketezy/risto_room2_zdloik.png");
-    background-size: cover;
-    background-position: 0%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-
-    p{
-        font-size: 20px;
-        white-space: pre-wrap;
-    }
-}
-
-.menuDetailsInnerDiv{
-    background-color: rgba(240, 248, 246, 0.95);
-    width: 85%;
-    min-height: 500px;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-.topRight{
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    margin-bottom: -10px;
-}
-.menuDetailsInfoDiv{
-    width: 60%;
-    padding: 0 20px 0 0;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-.menuDetailsEditBtns{
-   display: flex;
-   align-items: center;
-   justify-content: space-around;
-}
-.menuDetailsImgDiv{
-    width: 40%;
-    height: 400px;
-}
-.menuDetailsImg{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 20px;
-}
-/* ----------------------MENU FORM------------------------- */
-
-.menuForm{
-    display: flex;
-    flex-direction: column;
-    width: 60vw;
-    margin-top: -20px;
-    .has-error {
-        margin-bottom: 20px;
-    }    
- 
-    .radio-form-group {
-        position: relative;
-        
-        .absolute-error {
-            position: absolute;
-            left: 24px;
-        }
-    }
-
-    .inputName{
-        width: 55% ;
-    }
-
-    .allergensFields{
-        column-count: 4;
-        width: 100%;
-    }
-    .allergensBoxLabel{
-        display: flex;
-        align-items: center;
-    }
-
-
-}
-.topRight2{
-    margin-left: auto;
-    cursor: pointer;
-}
-
-
-/* ----------------------MENU PRODUCT CARD COMPONENT------------------------- */
-.menuCardComponent{
-    height: 80px;
-    width: 98%;
-    margin: 10px 5px;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-}
-.menuCardMain{
-    height: 90%;
-    width: 95%;
-    padding: 5px;
-    border: 2px solid rgb(248, 171, 29);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.menuCardInner{
-    height: 98%;
-    width: 95%;
-
-    display: flex;
-    align-items: center;
-}
-.menuCardImgDiv{
-    background-color: red;
-    height: 100%;
-    width: 30%;
-}
-
-.menuCardImg{
-    height: 100%;
-    width: 100%;
-}
-
-.menuCardName{
-    width: 50%;
-    margin-left: 10px;
-}
-.menuCardPrice{
-    width: 15%;
-}
-
-
+/* ---------  BUTTONS --------- */
 
 .button-59 {
-    align-items: center;
-    background-color:hsla(165, 30%, 74%, 0.299);
-    border: 1px solid rgb(150, 145, 145);
-    border-radius: 5px;
-    box-sizing: border-box;
-    color: #000;
-    cursor: pointer;
-    display: inline-flex;
-    fill: #000;
-    font-size: 16px;
-    font-weight: 500;
-    height: 48px;
-    justify-content: center;
-    letter-spacing: -.8px;
-    line-height: 24px;
-    min-width: 10px;
-    outline: 0;
-    padding: 0 10px;
-    margin-left: 10px;
-    text-align: center;
-    text-decoration: none;
-    transition: all .3s;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-  }
-  
-  .button-59:focus {
-    color: #171e29;
-  }
-  
-  .button-59:hover {
-    border-color: #228b87;
-    color: #228b87;
-    fill: #228b87;
-  }
-  
-  .button-59:active {
-    border-color: #8b3922;
-    color: #8b3922;
-    fill: #8b3922;
-  }
+align-items: center;
+background-color:hsla(165, 30%, 74%, 0.299);
+border: 1px solid rgb(150, 145, 145);
+border-radius: 5px;
+box-sizing: border-box;
+color: #000;
+cursor: pointer;
+display: inline-flex;
+fill: #000;
+font-size: 16px;
+font-weight: 500;
+height: 48px;
+justify-content: center;
+letter-spacing: -.8px;
+line-height: 24px;
+min-width: 10px;
+outline: 0;
+padding: 0 10px;
+margin-left: 10px;
+text-align: center;
+text-decoration: none;
+transition: all .3s;
+user-select: none;
+-webkit-user-select: none;
+touch-action: manipulation;
+}
+
+.button-59:focus {
+color: #171e29;
+}
+
+.button-59:hover {
+border-color: #228b87;
+color: #228b87;
+fill: #228b87;
+}
+
+.button-59:active {
+border-color: #8b3922;
+color: #8b3922;
+fill: #8b3922;
+}
 
 
 

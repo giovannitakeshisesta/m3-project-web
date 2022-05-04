@@ -1,6 +1,6 @@
 const InputGroup = ({ label, id, name, type, placeholder, register, error }) => {
   return (
-    <div className="mb-3">
+    <div className="mb-3 inputField">
       <label htmlFor={id} >
         {label}
       </label>

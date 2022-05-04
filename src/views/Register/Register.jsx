@@ -1,10 +1,11 @@
 import { useState } from 'react' 
 import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
 import { useNavigate } from 'react-router-dom'
-import InputGroup from "../../components/InputGroup"
+import { yupResolver } from '@hookform/resolvers/yup';
 import { register as registerRequest } from '../../services/AuthService'
+import * as yup from "yup";
+import InputGroup from "../../components/InputGroup"
+// import ('./Login.scss')
 
 const schema = yup.object({
   email: yup.string().email().required(),
@@ -37,10 +38,11 @@ const Register = () => {
   };
 
   return (
-    <div className="Register">
+    <div className="loginMainDiv">
       <h1 className="mt-3">Register</h1>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form 
+        onSubmit={handleSubmit(onSubmit)} className="formAuth">
         <InputGroup
           label="Email"
           id="email"

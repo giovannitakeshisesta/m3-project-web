@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
-import "./KitchenWall.scss";
+import '../../styles/KitchenWall.scss'
 import { getHolders, putHolders } from '../../services/OrderService';
 import Ticket from "../../components/Ticket/Ticket";
 

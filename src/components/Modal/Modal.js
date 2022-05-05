@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import ReactDOM from 'react-dom'
-import './Modal.scss'
+import '../../styles/Modal.scss'
 
 
 const ModalContent = (props) => {

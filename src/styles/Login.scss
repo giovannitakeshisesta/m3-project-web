@@ -1,0 +1,57 @@
+.loginMainDiv{
+    background-size: cover;
+
+    width: 80%;
+    height:50vw;
+    margin-top: 20px;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 22px;
+
+}
+
+.loginInputDiv{
+    width: 40%;
+    height: 70%;
+
+    margin-left: 90px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    // z-index: 999;
+    background-color: rgba(100,100,100,0.5);
+    box-shadow: -1px 4px 28px 0px rgba(0,0,0,0.9);
+    color: white;
+
+
+    .formAuth{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items:center;
+        justify-content: center;
+    }
+
+
+    .inputField{
+        // background-color: red;
+        width: 70%;
+        margin: 0 auto;
+        color: white;
+    }
+}
+
+.SignupNow{
+    color: #3498db;
+    font-size: 22px;
+}

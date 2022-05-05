@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { deleteOrder, editIsDone } from '../../services/OrderService';
 
-const Ticket = ({tableInfo,food,drink,createdAt,_id,editTableId}) => {
+const Ticket = ({tableInfo,food,drink,createdAt,_id,editTableId, getHOLDERS}) => {
     const {people, table, urgent, takeAway, waiter } = tableInfo;
     const time = String(Number(createdAt.substring(11,13))+2)+ createdAt.substring(13,16);
     const day = createdAt.substring(0,10);
@@ -17,10 +17,11 @@ const Ticket = ({tableInfo,food,drink,createdAt,_id,editTableId}) => {
 
     const dishDone = (id,dish) => {
         dish.isDone=!dish.isDone
-        // console.log(id,dish.isDone);
         const {type,name}=dish
         editIsDone(id,{ type,name })
-        .then((response)=>console.log(response.drink[0].isDone))
+        .then((response)=>{
+            getHOLDERS && getHOLDERS()
+        })
         .catch((err)=> console.log(err))
     }
 
@@ -57,7 +58,9 @@ const Ticket = ({tableInfo,food,drink,createdAt,_id,editTableId}) => {
                     <p className='me-3'
                     style={{display: dish.id === "6"||dish.id ==="7" ? "none":null}}
                     >{dish.quantity}</p>
-                    <p>{dish.name}</p>
+                    <p onClick={()=> dishDone(_id,dish)}
+                        className={dish.isDone ? "isDone" : ""}
+                    >{dish.name}</p>
                 </div>
                 <p className='ticketMessage'>{dish.message}</p>
                 </div>                    
@@ -72,8 +75,9 @@ const Ticket = ({tableInfo,food,drink,createdAt,_id,editTableId}) => {
                     style={{display: dish.id === "6"||dish.id ==="7" ? "none":null}}
                     >{dish.quantity}</p>
                     <p onClick={()=> dishDone(_id,dish)}
-                        style={{backgroundColor : dish.isDone ? "red":"green"}}
-                    >{dish.name}</p>
+                        className={dish.isDone ? "isDone" : ""}
+                    >{dish.name}
+                    </p>
                 </div>
                 <p className='ticketMessage'>{dish.message}</p>
                 </div>                    
@@ -90,26 +94,23 @@ const Ticket = ({tableInfo,food,drink,createdAt,_id,editTableId}) => {
                 </div>
                 <p>{day}</p>
             </div>   
-            <div>
+            <div className='frcb'>
                 <p>Waiter: {waiter} </p>
+                {location.pathname==='/tables' &&
+                <div>
+                    <button className='button-59'  
+                        onClick={()=> editTableId(table,_id)}
+                    > update
+                    </button>
+                    <button className='button-59'
+                        onClick={()=>deleteOrd(_id) }
+                    > Delete
+                    </button>
+                </div>
+                }
             </div>                     
         </div>
 
-        {location.pathname==='/tables' &&
-        <>
-        <button className='deleteOrderBtn'
-            onClick={()=>deleteOrd(_id) }
-        >
-            Delete
-        </button>
-
-        <button className='btn btn-warning' 
-            onClick={()=> editTableId(table,_id)}
-        >
-            update
-        </button>
-        </>
-        }
      
     </div>
     );

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import MenuForm from '../../components/MenuForm/MenuForm'
 import MenuList from '../../components/MenuList/MenuList'
+import '../../styles/menu.scss'
+import fotoSala from '../../assets/risto_room.png'
 
 export default function Menu() {
   const [showForm,setShowForm]=useState(false)
@@ -10,7 +12,8 @@ export default function Menu() {
   }
 
   return (
-      <div className='menuMainPage'>
+      <div className='menuMainPage'   
+           style={{backgroundImage:`url(${fotoSala})`}}>
         <div className='menuMainPageInner'>
           {showForm ?
           <MenuForm toggleShowForm={toggleShowForm}/>

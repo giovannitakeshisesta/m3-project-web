@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { deleteMenuItem, getMenuDetails } from '../../services/menu.service';
 import MenuForm from '../MenuForm/MenuForm';
+import fotoSala2 from '../../assets/risto_room2.png'
+
 
 export default function MenuDetails() {
     const { id } = useParams()
@@ -29,7 +31,7 @@ export default function MenuDetails() {
     }
 
     return (
-    <div className='menuDetailsMainDiv'>
+    <div className='menuDetailsMainDiv'  style={{backgroundImage:`url(${fotoSala2})`}}>
         {details && 
             <div className='menuDetailsInnerDiv'>
                 {showForm ?

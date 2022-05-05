@@ -1,3 +1,4 @@
+import { render } from "@testing-library/react";
 import React, { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import '../../styles/Order.scss'
@@ -41,6 +42,7 @@ export default function OrderDrag({list,sendInfo}) {
           
             {renderedList.map((item, index) => {
               return (
+                item.course == 1 &&(
                 <Draggable key={item.id} draggableId={item.id} index={index}>
                   {(provided) => (
                     <li
@@ -51,19 +53,9 @@ export default function OrderDrag({list,sendInfo}) {
                       {item && (
                         <>
                         <div className="d-flex">
-                          <p className="itemOrderQty"
-                              style={{display: item.id === "6"||item.id ==="7" ? "none":null}}>
-                              {item.quantity}
-                          </p>
-                          
+                          <p className="itemOrderQty">{item.quantity} </p>
                           <p >{item.name}</p>
-
-                          <p 
-                          // style={{display: item.id === "6"||item.id ==="7" ? "none":null}}
-                          >
-                            ---{item.course}---
-                          </p>
-                          
+                          <p> ---{item.course}---</p>
                         </div>
                         <p className="itemOrderMsg">{item.message}</p>
                         </>
@@ -71,8 +63,41 @@ export default function OrderDrag({list,sendInfo}) {
                     </li>
                   )}
                 </Draggable>
+                )
               );
             })}
+
+            {renderedList.some(item => item.course == 2) &&
+              <>
+                <hr className="hrBlue"/>
+                {renderedList.map((item, index) => {
+              return (
+                item.course == 2 &&(
+                <Draggable key={item.id} draggableId={item.id} index={index}>
+                  {(provided) => (
+                    <li
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    >
+                      {item && (
+                        <>
+                        <div className="d-flex">
+                          <p className="itemOrderQty">{item.quantity} </p>
+                          <p >{item.name}</p>
+                          <p> ---{item.course}---</p>
+                        </div>
+                        <p className="itemOrderMsg">{item.message}</p>
+                        </>
+                      )}
+                    </li>
+                  )}
+                </Draggable>
+                )
+              );
+            })}
+              </>
+            }
             {provided.placeholder}
           </div>
         )}

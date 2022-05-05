@@ -214,7 +214,7 @@ export default function TakeOrder({openTableNum, data}) {
       const itemIndex = foodOrder.findIndex(item => item.id === itemId)
  
       let newOrder = [...foodOrder]
-      if (course < 3 ){
+      if (course < 2 ){
         newOrder[itemIndex].course +=1
       } else{
         newOrder[itemIndex].course =1
@@ -225,7 +225,7 @@ export default function TakeOrder({openTableNum, data}) {
       const itemIndex = drinkOrder.findIndex(item => item.id === itemId)
   
       let newOrder = [...drinkOrder]
-      if (course < 3 ){
+      if (course < 2 ){
         newOrder[itemIndex].course +=1
       } else{
         newOrder[itemIndex].course =1

@@ -14,7 +14,6 @@ import Menu         from "./views/Menu/Menu";
 import Navbar       from "./components/Navbar/Navbar";
 import TakeOrder    from "./components/TakeOrder/TakeOrder";
 import MenuDetails  from "./components/MenuDetails.js/MenuDetails";
-import UserDetails  from "./Users/User.Details";
 
 
 function App() {
@@ -34,7 +33,6 @@ function App() {
 
             <Route path="/"            element={<ProtectedRoute/>} >
               <Route path="profile"    element={<Profile />} />
-              <Route path="users/:id"  element={<UserDetails/>} />
               <Route path="KitchenWall"  element={<KitchenWall />} />
               <Route path="takeOrder"    element={<TakeOrder />} />
               <Route path="tables"       element={<Tables />} />

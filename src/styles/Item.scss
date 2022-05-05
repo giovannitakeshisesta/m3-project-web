@@ -1,5 +1,6 @@
 /* -------------------ITEM---------------------- */
 .dishMainDiv{
+    height: 40px;
     display: flex;
     align-items: center;
     margin: 2px;
@@ -46,4 +47,12 @@
 .fa-ellipsis-h{
     cursor: pointer;
 }
+
+
+.hrBlue{
+    width: 70%;
+    margin: 5px auto;
+    color: blue;
+}
+
 /* ----------------------------------------- */

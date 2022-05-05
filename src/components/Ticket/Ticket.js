@@ -1,6 +1,7 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { HashRouter, useLocation, useNavigate } from 'react-router-dom';
 import { deleteOrder, editIsDone } from '../../services/OrderService';
+import TicketBody from './TicketBody';
 
 const Ticket = ({tableInfo,food,drink,createdAt,_id,editTableId, getHOLDERS}) => {
     const {people, table, urgent, takeAway, waiter } = tableInfo;
@@ -47,42 +48,45 @@ const Ticket = ({tableInfo,food,drink,createdAt,_id,editTableId, getHOLDERS}) =>
                 {takeAway && <i className="fas fa-bicycle "></i>}
             </div>
         </div>
- 
-
 
     {/* --------------------FOOD DRINK ORDERS----------------- */}
         {food.map(dish => {
-            return(
-                <div key={dish.id} className="ticketBody">
-                <div className='d-flex'>
-                    <p className='me-3'
-                    style={{display: dish.id === "6"||dish.id ==="7" ? "none":null}}
-                    >{dish.quantity}</p>
-                    <p onClick={()=> dishDone(_id,dish)}
-                        className={dish.isDone ? "isDone" : ""}
-                    >{dish.name}</p>
-                </div>
-                <p className='ticketMessage'>{dish.message}</p>
-                </div>                    
-            )
+            return (
+            dish.course == 1 && (
+                <TicketBody key={dish.id} dish={dish} dishDone={dishDone} _id={_id} />
+            ))
         })}
 
+        {food.some(dish => dish.course===2) &&
+        <>
+            <hr />
+            {food.map(dish => {
+                return (
+                dish.course == 2 && (
+                    <TicketBody key={dish.id} dish={dish} dishDone={dishDone} _id={_id} />
+                ))
+            })}
+        </>
+        }
+
         {drink.map(dish => {
-            return(
-                <div key={dish.id} className="ticketBody">
-                <div className='d-flex'>
-                    <p className='me-3'
-                    style={{display: dish.id === "6"||dish.id ==="7" ? "none":null}}
-                    >{dish.quantity}</p>
-                    <p onClick={()=> dishDone(_id,dish)}
-                        className={dish.isDone ? "isDone" : ""}
-                    >{dish.name}
-                    </p>
-                </div>
-                <p className='ticketMessage'>{dish.message}</p>
-                </div>                    
-            )
+            return (
+            dish.course == 1 && (
+                <TicketBody key={dish.id} dish={dish} dishDone={dishDone} _id={_id} />
+            ))
         })}
+
+        {drink.some(dish => dish.course===2) &&
+        <>
+            <hr />
+            {food.map(dish => {
+                return (
+                dish.course == 2 && (
+                    <TicketBody key={dish.id} dish={dish} dishDone={dishDone} _id={_id} />
+                ))
+            })}
+        </>
+        }
     
     
     {/* ------------------------ FOOTER ----------------------- */}
@@ -111,7 +115,6 @@ const Ticket = ({tableInfo,food,drink,createdAt,_id,editTableId, getHOLDERS}) =>
             </div>                     
         </div>
 
-     
     </div>
     );
 }

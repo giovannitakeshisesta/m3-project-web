@@ -52,8 +52,8 @@ label{
     background-color: rgba(220, 246, 241,0.6);
     width: 100%;
     border-radius: 10px;
-    padding: 0 20px;
-    margin: 5px;
+    padding: 10px 20px;
+    margin: 5px 10px;
     box-shadow: rgba(0, 0, 0, 0.5) 0px 40px 40px -10px;
 
     .ticketHeader{
@@ -128,6 +128,12 @@ label{
         border-bottom: 1px solid green;
         -webkit-transform: skewY(-10deg);
         transform: skewY(-10deg);
+    }
+
+    hr{
+        width: 70%;
+        margin: 5px auto;
+        color: blue;
     }
 
     

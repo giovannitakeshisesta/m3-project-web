@@ -50,9 +50,9 @@ export default function Order({ order,submitOrder, editOrder}) {
             <div className="frcc">
                 <i className="fas fa-users"></i>
                 <h3>{people}</h3>
-
-                {takeAway && <i className="fas fa-bicycle "></i>}
             </div>
+            
+            {takeAway && <i className="fas fa-bicycle "></i>}
         </div>    
 
         {/* --------------------FOOD DRINK ORDERS----------------- */}

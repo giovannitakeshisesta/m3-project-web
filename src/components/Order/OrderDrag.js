@@ -1,4 +1,3 @@
-import { render } from "@testing-library/react";
 import React, { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import '../../styles/Order.scss'
@@ -42,7 +41,7 @@ export default function OrderDrag({list,sendInfo}) {
           
             {renderedList.map((item, index) => {
               return (
-                item.course == 1 &&(
+                item.course === 1 &&(
                 <Draggable key={item.id} draggableId={item.id} index={index}>
                   {(provided) => (
                     <li
@@ -55,7 +54,6 @@ export default function OrderDrag({list,sendInfo}) {
                         <div className="d-flex">
                           <p className="itemOrderQty">{item.quantity} </p>
                           <p >{item.name}</p>
-                          <p> ---{item.course}---</p>
                         </div>
                         <p className="itemOrderMsg">{item.message}</p>
                         </>
@@ -67,12 +65,12 @@ export default function OrderDrag({list,sendInfo}) {
               );
             })}
 
-            {renderedList.some(item => item.course == 2) &&
+            {renderedList.some(item => item.course === 2) &&
               <>
                 <hr className="hrBlue"/>
                 {renderedList.map((item, index) => {
               return (
-                item.course == 2 &&(
+                item.course === 2 &&(
                 <Draggable key={item.id} draggableId={item.id} index={index}>
                   {(provided) => (
                     <li
@@ -85,7 +83,6 @@ export default function OrderDrag({list,sendInfo}) {
                         <div className="d-flex">
                           <p className="itemOrderQty">{item.quantity} </p>
                           <p >{item.name}</p>
-                          <p> ---{item.course}---</p>
                         </div>
                         <p className="itemOrderMsg">{item.message}</p>
                         </>

@@ -77,7 +77,7 @@ const Tables = () => {
                             className="tableBtn" 
                             role="button"
                             onClick={()=> goToTable(tableBtn)}
-                            style={{ backgroundColor: isOkk(tableBtn)? "#008E8B": null}}
+                            style={{ backgroundColor: isOkk(tableBtn)? "#A03962": "null"}}
                             >
                             {tableBtn}
                         </p>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { deleteOrder, editIsDone } from '../../services/OrderService';
 import TicketBody from './TicketBody';
 
@@ -52,7 +52,7 @@ const Ticket = ({tableInfo,food,drink,createdAt,_id,editTableId, getHOLDERS}) =>
     {/* --------------------FOOD DRINK ORDERS----------------- */}
         {food.map(dish => {
             return (
-            dish.course == 1 && (
+            dish.course ===1 && (
                 <TicketBody key={dish.id} dish={dish} dishDone={dishDone} _id={_id} />
             ))
         })}
@@ -62,7 +62,7 @@ const Ticket = ({tableInfo,food,drink,createdAt,_id,editTableId, getHOLDERS}) =>
             <hr />
             {food.map(dish => {
                 return (
-                dish.course == 2 && (
+                dish.course ===2 && (
                     <TicketBody key={dish.id} dish={dish} dishDone={dishDone} _id={_id} />
                 ))
             })}
@@ -71,7 +71,7 @@ const Ticket = ({tableInfo,food,drink,createdAt,_id,editTableId, getHOLDERS}) =>
 
         {drink.map(dish => {
             return (
-            dish.course == 1 && (
+            dish.course ===1 && (
                 <TicketBody key={dish.id} dish={dish} dishDone={dishDone} _id={_id} />
             ))
         })}
@@ -81,7 +81,7 @@ const Ticket = ({tableInfo,food,drink,createdAt,_id,editTableId, getHOLDERS}) =>
             <hr />
             {food.map(dish => {
                 return (
-                dish.course == 2 && (
+                dish.course ===2 && (
                     <TicketBody key={dish.id} dish={dish} dishDone={dishDone} _id={_id} />
                 ))
             })}

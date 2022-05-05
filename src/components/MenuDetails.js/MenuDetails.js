@@ -47,7 +47,7 @@ export default function MenuDetails() {
                                 <div className='menuDetailsInfoDiv'>
                                     <p className='mb-1'><b>Price: </b>{details.price} €</p>
                                     <p className='mb-1'><b>Filter: </b>
-                                        {details.allergens == 'false' ? "None" : details.allergens}
+                                        {details.allergens === 'false' ? "None" : details.allergens}
                                     </p>
                             
                                     <div>

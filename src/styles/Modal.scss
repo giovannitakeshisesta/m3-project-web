@@ -1,3 +1,12 @@
+.modal-content{
+    width: fit-content;
+}
+
+.modal-header {
+    padding: 10px 10px 0 5px;
+    background-color: rgb(49, 164, 170);
+    color: white;
+}
 .dialog_my{
     background-color: rgba(94, 200, 99, 0.5);
     width: 100vw;
@@ -12,3 +21,39 @@
 /* .modal-dialog_my{
     margin-top: 100px;
 } */
+
+.formAllergensMainDiv{
+    padding: 10px;
+    width: 600px;
+    column-count: 3;
+    font-size: 20px;
+
+    label{
+        font-weight: 400;
+    }
+
+    .inputCheckAllergens{
+        margin: 0 10px 15px 0;
+        cursor: pointer;
+
+    }
+}
+
+.allergensFields{
+    column-count: 3;
+    width: 400px;
+    height: 200px;
+}
+
+.fa-circle-xmark{
+    color: rgb(193, 206, 15);
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.modalBtn{
+    background-color: rgb(49, 164, 170);
+    width: 100%;
+    margin: 10px 0 -5px 0;
+    color: white;
+}

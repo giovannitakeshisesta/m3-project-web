@@ -279,7 +279,11 @@ export default function TakeOrder({openTableNum, data}) {
         <div className='col  colcolor scroll'> 
           <div className='frcc'> 
             <h2>Menu</h2>
-            <i className="fa-solid fa-pepper-hot" onClick={() => setModalFilter(true)}></i>
+            <i className="fa-solid fa-pepper-hot" 
+              onClick={() => setModalFilter(true)}
+                
+              style={{color: filterBy.length>0 ? "red" : "orange"}}
+            ></i>
           </div>
 
           {/* //--------------------TABLE INFO------------------ */}
@@ -353,7 +357,14 @@ export default function TakeOrder({openTableNum, data}) {
         {/* //---------------------FILTER MODAL--------------------*/}
         {modalFilter && 
         <Modal  
-          body = {<Formallergens handleCheckBox={handleCheckBox} filterBy={filterBy}/> }
+          title = {
+            <div className='frcb'>
+                <h2 className='ms-3'>Filter By :</h2>
+            </div>
+          }
+          body = {
+            <Formallergens handleCheckBox={handleCheckBox} filterBy={filterBy}/> 
+          }
           handleCheckBox={handleCheckBox} 
           filterBy={filterBy}
           onClose={() => setModalFilter(false)}  
@@ -362,14 +373,19 @@ export default function TakeOrder({openTableNum, data}) {
 
         {/* //---------------------MSG MODAL---------------------- */}
         {modalMsg && 
-        <Modal            
+        <Modal     
+          title = {
+            <div className='frcb'>
+                <h2 className='ms-3'>Send a message!</h2>
+            </div>
+          }       
           body = {
             <form className="fccc">
                 <textarea
                 onChange={handleChangeTextArea}
                 defaultValue={existingMsg}
                 name="" id="" cols="30" rows="3"></textarea>
-                <button onClick={onSaveMsg}  className="btn btn-primary">add msg</button>
+                <button onClick={onSaveMsg}  className="btn modalBtn">Send</button>
             </form>
           }
           existingMsg={existingMsg}

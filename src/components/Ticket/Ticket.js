@@ -59,7 +59,7 @@ const Ticket = ({tableInfo,food,drink,createdAt,_id,editTableId, getHOLDERS}) =>
                     style={{display: dish.id === "6"||dish.id ==="7" ? "none":null}}
                     >{dish.quantity}</p>
                     <p onClick={()=> dishDone(_id,dish)}
-                        style={{backgroundColor : dish.isDone ? "red":null}}
+                        className={dish.isDone ? "isDone" : ""}
                     >{dish.name}</p>
                 </div>
                 <p className='ticketMessage'>{dish.message}</p>
@@ -75,8 +75,9 @@ const Ticket = ({tableInfo,food,drink,createdAt,_id,editTableId, getHOLDERS}) =>
                     style={{display: dish.id === "6"||dish.id ==="7" ? "none":null}}
                     >{dish.quantity}</p>
                     <p onClick={()=> dishDone(_id,dish)}
-                        style={{backgroundColor : dish.isDone ? "red":null}}
-                    >{dish.name}</p>
+                        className={dish.isDone ? "isDone" : ""}
+                    >{dish.name}
+                    </p>
                 </div>
                 <p className='ticketMessage'>{dish.message}</p>
                 </div>                    

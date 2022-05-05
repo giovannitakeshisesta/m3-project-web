@@ -12,7 +12,8 @@ export default function Menu() {
   }
 
   return (
-      <div className='menuMainPage' style={{backgroundImage:`${fotoSala}`}}>
+      <div className='menuMainPage'   
+           style={{backgroundImage:`url(${fotoSala})`}}>
         <div className='menuMainPageInner'>
           {showForm ?
           <MenuForm toggleShowForm={toggleShowForm}/>

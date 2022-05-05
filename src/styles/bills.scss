@@ -60,6 +60,16 @@
             margin-right: 10px;
         }
     }
+
+    .arrowBtnsBill{
+        display: flex;
+        align-items: center;
+
+        .billPrice{
+            width: 30px;
+        }
+    }
+    
 }
 
 .billFooter{
@@ -79,7 +89,3 @@
 }
 
 
-.arrowBtnsBill{
-    display: flex;
-    align-items: center;
-}

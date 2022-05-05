@@ -1,7 +1,7 @@
 /* ----------------------  MENU MAIN PAGE------------------------- */
 .menuMainPage{
     height: 700px;
-    background-image: url("https://res.cloudinary.com/dly7e46yt/image/upload/v1651496257/ironhack/ticketezy/risto_room_iddiuy.png");
+    // background-image: url("https://res.cloudinary.com/dly7e46yt/image/upload/v1651496257/ironhack/ticketezy/risto_room_iddiuy.png");
     background-size: cover;
 
     display: flex;
@@ -14,6 +14,8 @@
     border-radius: 10px;
     padding: 15px ;
     width: 80%;
+    margin-top: -40px;
+
 }
 
 /* ----------------------MENU LIST COMPONENT------------------------- */
@@ -59,9 +61,9 @@
 
 /* ----------------------MENU PRODUCT CARD COMPONENT------------------------- */
 .menuCardComponent{
-    height: 80px;
-    width: 98%;
-    margin: 10px 5px;
+    height: 90px;
+    width: 90%;
+    margin: 10px auto;
     background-color: white;
     display: flex;
     align-items: center;
@@ -70,10 +72,9 @@
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 .menuCardMain{
-    height: 90%;
-    width: 95%;
+    height: 95%;
+    width: 97%;
     padding: 5px;
-    border: 2px solid rgb(248, 171, 29);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -81,6 +82,7 @@
 .menuCardInner{
     height: 98%;
     width: 95%;
+    border: 2px solid #f3d8c9;
 
     display: flex;
     align-items: center;
@@ -110,6 +112,7 @@
     height: 700px;
     background-size: cover;
     background-position: 0%;
+
 
     display: flex;
     align-items: center;

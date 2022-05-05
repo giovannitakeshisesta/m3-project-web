@@ -31,6 +31,7 @@
 /* ----------------------------------------- */
 p{
     margin-bottom: 0;
+    font-size: 18px;
 }
 .red{
     background-color: red;
@@ -111,6 +112,25 @@ label{
             }
         }
     }   
+
+    .isDone {
+        position: relative;
+        display: inline-block;
+    }
+    .isDone::before, .isDone::after {
+        content: '';
+        width: 100%;
+        position: absolute;
+        right: 0;
+        top: 50%;
+    }
+    .isDone::before {
+        border-bottom: 1px solid green;
+        -webkit-transform: skewY(-10deg);
+        transform: skewY(-10deg);
+    }
+
+    
 }
 
 

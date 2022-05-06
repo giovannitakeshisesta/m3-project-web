@@ -112,6 +112,17 @@ const Bill = ({tableOrder, refrAfterPay}) => {
             }
         })
     }
+
+    const totalPayBtn = () =>{
+        tableOrder.forEach(ticket => {
+            deleteOrder(ticket._id)
+            .then(() => {
+                setPartialPayment([])
+                refrAfterPay()
+            })
+            .catch((err) => console.log(err))
+        })
+    }
     
     return (
         <div className='billMainView'>
@@ -131,6 +142,8 @@ const Bill = ({tableOrder, refrAfterPay}) => {
                     foodANDdrink={foodANDdrink}
                     calculateBill={calculateBill}
                     showTotalXperson={true}
+                    totalPayBtn={totalPayBtn}
+
                 />
             </div>
             }

@@ -6,6 +6,7 @@ export default function BillTicket({
     tableInfo,foodANDdrink,
     calculateBill,
     partialPayBtn,
+    totalPayBtn,
     showTotalXperson,
     editQty,editQtyReverse,
     ticketId,
@@ -14,7 +15,6 @@ export default function BillTicket({
 {
     const {people,waiter}={...tableInfo}
     const { user } = useAuthContext()
-
 
     return (
         <div className='billTotal'>
@@ -51,8 +51,8 @@ export default function BillTicket({
             })
             :
             foodANDdrink.map((el,index) => {
-                if (el.quantity > 0) {
-                    return (
+                return (
+                    el.quantity > 0 && 
                         <div key={index} className="billBody">
                             <div className="billItems">
                                 <p className="billQuantity">{el.quantity} </p>
@@ -60,8 +60,8 @@ export default function BillTicket({
                             </div>
                             <p className='billPricexqt'>{el.quantity*el.price} €</p>   
                         </div>
-                    )
-                }
+                    
+                )
             })
             }  
 
@@ -78,9 +78,12 @@ export default function BillTicket({
                 }
 
                 {showTotalXperson &&
-                <p className='xperson'> 
-                    Total x person: {(calculateBill(foodANDdrink)/people).toFixed(2)}€
-                </p> 
+                <div>
+                    <button onClick={()=> totalPayBtn()}> pay </button>   
+                    <p className='xperson'>
+                        Total x person: {(calculateBill(foodANDdrink)/people).toFixed(2)}€
+                    </p>
+                </div>
                 }
             </div>
 

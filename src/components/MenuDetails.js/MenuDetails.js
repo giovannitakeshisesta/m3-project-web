@@ -46,13 +46,16 @@ export default function MenuDetails() {
                             <div className='d-flex'>
                                 <div className='menuDetailsInfoDiv'>
                                     <p className='mb-1'><b>Price: </b>{details.price} €</p>
+
+                                    <p><b>Line: </b>{details.description}</p>
+
                                     <p className='mb-1'><b>Filter: </b>
                                         {details.allergens === 'false' ? "None" : details.allergens}
                                     </p>
                             
                                     <div>
                                         <p><b>Description:</b></p>
-                                        <p>{details.description}</p>
+                                        <p>{details.line}</p>
                                     </div>
 
                                     <div className='menuDetailsEditBtns'>

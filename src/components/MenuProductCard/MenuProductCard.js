@@ -10,7 +10,7 @@ export default function MenuProductCard({image,name,price}) {
             </div>
        
             <div className='menuCardName' >
-                <b>{name}</b>
+                <p>{name}</p>
             </div>
             <div className='menuCardPrice' >
                 <p>{price} €</p>

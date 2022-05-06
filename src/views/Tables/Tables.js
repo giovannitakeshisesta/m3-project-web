@@ -4,6 +4,8 @@ import { getHolders }   from '../../services/OrderService';
 import Ticket           from '../../components/Ticket/Ticket';
 import TakeOrder        from '../../components/TakeOrder/TakeOrder';
 import Bill             from '../../components/Bill/Bill';
+import waiter from '../../assets/waiter.png'
+import waiter1 from '../../assets/waiter1.jpeg'
 
 const Tables = () => {
     let location = useLocation()
@@ -68,71 +70,70 @@ const Tables = () => {
     }
 
     return (
-        <div className='tablesMainDiv'>
-            {/* ------------- BUTTONS ------------- */}
-            <div className='tablesBtnDiv'>
-                {arrTablesBtn.map(tableBtn => {
-                    return (
-                        <p  key={tableBtn}
-                            className="tableBtn" 
-                            role="button"
-                            onClick={()=> goToTable(tableBtn)}
-                            style={{ backgroundColor: isOkk(tableBtn)? "#A03962": null}}
-                            >
-                            {tableBtn}
-                        </p>
-                    )
-                })}
-            </div>
-
-            {/*  if there are orders for the table => show the tickets */}
-            {tableOrder.length > 0 && showTicket &&
-                <div className='tablesInnerDiv'>
-                <button className='button-80 '
-                    onClick={()=> {
-                        setOpenTableNum(tableOrder[0].tableInfo.table)
-                        setShowTakeOrder(true)
-                        setShowTicket(false)
-                    }}
-                > <i className="fa-solid fa-cart-plus"></i>
-                </button>
-
-                <div className='tableTicketDiv'>
-                {
-                    tableOrder.map(ticket => {
+        <div className='tablesPageDiv' style={{backgroundImage: `url(${waiter1})`}}>
+            <div className='tablesMainDiv' style={{backgroundImage: `url(${waiter})`}}>
+                {/* ------------- BUTTONS ------------- */}
+                <div className='tablesBtnDiv'>
+                    {arrTablesBtn.map(tableBtn => {
                         return (
-                            <Ticket key={ticket._id} {...ticket} editTableId={editTableId}/>
+                            <p  key={tableBtn}
+                                className="tableBtn"
+                                role="button"
+                                onClick={()=> goToTable(tableBtn)}
+                                style={{ backgroundColor: isOkk(tableBtn)? "#A03962": null}}
+                                >
+                                {tableBtn}
+                            </p>
                         )
-                    })
-                }
+                    })}
                 </div>
-                <button  className='button-80 '
-                    onClick={()=> {
-                        setShowTicket(false)
-                        setShowBill(true)
+
+                {/*  if there are orders for the table => show the tickets */}
+                {tableOrder.length > 0 && showTicket &&
+                    <div className='tablesInnerDiv'>
+                    <button className='button-80 '
+                        onClick={()=> {
+                            setOpenTableNum(tableOrder[0].tableInfo.table)
+                            setShowTakeOrder(true)
+                            setShowTicket(false)
                         }}
-                ><i className="fa-solid fa-circle-dollar-to-slot"></i>
-                </button>
-                </div>
-            }
-
-            {/* if the table is not occupied => show the take order component*/}
-            {openTableNum && !showTakeOrder &&
-                <div className='tableMenuOrder'>
-                <TakeOrder openTableNum={openTableNum} data={tableOrder}/>
-                </div>
-            }
-            {showTakeOrder &&
-                <div className='tableMenuOrder'>
-                <TakeOrder openTableNum={openTableNum} data={{tableInfo:tableOrder[0].tableInfo,food:[],drink:[]}}/>
-                </div>
-            }
-
-            {showBill && isOkk(tableOrder[0].tableInfo.table) &&
-                <div className='tableMenuOrder'>
-                <Bill tableOrder={tableOrder} refrAfterPay={refrAfterPay}/>
-                </div>
-            }
+                    > <i className="fa-solid fa-cart-plus"></i>
+                    </button>
+                    <div className='tableTicketDiv'>
+                    {
+                        tableOrder.map(ticket => {
+                            return (
+                                <Ticket key={ticket._id} {...ticket} editTableId={editTableId}/>
+                            )
+                        })
+                    }
+                    </div>
+                    <button  className='button-80 '
+                        onClick={()=> {
+                            setShowTicket(false)
+                            setShowBill(true)
+                            }}
+                    ><i className="fa-solid fa-circle-dollar-to-slot"></i>
+                    </button>
+                    </div>
+                }
+                {/* if the table is not occupied => show the take order component*/}
+                {openTableNum && !showTakeOrder &&
+                    <div className='tableMenuOrder'>
+                    <TakeOrder openTableNum={openTableNum} data={tableOrder}/>
+                    </div>
+                }
+                {showTakeOrder &&
+                    <div className='tableMenuOrder'>
+                    <TakeOrder openTableNum={openTableNum} data={{tableInfo:tableOrder[0].tableInfo,food:[],drink:[]}}/>
+                    </div>
+                }
+                {showBill && isOkk(tableOrder[0].tableInfo.table) &&
+                    <div className='tableMenuOrder'>
+                    <Bill tableOrder={tableOrder} refrAfterPay={refrAfterPay}/>
+                    </div>
+                }
+            </div>
         </div>
     );
 }

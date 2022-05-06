@@ -20,7 +20,7 @@ const getSchema = (prefillValues) => {
             price: yup.number()
             .required()
             .typeError('Required')
-            .min(1),
+            .min(1), 
         image: yup.lazy((value) => {
             if (!prefillValues?.image || prefillValues?.image !== value) {
                 return yup.mixed()
@@ -106,7 +106,7 @@ export default function MenuForm({id,prefillValues,toggleShowForm}) {
 
         <form  className="menuForm">
             <div className='fccc'>
-                <h2 className="">Add a new product!</h2>
+                <h2 className="">{prefillValues ?  "Edit" :"Add a new product!"}</h2>
             </div>
         
             {/* type */}

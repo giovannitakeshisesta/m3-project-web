@@ -43,11 +43,11 @@ export default function MenuDetails() {
                         </div>
                         <div>
                             <h1>{details.name}</h1>
-                            <div className='d-flex'>
+                            <div className='menuDetailsRow'>
                                 <div className='menuDetailsInfoDiv'>
                                     <p className='mb-1'><b>Price: </b>{details.price} €</p>
 
-                                    <p><b>Line: </b>{details.description}</p>
+                                    <p><b>Line: </b>{details.line}</p>
 
                                     <p className='mb-1'><b>Filter: </b>
                                         {details.allergens === 'false' ? "None" : details.allergens}
@@ -55,17 +55,17 @@ export default function MenuDetails() {
                             
                                     <div>
                                         <p><b>Description:</b></p>
-                                        <p>{details.line}</p>
+                                        <p>{details.description}</p>
                                     </div>
 
                                     <div className='menuDetailsEditBtns'>
                                         <button
-                                            className=''
+                                            className='button-59' 
                                             onClick={()=>toggleShowForm()}
                                             > edit
                                         </button>
                                         <button
-                                            className=''
+                                            className='button-59' 
                                             onClick={()=>{deleteItem(id)}}
                                             > delete
                                         </button>

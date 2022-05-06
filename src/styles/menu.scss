@@ -1,7 +1,8 @@
 /* ----------------------  MENU MAIN PAGE------------------------- */
+// @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  
 .menuMainPage{
-    height: 700px;
-    // background-image: url("https://res.cloudinary.com/dly7e46yt/image/upload/v1651496257/ironhack/ticketezy/risto_room_iddiuy.png");
+    height: calc(100vh - 40px);
     background-size: cover;
 
     display: flex;
@@ -10,23 +11,27 @@
     justify-content: center;
 }
 .menuMainPageInner{
-    background-color: rgba(240, 248, 246, 0.7);
+    background-color: rgba(240, 248, 246, 0.85);
     border-radius: 10px;
     padding: 15px ;
     width: 80%;
-    margin-top: -40px;
-
+    height: 80%;
+    overflow-y: scroll;
+    // margin-top: -40px;
 }
+    
 
 /* ----------------------MENU LIST COMPONENT------------------------- */
 .menuListMain{
+    position: relative;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    // border: 1px solid red;
 }
 .menuListTop{
-    width: 80%;
+    width: 70%;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -36,28 +41,31 @@
     .fa-plus-circle{
         font-size: 30px;
     }
-}
-.topRight3{
-    position: absolute;
-    cursor: pointer;
-    right: 130px;
+    .topRight3{
+        position: absolute;
+        right: 0;
+        cursor: pointer;
+    }
 }
 .menuListRow{
     width: 100%;
     display: flex;
     justify-content: space-around;
-}
-.menuListCol{
-    width: 45%;
-    overflow-y: scroll;
-    height: 450px;
-    padding: 5px;
-    background-color: rgba(240, 248, 246, 0.9);
+    // border: 1px solid green;
 
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-
-    .line{
-        text-align: center;
+    .menuListCol{
+        width: 45%;
+        max-height: 480px;
+        overflow-y: scroll;
+        padding: 5px;
+        border-radius: 5px;
+        background-color: rgba(240, 248, 246, 0.9);
+    
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    
+        .line{
+            text-align: center;
+        }
     }
 }
 
@@ -116,15 +124,13 @@
 
 /* ----------------------MENU DETAILS COMPONENT------------------------- */
 .menuDetailsMainDiv{
-    height: 700px;
+    height: calc(100vh - 40px);
     background-size: cover;
     background-position: 0%;
-
 
     display: flex;
     align-items: center;
     justify-content: center;
-
 
     p{
         font-size: 20px;
@@ -134,9 +140,12 @@
 
 .menuDetailsInnerDiv{
     background-color: rgba(240, 248, 246, 0.95);
-    width: 85%;
-    min-height: 500px;
-    padding: 20px;
+    width: 80%;
+    max-width: 900px;
+    max-height: 470px;
+    height: 80%;
+    overflow-y: scroll;
+    padding: 20px 40px;
     border-radius: 10px;
 }
 
@@ -146,28 +155,35 @@
     justify-content: flex-end;
     margin-bottom: -10px;
 }
-.menuDetailsInfoDiv{
-    width: 60%;
-    padding: 0 20px 0 0;
-
+.menuDetailsRow{
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-.menuDetailsEditBtns{
-   display: flex;
-   align-items: center;
-   justify-content: space-around;
-}
-.menuDetailsImgDiv{
-    width: 40%;
-    height: 400px;
-}
-.menuDetailsImg{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 20px;
+
+    .menuDetailsInfoDiv{
+        width: 55%;
+        padding: 0 20px 0 0;
+    
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        .menuDetailsEditBtns{
+           display: flex;
+           align-items: center;
+           justify-content: space-around;
+        }
+    }
+
+    .menuDetailsImgDiv{
+        width: 45%;
+        height: 350px;
+        
+        .menuDetailsImg{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+    }
 }
 
 
@@ -211,4 +227,5 @@
 .topRight2{
     margin-left: auto;
     cursor: pointer;
+    z-index: 999;
 }

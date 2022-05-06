@@ -5,7 +5,7 @@ import { logout } from '../../store/AccessTokenStore'
 const Navbar = () => {
   const { user } = useAuthContext();
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-sm navbar-light bg-light">
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/">
           Restaurant
@@ -26,7 +26,7 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             {!user ? (
-              <>     
+              <div className="d-flex">     
               {/* ----  SHOW WHEN IS LOGGED OUT  ---- */}
                 <li className="nav-item">
                   <NavLink className="nav-link"  
@@ -41,32 +41,37 @@ const Navbar = () => {
                     Register
                   </NavLink>
                 </li>
-              </>
+              </div>
             ) : (   
               <>
               {/* ----  SHOW WHEN IS LOGGED IN   ---- */}
-                <li className="nav-link" onClick={logout}>
-                   Logout                  
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link"  
-                    to="/menu">
-                    Menu
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link"  
-                    to="/KitchenWall">
-                    Kitchen Wall
-                  </NavLink>
+                <div className="d-flex">
+                  <li className="nav-item">
+                    <NavLink className="nav-link"
+                      to="/menu">
+                      Menu
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link"
+                      to="/KitchenWall">
+                      Kitchen Wall
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link"
+                      to="/tables">
+                      Tables
+                    </NavLink>
+                  </li>
+                </div>
+                <li>
+                  <i className="fa-solid fa-right-from-bracket nav-link" 
+                      onClick={logout}>
+                  </i>
                 </li>
 
-                <li className="nav-item">
-                  <NavLink className="nav-link"  
-                    to="/tables">
-                    Tables
-                  </NavLink>
-                </li>
+
 
               </>
             )}

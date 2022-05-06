@@ -6,7 +6,7 @@ import MenuProductCard from '../MenuProductCard/MenuProductCard';
 export default function MenuList({toggleShowForm}) {
     const [foodList, setFoodList]= useState([])
     const [drinkList, setDrinkList]= useState([])
-
+    const line = ["Starters", "Main Courses", "Desserts"]
 
     useEffect(() => {
         getMenu()
@@ -17,7 +17,6 @@ export default function MenuList({toggleShowForm}) {
         .catch((err) => console.log(err))
     }, []);
 
-// console.log(foodList);
   return (
      
     <div className='menuListMain'>
@@ -29,13 +28,21 @@ export default function MenuList({toggleShowForm}) {
         </div>
         <div className='menuListRow'>
             <div className='menuListCol '>
-                {foodList.map(item => {
-                    return (
-                        <div key={item.id} >
-                            <Link to={`/menu/${item.id}`} className="menuCardComponent">
-                                <MenuProductCard {...item}/>
-                            </Link>
+                {line.map((el,index) => {
+                    return(
+                        <div key={index}>
+                            <h4 className="line">{el}</h4>
+                            {foodList.map(item => {
+                                return ( item.line[0]=== el &&
+                                    <div key={item.id} >
+                                        <Link to={`/menu/${item.id}`} className="menuCardComponent">
+                                            <MenuProductCard {...item}/>
+                                        </Link>
+                                    </div>
+                                )
+                            })}
                         </div>
+                        
                     )
                 })}
             </div>

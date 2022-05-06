@@ -51,6 +51,7 @@ export default function MenuForm({id,prefillValues,toggleShowForm}) {
     const [backErrors, setBackErrors] = useState({})
     const [isSubmitting, setIsSubmitting] = useState(false)
     const allergens = ["Vegetarian", "Vegan", "Gluten","Crustaceans","Eggs","Fish","Peanuts","Soybeans","Milk","Nuts","Celery","Mustard","Sesame seeds","Sulphites","Lupin","Molluscs"]
+    const line = ["Starters", "Main Courses", "Desserts"]
   
     // create item
     const onSubmit = (data) => {
@@ -168,7 +169,6 @@ export default function MenuForm({id,prefillValues,toggleShowForm}) {
 
             {/* image */}
             <InputGroup
-                // name="image"
                 label="Image"
                 id="image"
                 type="file"
@@ -184,6 +184,19 @@ export default function MenuForm({id,prefillValues,toggleShowForm}) {
                     return (
                         <div key={index} className="allergensBoxLabel">
                             <input type="checkbox" id={el} value={el} {...register("allergens")} />
+                            <p className='ms-2' htmlFor={el} >{el} </p>
+                        </div>
+                    )
+                })}
+            </div>
+
+            {/* Line */}
+            <label className='mt-2'>Line</label>
+            <div className='frcb'>
+                {line.map((el,index)=> {
+                    return (
+                        <div key={index} className="allergensBoxLabel">
+                            <input type="checkbox" id={el} value={el} {...register("line")} />
                             <p className='ms-2' htmlFor={el} >{el} </p>
                         </div>
                     )

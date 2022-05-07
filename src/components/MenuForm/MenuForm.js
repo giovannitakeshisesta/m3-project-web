@@ -28,7 +28,7 @@ const getSchema = (prefillValues) => {
                     return value && value.length
                 } )
                 .test("fileSize", "The file is too large", (value, context) => {
-                    return value && value[0] && value[0].size <= 2000000;
+                    return value && value[0] && value[0].size <= 5000000;
                 })
                 .test("type", "We only support jpeg & png", function (value) {
                     return( value && value[0] && value[0]?.type === "image/jpeg")||(value[0]?.type === "image/png");

@@ -29,6 +29,7 @@
 }
 
 /* ----------------------------------------- */
+
 p{
     margin-bottom: 0;
     font-size: 18px;
@@ -49,7 +50,7 @@ label{
 
 /* -----------KITCHENWALL TICKET-------------- */
 .ticket1{
-    background-color: rgba(220, 246, 241,0.6);
+    background-color: rgba(220, 246, 241,0.9);
     width: 100%;
     border-radius: 10px;
     padding: 10px 20px;
@@ -195,14 +196,31 @@ label{
     }
     }
 }
-.tablesMainDiv{
+
+.tablesPageDiv{
+    height: calc(100vh - 40px);
+    background-size: cover;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    // border: 1px solid black;
-    width:900px;
-    margin: 20px auto;
+}
+.tablesMainDiv{
+    width: 800px;
+    height: 550px;
+    overflow-y: scroll;
+
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    // justify-content: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 0 auto;
+    background-color: rgb(215, 204, 204);
+    background-repeat: no-repeat;
+    background-position: 50% 60%;
+    background-size: 300px;
+    // background-blend-mode: hard-light;
 }
 .tablesInnerDiv{
     width: 100%;
@@ -220,7 +238,7 @@ label{
 
 
 .tableMenuOrder{
-    width: 90vw;
+
 }
 
 
@@ -242,7 +260,7 @@ height: 48px;
 justify-content: center;
 letter-spacing: -.8px;
 line-height: 24px;
-min-width: 10px;
+min-width: 60px;
 outline: 0;
 padding: 0 10px;
 margin-left: 10px;

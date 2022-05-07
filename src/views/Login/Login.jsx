@@ -44,30 +44,32 @@ const Login = () => {
   }
 
   return (
-    <div className="loginMainDiv" style={{backgroundImage: `url(${waiter})`}}>
-      <div className="loginInputDiv">
-        <h1 className="">Login</h1>
-        <form
-          onSubmit={handleSubmit(onSubmit)} className="formAuth">
-          <InputGroup
-            label="Email"
-            id="email"
-            register={register}
-            error={errors.email?.message}
-            type="email"
-          />
-          <InputGroup
-            label="Password"
-            id="password"
-            register={register}
-            error={error || errors.password?.message}
-            type="password"
-          />
-          <button className={`mb-3 btn btn-${isSubmitting ? 'secondary' : 'primary'}`}>{isSubmitting ? 'Loggin in...' : 'Submit'}</button>
-        </form>
-        <p>Dont have an account? </p>
-        <Link to="/register" className='SignupNow'> Signup Now </Link>
-        
+    <div className='xxx'>
+      <div className="loginMainDiv" style={{backgroundImage: `url(${waiter})`}}>
+        <div className="loginInputDiv">
+          <h1 className="">Login</h1>
+          <form
+            onSubmit={handleSubmit(onSubmit)} className="formAuth">
+            <InputGroup
+              label="Email"
+              id="email"
+              register={register}
+              error={errors.email?.message}
+              type="email"
+            />
+            <InputGroup
+              label="Password"
+              id="password"
+              register={register}
+              error={error || errors.password?.message}
+              type="password"
+            />
+            <button className={`mb-3 btn btn-${isSubmitting ? 'secondary' : 'primary'}`}>{isSubmitting ? 'Loggin in...' : 'Submit'}</button>
+          </form>
+          <p>Dont have an account? </p>
+          <Link to="/register" className='SignupNow'> Signup Now </Link>
+      
+        </div>
       </div>
     </div>
   )

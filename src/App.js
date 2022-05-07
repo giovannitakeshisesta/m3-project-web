@@ -15,14 +15,14 @@ import Navbar       from "./components/Navbar/Navbar";
 import TakeOrder    from "./components/TakeOrder/TakeOrder";
 import MenuDetails  from "./components/MenuDetails.js/MenuDetails";
 
-
+// prueba
 function App() {
   const { isAuthenticationFetched } = useAuthContext()
   
   return (
-    <div className="appDiv">
+    <div className="">
       <Navbar />
-      <div >
+      <div className="">
         {!isAuthenticationFetched ? (
           <p>Loading...</p>
         ) : (

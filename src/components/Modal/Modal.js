@@ -7,7 +7,7 @@ const ModalContent = (props) => {
 
     return (
         <div className="dialog_my" role="dialog" >
-            <div className="modal-dialog modal-dialog_my" role="document">
+            <div className="modal-dialog_my" role="document">
                 <div className="modal-content">
                 <div className="modal-header ">
                     <h5 className="modal-title">{props.title}</h5>

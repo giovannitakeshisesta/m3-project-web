@@ -11,6 +11,8 @@ export default function MenuDetails() {
     const [details,setDetails]= useState()
     const [showForm,setShowForm]=useState(false)
 
+    console.log({details});
+
 
     useEffect(() => {
         getMenuDetails(id)
@@ -50,7 +52,7 @@ export default function MenuDetails() {
                                     <p><b>Line: </b>{details.line}</p>
 
                                     <p className='mb-1'><b>Filter: </b>
-                                        {details.allergens === 'false' ? "None" : details.allergens}
+                                        {details.allergens === 'false' ? "None" : details.allergens.join(', ')}
                                     </p>
                             
                                     <div>

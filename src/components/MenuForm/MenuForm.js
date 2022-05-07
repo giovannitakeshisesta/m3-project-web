@@ -44,6 +44,7 @@ const getSchema = (prefillValues) => {
 export default function MenuForm({id,prefillValues,toggleShowForm}) {
     const navigate = useNavigate()
     const resolver = getSchema(prefillValues);
+    console.log({prefillValues})
     const { register, handleSubmit, formState:{ errors } } = useForm({
         defaultValues:prefillValues,
         resolver: yupResolver(resolver)
@@ -59,7 +60,12 @@ export default function MenuForm({id,prefillValues,toggleShowForm}) {
         setIsSubmitting(true)
   
         const bodyFormData = new FormData()
-        const { image, ...rest } = data
+        const { image, allergens, ...rest } = data
+
+        allergens.forEach(allergen => {
+            bodyFormData.append('allergens[]', allergen)
+        })
+
         Object.keys(rest).forEach(key => {
             bodyFormData.append(key, rest[key])
             })
@@ -83,7 +89,11 @@ export default function MenuForm({id,prefillValues,toggleShowForm}) {
     const onSubmitEdit = (data) => {
 
         const bodyFormData = new FormData()
-        const { image, ...rest } = data
+        const { image, allergens, ...rest } = data
+
+        allergens.forEach(allergen => {
+            bodyFormData.append('allergens[]', allergen)
+        })
 
         Object.keys(rest).forEach(key => {
             bodyFormData.append(key, rest[key])
@@ -99,6 +109,7 @@ export default function MenuForm({id,prefillValues,toggleShowForm}) {
         .catch(()=>{})
     };
 
+    console.log({allergens})
 
   return (
     <div className='fccc'>

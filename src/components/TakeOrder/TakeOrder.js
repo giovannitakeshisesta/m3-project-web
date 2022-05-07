@@ -313,77 +313,94 @@ export default function TakeOrder({openTableNum, data}) {
           </div>
 
           {/* //--------------------LIST OF DISHES ------------------ */}
-          {tableInfo.people>0 && list.map(dish => {
-            if (filterBy.every(i => !dish.allergens.includes(i))) {
-              return (
-                
-                dish.type==="food" && dish.line[0]=== "Starters" &&
-                <div key={dish.id}>
-                  <Item 
-                    {...dish} 
-                    order={FoodAndDrink.filter(el => el.id === dish.id)}
-                    addOneItem={addOneItem} 
-                    deleteOneItem={deleteOneItem} 
-                    openModal={openModal}
-                    openModalDescription={openModalDescription}
-                    changeCourse={changeCourse}
-                  />
-                </div>
-              )
-            } else return null
-            })}
 
-            {tableInfo.people>0 && list.map(dish => {
-            if (filterBy.every(i => !dish.allergens.includes(i))) {
-              return (
-                
-                dish.type==="food" && dish.line[0]=== "Main Courses" &&
-                <div key={dish.id}>
-                  <Item 
-                    {...dish} 
-                    order={FoodAndDrink.filter(el => el.id === dish.id)}
-                    addOneItem={addOneItem} 
-                    deleteOneItem={deleteOneItem} 
-                    openModal={openModal}
-                    openModalDescription={openModalDescription}
-                    changeCourse={changeCourse}
-                  />
-                </div>
-              )
-            } else return null
-            })}  
+          {tableInfo.people>0 && 
+              <>
+              <p>Starters</p>
+              {list.map(dish => {
+              if (filterBy.every(i => !dish.allergens.includes(i))) {
+                return (
+                  dish.type==="food" && dish.line[0]=== "Starters" &&
+                  <div key={dish.id}>
+                    <Item
+                      {...dish}
+                      order={FoodAndDrink.filter(el => el.id === dish.id)}
+                      addOneItem={addOneItem}
+                      deleteOneItem={deleteOneItem}
+                      openModal={openModal}
+                      openModalDescription={openModalDescription}
+                      changeCourse={changeCourse}
+                    />
+                  </div>
+                )
+              } else return null
+              })}
+              </>
+            } 
 
-            {tableInfo.people>0 && list.map(dish => {
-            if (filterBy.every(i => !dish.allergens.includes(i))) {
-              return (
-                
-                dish.type==="food" && dish.line[0]=== "Desserts" &&
-                <div key={dish.id}>
-                  <Item 
-                    {...dish} 
-                    order={FoodAndDrink.filter(el => el.id === dish.id)}
-                    addOneItem={addOneItem} 
-                    deleteOneItem={deleteOneItem} 
-                    openModal={openModal}
-                    openModalDescription={openModalDescription}
-                    changeCourse={changeCourse}
-                  />
-                </div>
-              )
-            } else return null
-            })}
+            {tableInfo.people>0 && 
+              <>
+              <p>Main Courses</p>
+              {list.map(dish => {
+              if (filterBy.every(i => !dish.allergens.includes(i))) {
+                return (
+                  dish.type==="food" && dish.line[0]=== "Main Courses" &&
+                  <div key={dish.id}>
+                    <Item
+                      {...dish}
+                      order={FoodAndDrink.filter(el => el.id === dish.id)}
+                      addOneItem={addOneItem}
+                      deleteOneItem={deleteOneItem}
+                      openModal={openModal}
+                      openModalDescription={openModalDescription}
+                      changeCourse={changeCourse}
+                    />
+                  </div>
+                )
+              } else return null
+              })}
+              </>
+            } 
+
+            {tableInfo.people>0 && 
+              <>
+              <p>Desserts</p>
+              {list.map(dish => {
+              if (filterBy.every(i => !dish.allergens.includes(i))) {
+                return (
+                  dish.type==="food" && dish.line[0]=== "Desserts" &&
+                  <div key={dish.id}>
+                    <Item
+                      {...dish}
+                      order={FoodAndDrink.filter(el => el.id === dish.id)}
+                      addOneItem={addOneItem}
+                      deleteOneItem={deleteOneItem}
+                      openModal={openModal}
+                      openModalDescription={openModalDescription}
+                      changeCourse={changeCourse}
+                    />
+                  </div>
+                )
+              } else return null
+              })}
+              </>
+            }
 
           {/* //--------------------LIST OF DRINKS ------------------ */}
-          {tableInfo.people>0 && list.map(dish => {
+          
+          {tableInfo.people>0 && 
+            <>
+            <p>Drinks</p>
+            {list.map(dish => {
             if (filterBy.every(i => !dish.allergens.includes(i))) {
               return (
                 dish.type==="drink" &&
                 <div key={dish.id}>
-                  <Item 
-                    {...dish} 
+                  <Item
+                    {...dish}
                     order={FoodAndDrink.filter(el => el.id === dish.id)}
-                    addOneItem={addOneItem} 
-                    deleteOneItem={deleteOneItem} 
+                    addOneItem={addOneItem}
+                    deleteOneItem={deleteOneItem}
                     openModal={openModal}
                     openModalDescription={openModalDescription}
                     changeCourse={changeCourse}
@@ -392,6 +409,8 @@ export default function TakeOrder({openTableNum, data}) {
               )
             } else return null
             })}
+            </>
+          }
           </div>
 
         {/* //--------------------ORDER TICKET ---------------------- */}
@@ -413,7 +432,11 @@ export default function TakeOrder({openTableNum, data}) {
                   <h2 className='ms-5'>{modalDescriptioninfo[2]} € </h2>
               </div>
             }
-            body = {modalDescriptioninfo[1]}
+            body = {
+              <div className='modalDescriptioninfo'>
+                {modalDescriptioninfo[1]}
+              </div>
+              }
             onClose={() => setModalDescription(false)}
             reactPortal />
         </div>

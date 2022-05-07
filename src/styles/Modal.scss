@@ -1,7 +1,6 @@
 .modal-content{
-    width: fit-content;
+    width: fit-content;       
 }
-
 .modal-header {
     padding: 10px 10px 0 5px;
     background-color: rgb(49, 164, 170);
@@ -17,10 +16,6 @@
     align-items: center;
     justify-content: center;
 }
-
-/* .modal-dialog_my{
-    margin-top: 100px;
-} */
 
 .formAllergensMainDiv{
     padding: 10px;
@@ -56,4 +51,8 @@
     width: 100%;
     margin: 10px 0 -5px 0;
     color: white;
+}
+
+.modalDescriptioninfo{
+    max-width: 500px;
 }

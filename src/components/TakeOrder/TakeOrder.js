@@ -313,6 +313,27 @@ export default function TakeOrder({openTableNum, data}) {
           {tableInfo.people>0 && list.map(dish => {
             if (filterBy.every(i => !dish.allergens.includes(i))) {
               return (
+                dish.type==="food" &&
+                <div key={dish.id}>
+                  <Item 
+                    {...dish} 
+                    order={FoodAndDrink.filter(el => el.id === dish.id)}
+                    addOneItem={addOneItem} 
+                    deleteOneItem={deleteOneItem} 
+                    openModal={openModal}
+                    openModalDescription={openModalDescription}
+                    changeCourse={changeCourse}
+                  />
+                </div>
+              )
+            } else return null
+            })}
+
+          {/* //--------------------LIST OF DRINKS ------------------ */}
+          {tableInfo.people>0 && list.map(dish => {
+            if (filterBy.every(i => !dish.allergens.includes(i))) {
+              return (
+                dish.type==="drink" &&
                 <div key={dish.id}>
                   <Item 
                     {...dish} 

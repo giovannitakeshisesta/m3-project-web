@@ -2,7 +2,7 @@ import React from 'react';
 import CheckBox from './CheckBox';
 
 const Formallergens = ({handleCheckBox, filterBy}) => {
-    const allergensArr = ["Vegetarian", "Vegan", "Gluten","Crustaceans","Eggs","Fish","Peanuts","Soybeans","Milk","Nuts","Celery","Mustard","Sesame seeds","Sulphites","Lupin","Molluscs"]
+    const allergensArr = ["Vegetarian", "Vegan", "Gluten","Crustaceans","Eggs","Fish","Peanuts","Soybeans","Milk","Nuts","Celery","Mustard","Sesame seeds","Sulphites","Lupin","None"]
     const isChecked = (el) => { return filterBy.includes(el) }
 
     return (

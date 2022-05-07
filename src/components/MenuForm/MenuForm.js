@@ -51,7 +51,7 @@ export default function MenuForm({id,prefillValues,toggleShowForm}) {
     });
     const [backErrors, setBackErrors] = useState({})
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const allergens = ["Vegetarian", "Vegan", "Gluten","Crustaceans","Eggs","Fish","Peanuts","Soybeans","Milk","Nuts","Celery","Mustard","Sesame seeds","Sulphites","Lupin","Molluscs"]
+    const allergens = ["Vegetarian", "Vegan", "Gluten","Crustaceans","Eggs","Fish","Peanuts","Soybeans","Milk","Nuts","Celery","Mustard","Sesame seeds","Sulphites","Lupin","None"]
     const line = ["Starters", "Main Courses", "Desserts"]
   
     // create item
@@ -63,6 +63,7 @@ export default function MenuForm({id,prefillValues,toggleShowForm}) {
         const { image, allergens, ...rest } = data
 
         allergens.forEach(allergen => {
+            console.log(bodyFormData);
             bodyFormData.append('allergens[]', allergen)
         })
 

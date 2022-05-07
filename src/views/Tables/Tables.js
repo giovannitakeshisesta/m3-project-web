@@ -5,7 +5,7 @@ import Ticket           from '../../components/Ticket/Ticket';
 import TakeOrder        from '../../components/TakeOrder/TakeOrder';
 import Bill             from '../../components/Bill/Bill';
 import waiter from '../../assets/waiter.png'
-import waiter1 from '../../assets/waiter1.jpeg'
+import waiter1 from '../../assets/risto_room.jpeg'
 
 const Tables = () => {
     let location = useLocation()

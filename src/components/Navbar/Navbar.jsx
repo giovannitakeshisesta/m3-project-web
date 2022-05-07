@@ -8,7 +8,7 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-sm navbar-light bg-light">
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/">
-          Restaurant
+          <h3>Ticketeazy</h3>
         </NavLink>
         
         <button

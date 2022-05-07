@@ -6,27 +6,29 @@
     justify-content: center;
 }
 .splitRow{
+    margin-top: 10px;
+    padding: 0 5px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background-color: rgb(160, 67, 17);
+    // background-color: red;
 }
 .splitLeft{
-    width: 48%;
+    width: 49%;
     height: 50vw;
-    background-color: rgb(17, 160, 115);
+    // background-color: rgb(17, 160, 115);
 }
 .splitRight{
-    width: 48%;
+    width: 49%;
     height: 50vw;
-    background-color: rgb(222, 223, 231);
+    // background-color: rgb(222, 223, 231);
 }
 .staticBillDiv{
     width: 60%;
 }
 .billTicketDiv{
-    width: 95%;
+    // width: 95%;
 }
 /* -------------PAID BILLS------------ */
 .paidBills{
@@ -36,16 +38,19 @@
 /* ---------  BILL TICKET COMPONENT --------- */
 .billTotal{
     width: 100%;
-    background-color: #b5e7d6;
+    background-color: #ceeae1;
     padding: 15px 30px;
-    margin: 10px;
+    margin: 5px 0;
 }
 
 .billHeader{
+    width: 100%;
+    margin: 5px 0 -5px 0;    
     display: flex;
     align-items: center;
     justify-content: space-around;
     border-bottom: 1px solid grey;
+    background-color: #ceeae1;;
 }
 
 .billBody{

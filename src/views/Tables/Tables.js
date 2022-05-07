@@ -91,30 +91,30 @@ const Tables = () => {
                 {/*  if there are orders for the table => show the tickets */}
                 {tableOrder.length > 0 && showTicket &&
                     <div className='tablesInnerDiv'>
-                    <button className='button-80 '
-                        onClick={()=> {
-                            setOpenTableNum(tableOrder[0].tableInfo.table)
-                            setShowTakeOrder(true)
-                            setShowTicket(false)
-                        }}
-                    > <i className="fa-solid fa-cart-plus"></i>
-                    </button>
-                    <div className='tableTicketDiv'>
-                    {
-                        tableOrder.map(ticket => {
-                            return (
-                                <Ticket key={ticket._id} {...ticket} editTableId={editTableId}/>
-                            )
-                        })
-                    }
-                    </div>
-                    <button  className='button-80 '
-                        onClick={()=> {
-                            setShowTicket(false)
-                            setShowBill(true)
+                        <button className='button-80 yellow'
+                            onClick={()=> {
+                                setOpenTableNum(tableOrder[0].tableInfo.table)
+                                setShowTakeOrder(true)
+                                setShowTicket(false)
                             }}
-                    ><i className="fa-solid fa-circle-dollar-to-slot"></i>
-                    </button>
+                        > <i className="fa-solid fa-cart-plus"></i>
+                        </button>
+                        <div className='tableTicketDiv'>
+                        {
+                            tableOrder.map(ticket => {
+                                return (
+                                    <Ticket key={ticket._id} {...ticket} editTableId={editTableId}/>
+                                )
+                            })
+                        }
+                        </div>
+                        <button  className='button-80 yellow ms-2'
+                            onClick={()=> {
+                                setShowTicket(false)
+                                setShowBill(true)
+                                }}
+                        ><i className="fa-solid fa-circle-dollar-to-slot"></i>
+                        </button>
                     </div>
                 }
                 {/* if the table is not occupied => show the take order component*/}

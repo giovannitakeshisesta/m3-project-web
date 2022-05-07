@@ -127,6 +127,7 @@ const Bill = ({tableOrder, refrAfterPay}) => {
     return (
         <div className='billMainView'>
             <button
+            className='button-59 yellow'
                 onClick={()=>{
                     setShowTotalBill(!showTotalBill);
                     setShowSplitPayment(!showSplitPayment)}}

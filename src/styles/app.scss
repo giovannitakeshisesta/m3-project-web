@@ -27,15 +27,19 @@
     align-items: center;
     justify-content: space-around;
 }
-
+.center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
 /* ----------------------------------------- */
 
 p{
     margin-bottom: 0;
     font-size: 18px;
 }
-.red{
-    background-color: red;
+.yellow{
+    background-color: #DCFE94 !important;
 }
 a{
     text-decoration: none;
@@ -147,6 +151,7 @@ label{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    margin: 3px 0 ;
 
     .tableBtn {
     appearance: none;
@@ -216,7 +221,8 @@ label{
     border-radius: 10px;
     padding: 5px;
     margin: 0 auto;
-    background-color: rgb(215, 204, 204);
+    background-color: rgb(211, 215, 204);
+    // background-color: rgb(215, 204, 204);
     background-repeat: no-repeat;
     background-position: 50% 60%;
     background-size: 300px;
@@ -233,7 +239,7 @@ label{
 
 
 .tableTicketDiv{
-    width: 35vw;
+    width: 330px;
 }
 
 
@@ -254,7 +260,7 @@ color: #000;
 cursor: pointer;
 display: inline-flex;
 fill: #000;
-font-size: 16px;
+font-size: 18px;
 font-weight: 500;
 height: 48px;
 justify-content: center;
@@ -304,7 +310,7 @@ fill: #8b3922;
   transition: transform .2s;
   height: 80px;
   width: 80px;
-  margin-top: 90px;
+  margin-top: 140px;
 
 }
 

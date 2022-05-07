@@ -73,13 +73,13 @@ export default function Order({ order,submitOrder, editOrder}) {
         {order.id ?
             <button 
                 onClick={()=> editOrder(finalOrder)} 
-                className=' btn btn-success'>update
+                className=' btn btn-success center'>Update
             </button>
         :
             [...food,...drink].length > 0 &&
             <button 
                 onClick={()=>submitOrder(finalOrder)} 
-                className='submitOrder btn'>send
+                className='submitOrder btn'>Send
             </button>  
         } 
     </div>

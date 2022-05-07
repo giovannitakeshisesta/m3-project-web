@@ -74,12 +74,22 @@ export default function BillTicket({
                 </div> 
 
                 {partialPayBtn &&  foodANDdrink.some(el => el.quantity > 0) &&                  
-                <button onClick={()=> partialPayBtn()}> pay </button>
+                <div className='frcc'>
+                    <button
+                        className='button-59 yellow'
+                        onClick={()=> partialPayBtn()}
+                        > Pay
+                    </button>
+                </div>
                 }
 
                 {showTotalXperson &&
-                <div>
-                    <button onClick={()=> totalPayBtn()}> pay </button>   
+                <div className='frcb'>
+                    <button 
+                    className='button-59 yellow'
+                        onClick={()=> totalPayBtn()}
+                        > Pay 
+                    </button>   
                     <p className='xperson'>
                         Total x person: {(calculateBill(foodANDdrink)/people).toFixed(2)}€
                     </p>

@@ -4,7 +4,8 @@ import { getAccessToken, logout } from '../store/AccessTokenStore';
 
 const createHttp = (useAccessToken = false) => {
   const http = axios.create({
-    baseURL: 'http://localhost:3001/api'
+    // baseURL: 'http://localhost:3001/api'
+    baseURL: 'https://ticketeazy.onrender.com/api'
   })
 
   // ------------------------------------------------------

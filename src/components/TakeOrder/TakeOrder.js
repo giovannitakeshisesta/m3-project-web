@@ -34,7 +34,10 @@ export default function TakeOrder({openTableNum, data}) {
 
   const list = [...menuJson]            // list we use for the menu
   const listLight = cleanList(list)     // list we use for the order
+  console.log(list);
   
+
+
   const [tableInfo,setTableInfo] = useState(
     {
       "table":openTableNum , 
@@ -313,7 +316,48 @@ export default function TakeOrder({openTableNum, data}) {
           {tableInfo.people>0 && list.map(dish => {
             if (filterBy.every(i => !dish.allergens.includes(i))) {
               return (
-                dish.type==="food" &&
+                
+                dish.type==="food" && dish.line[0]=== "Starters" &&
+                <div key={dish.id}>
+                  <Item 
+                    {...dish} 
+                    order={FoodAndDrink.filter(el => el.id === dish.id)}
+                    addOneItem={addOneItem} 
+                    deleteOneItem={deleteOneItem} 
+                    openModal={openModal}
+                    openModalDescription={openModalDescription}
+                    changeCourse={changeCourse}
+                  />
+                </div>
+              )
+            } else return null
+            })}
+
+            {tableInfo.people>0 && list.map(dish => {
+            if (filterBy.every(i => !dish.allergens.includes(i))) {
+              return (
+                
+                dish.type==="food" && dish.line[0]=== "Main Courses" &&
+                <div key={dish.id}>
+                  <Item 
+                    {...dish} 
+                    order={FoodAndDrink.filter(el => el.id === dish.id)}
+                    addOneItem={addOneItem} 
+                    deleteOneItem={deleteOneItem} 
+                    openModal={openModal}
+                    openModalDescription={openModalDescription}
+                    changeCourse={changeCourse}
+                  />
+                </div>
+              )
+            } else return null
+            })}  
+
+            {tableInfo.people>0 && list.map(dish => {
+            if (filterBy.every(i => !dish.allergens.includes(i))) {
+              return (
+                
+                dish.type==="food" && dish.line[0]=== "Desserts" &&
                 <div key={dish.id}>
                   <Item 
                     {...dish} 

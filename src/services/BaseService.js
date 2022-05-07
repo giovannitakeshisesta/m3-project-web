@@ -6,7 +6,7 @@ const createHttp = (useAccessToken = false) => {
   const http = axios.create({
     // baseURL: 'http://localhost:3001/api'
     // baseURL: 'https://ticketeazy.onrender.com/api'
-    `${process.env.REACT_APP_API_URL}/api`
+    baseURL: `${process.env.REACT_APP_API_URL}/api`
   })
 
   // ------------------------------------------------------

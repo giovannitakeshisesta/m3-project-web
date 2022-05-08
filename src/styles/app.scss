@@ -54,6 +54,13 @@ label{
 .container-fluid{
     margin: 0 70px;
 }
+
+.spinner{
+    color: red;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
 /* -----------KITCHENWALL TICKET-------------- */
 .ticket1{
     background-color: rgba(220, 246, 241,0.9);

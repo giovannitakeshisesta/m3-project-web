@@ -428,7 +428,7 @@ export default function TakeOrder({openTableNum, data}) {
           <Modal
             title = {
               <div className='frcb'>
-                  <h2>{modalDescriptioninfo[0]}</h2>
+                  <h2 className='ms-2'>{modalDescriptioninfo[0]}</h2>
                   <h2 className='ms-5'>{modalDescriptioninfo[2]} € </h2>
               </div>
             }

@@ -24,7 +24,9 @@ function App() {
       <Navbar />
       <div className="">
         {!isAuthenticationFetched ? (
-          <p>Loading...</p>
+          <div className="spinner-border spinner" role="status">
+            <p>Loading...</p>
+          </div>
         ) : (
           <Routes>
             <Route path="/"            element={<Home />} />

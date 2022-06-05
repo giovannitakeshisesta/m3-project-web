@@ -44,7 +44,6 @@ const getSchema = (prefillValues) => {
 export default function MenuForm({id,prefillValues,toggleShowForm}) {
     const navigate = useNavigate()
     const resolver = getSchema(prefillValues);
-    console.log({prefillValues})
     const { register, handleSubmit, formState:{ errors } } = useForm({
         defaultValues:prefillValues,
         resolver: yupResolver(resolver)
